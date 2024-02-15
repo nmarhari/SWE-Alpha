@@ -1,22 +1,5 @@
 
-// Engineer: jWilliamDunn 2020
 
-// First-person camera control w/ HUD
-// Mouse: left/right : pan
-//        up/down : tilt
-//        click : move forward
-
-//  Keys: a/d : left/right
-//        w/s : forward/backward
-//        e/q : up/down
-//        space : jump    <----------- extended behavior
-//        h : help
-
-// update 20191014 tweaks for better behavior
-// update 20200626 incorporate pointerLock and new roverCam API
-
-
-// Ported to JS from github.com/jrc03c/queasycam/tree/master/examples/MazeRunner
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
@@ -35,15 +18,16 @@ var player, maze, f, help = false,
 
 function preload() {
   f = loadFont('inconsolata.otf');
+  lava = loadImage('../assets/lava.jpg');
 }
-
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight, WEBGL);
   strokeWeight(0.04);
   textFont(f);
-  textSize(10);
+  textSize(12);
+  ball = new FireBall(10, -20, 10, 2);
   player = new Player();
-  maze = new Maze(12);
+  maze = new Maze(22,12);
   maze.setPlayerAtStart(player);
   frameRate(60);
   strokeWeight(2);
@@ -66,7 +50,9 @@ function draw() {
   maze.update();
   maze.display();
   player.update();
-  drawAxes();
+  ball.display();
+  ball.update();
+  //drawAxes();
 
   if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
     push(); // this affects the frame rate
@@ -90,26 +76,26 @@ function draw() {
   }
 }
 
-function drawAxes(){
-	push();
-      noStroke();
-	  fill(127,0,0); // X red
-	  translate(75,0.5,0.5);
-	  box(150,1,1);
-	pop();
-	push();
-      noStroke();
-	  fill(0,127,0); // Y green
-	  translate(0.5,75,0.5);
-	  box(1,150,1);
-	pop();
-	push();
-      noStroke();
-	  fill(0,0,127); // Z blue
-	  translate(0.5,0.5,75);
-	  box(1,1,150);
-	pop();
-}
+// function drawAxes(){
+// 	push();
+//       noStroke();
+// 	  fill(127,0,0); // X red
+// 	  translate(75,0.5,0.5);
+// 	  box(150,1,1);
+// 	pop();
+// 	push();
+//       noStroke();
+// 	  fill(0,127,0); // Y green
+// 	  translate(0.5,75,0.5);
+// 	  box(1,150,1);
+// 	pop();
+// 	push();
+//       noStroke();
+// 	  fill(0,0,127); // Z blue
+// 	  translate(0.5,0.5,75);
+// 	  box(1,1,150);
+// 	pop();
+// }
 
 function mouseClicked() {
   if (!player.pointerLock) {
