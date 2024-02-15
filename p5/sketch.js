@@ -45,6 +45,7 @@ function keyPressed() {
 }
 
 function draw() {
+  frameRate(60);
   background(0, 0, 51);
 
   maze.update();
