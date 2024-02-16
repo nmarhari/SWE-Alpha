@@ -18,7 +18,8 @@ var player, maze, f, help = false,
 
 function preload() {
   f = loadFont('inconsolata.otf');
-  lava = loadImage('../assets/lava.jpg');
+  lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+  // this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight, WEBGL);
