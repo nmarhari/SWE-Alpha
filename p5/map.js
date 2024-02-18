@@ -66,10 +66,10 @@ class Block {
     translate(this.position.x, this.position.y, this.position.z);
     if (this.texture!=null) {
       texture(this.texture);
-      console.log(this.texture);
+      //console.log(this.texture);
     } else{
       fill(this.fillColor);
-      console.log(this.texture);
+      //console.log(this.texture);
     }
     box(this.dimensions.x, this.dimensions.y, this.dimensions.z);
     //console.log(lava);

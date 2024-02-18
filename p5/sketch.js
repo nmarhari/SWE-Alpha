@@ -1,5 +1,7 @@
 
-
+//globals
+let start; //canvas for start screen
+let startVisible = true; // renders start screen once
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
@@ -20,8 +22,11 @@ function preload() {
   f = loadFont('inconsolata.otf');
   lava = loadImage('../assets/lava.jpg');
 }
+
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+  start = createGraphics(windowWidth, windowHeight, WEBGL);
+
   strokeWeight(0.04);
   textFont(f);
   textSize(12);
@@ -32,6 +37,7 @@ function setup() {
   frameRate(60);
   strokeWeight(2);
 }
+
 function keyPressed() {
   if (key == 'h') help = !help;
   if(key=='+'){
@@ -73,6 +79,11 @@ function draw() {
     text('       space : jump', 10, 70);
     text('       h : help', 10, 80);
     pop();
+  }
+
+  if (startVisible) {
+    startScreen();
+    startVisible = false; // render only once
   }
 }
 
