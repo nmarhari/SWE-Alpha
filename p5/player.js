@@ -7,15 +7,17 @@ class Player extends RoverCam {
       this.grounded = false;
       this.pointerLock = false;
       this.sensitivity = 0.002;
-      this.speed = 0.04;
+      this.speed = 0.08;
+	  this.health = 100;
+      this.dead = false;
     }
     
     controller() { // override
       if (player.pointerLock) {
         this.yaw(movedX * this.sensitivity);   // mouse left/right
         this.pitch(movedY * this.sensitivity); // mouse up/down
-        if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(0.01); // a
-        if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-0.01);// d
+        if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(0.01 * 3); // a
+        if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-0.01 * 3);// d
       }
       else { // otherwise yaw/pitch with keys
         if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) this.yaw(-0.02); // a
@@ -29,17 +31,21 @@ class Player extends RoverCam {
     }
     
     update() {
-      if (keyIsPressed && key == 'e') {
-        this.grounded = false;
-        return;
-      }
-      this.velocity.add(this.gravity);
-      this.position.add(this.velocity);
+      	if (keyIsPressed && key == 'e') {
+        	this.grounded = false;
+        	return;
+      	}
+      	this.velocity.add(this.gravity);
+      	this.position.add(this.velocity);
   
-      if (this.grounded && keyIsPressed && keyCode == 32) { // space
-        this.grounded = false;
-        this.velocity.y = -1.5;
-        this.position.y -= 0.2;
-      }
+     	if (this.grounded && keyIsPressed && keyCode == 32) { // space
+        	this.grounded = false;
+        	this.velocity.y = -1.5;
+        	this.position.y -= 0.2;
+      	}
     }
-  }
+
+	takeHit(){
+		this.health -= 10;
+	}
+}
