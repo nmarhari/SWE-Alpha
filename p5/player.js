@@ -1,33 +1,35 @@
 class Player extends RoverCam {
     constructor() {
-      super();
-      this.dimensions = createVector(1, 3, 1);
-      this.velocity = createVector(0, 0, 0);
-      this.gravity = createVector(0, 0.03, 0);
-      this.grounded = false;
-      this.pointerLock = false;
-      this.sensitivity = 0.002;
-      this.speed = 0.08;
-	  this.health = 100;
-      this.dead = false;
+      	super();
+      	this.dimensions = createVector(1, 3, 1);
+      	this.velocity = createVector(0, 0, 0);
+      	this.gravity = createVector(0, 0.03, 0);
+      	this.grounded = false;
+      	this.pointerLock = false;
+      	this.sensitivity = 0.002;
+      	this.speed = 0.08;
+		this.health = 100;
+      	this.dead = false;
     }
     
     controller() { // override
-      if (player.pointerLock) {
-        this.yaw(movedX * this.sensitivity);   // mouse left/right
-        this.pitch(movedY * this.sensitivity); // mouse up/down
-        if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(0.01 * 3); // a
-        if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-0.01 * 3);// d
-      }
-      else { // otherwise yaw/pitch with keys
-        if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) this.yaw(-0.02); // a
-        if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.yaw(0.02); // d
-        if (keyIsDown(82)) this.pitch(-0.02); // r
-        if (keyIsDown(70)) this.pitch(0.02);  // f
-      }
-      if (keyIsDown(87) || keyIsDown(UP_ARROW)) this.moveX(this.speed);    // w
-      if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) this.moveX(-this.speed); // s
-      if (keyIsDown(69)) this.moveZ(0.05); // e
+		if(!this.dead){
+			if (player.pointerLock) {
+				this.yaw(movedX * this.sensitivity);   // mouse left/right
+				this.pitch(movedY * this.sensitivity); // mouse up/down
+				if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(0.01 * 3); // a
+				if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-0.01 * 3);// d
+			}
+			else { // otherwise yaw/pitch with keys
+				if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) this.yaw(-0.02); // a
+				if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.yaw(0.02); // d
+				if (keyIsDown(82)) this.pitch(-0.02); // r
+				if (keyIsDown(70)) this.pitch(0.02);  // f
+			}
+			if (keyIsDown(87) || keyIsDown(UP_ARROW)) this.moveX(this.speed);    // w
+			if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) this.moveX(-this.speed); // s
+			if (keyIsDown(69)) this.moveZ(0.05); // e
+		}
     }
     
     update() {
@@ -46,6 +48,12 @@ class Player extends RoverCam {
     }
 
 	takeHit(){
-		this.health -= 10;
+		if(this.health > 0){
+			this.health -= 10;
+			console.log(this.health);
+		} else {
+			this.dead = true;
+		}
+
 	}
 }

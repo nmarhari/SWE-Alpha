@@ -13,24 +13,33 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
-var player, maze, f, help = false,
-  canvas;
+var player, maze, f, help = false, canvas;
+
+var respawnButton = new Clickable();
+respawnButton.locate(windowWidth/2, windowHeight/2);
+respawnButton.resize(250,250);
+respawnButton.cornerRadius = 10;
+respawnButton.text = "Respawn";
+respawnButton.onPress = function(){
+	maze.setPlayerAtStart(player);
+}
 
 function preload() {
-  f = loadFont('inconsolata.otf');
-  lava = loadImage('../assets/lava.jpg');
+	f = loadFont('inconsolata.otf');
+	lava = loadImage('../assets/lava.jpg');
 }
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-  strokeWeight(0.04);
-  textFont(f);
-  textSize(12);
-  ball = new FireBall(10, -20, 10, 2);
-  player = new Player();
-  maze = new Maze(22,12);
-  maze.setPlayerAtStart(player);
-  frameRate(60);
-  strokeWeight(2);
+	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+	strokeWeight(0.04);
+	textFont(f);
+	textSize(12);
+	ball = new FireBall(10, -20, 10, 2);
+	player = new Player();
+	maze = new Maze(22,12);
+	maze.setPlayerAtStart(player);
+	frameRate(60);
+	strokeWeight(2);
+	
 }
 function keyPressed() {
   if (key == 'h') help = !help;
@@ -47,6 +56,11 @@ function keyPressed() {
 function draw() {
   	frameRate(60);
   	background(0, 0, 51);
+
+	if(player.dead){
+		respawnButton.draw();
+		player.health = 100;
+	}
 
   	if(frameCount % 30 === 0){
       	maze.checkLavaCollision(player);

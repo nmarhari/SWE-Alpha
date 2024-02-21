@@ -218,6 +218,7 @@ class Maze {
             		// Handle collision here, e.g., reduce player health
             			//return true; // Collision detected
 						//console.log("true");
+						player.takeHit();
           		}
         	}
       	}
