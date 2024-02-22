@@ -3,6 +3,9 @@
 let start; //canvas for start screen
 let startVisible = true; // renders start screen once
 
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+// ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... }  
+
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
   if (document.pointerLockElement === canvas.elt ||
@@ -42,8 +45,15 @@ function setup() {
 }
 
 // viewport resize when window size changes
-window.addEventListener('resize', function(event){
-  resizeCanvas(windowWidth, windowHeight);
+window.addEventListener('resize', async function(event){
+  await sleep(10); // wait 10 ms for screen to report right value
+
+  resizeCanvas(windowWidth, windowHeight); // resizes p5js canvas
+
+  startDiv.size(windowWidth, windowHeight); // resizes start overlay
+  startTitle.position(windowWidth/2/2, 40);
+  startCheck.position(windowWidth/2/2, 200);
+  startButton.position(windowWidth/2/2, 250);
 });
 
 function keyPressed() {
