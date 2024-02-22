@@ -15,15 +15,6 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 var player, maze, f, help = false, canvas;
 
-var respawnButton = new Clickable();
-respawnButton.locate(windowWidth/2, windowHeight/2);
-respawnButton.resize(250,250);
-respawnButton.cornerRadius = 10;
-respawnButton.text = "Respawn";
-respawnButton.onPress = function(){
-	maze.setPlayerAtStart(player);
-}
-
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('../assets/lava.jpg');
@@ -39,7 +30,6 @@ function setup() {
 	maze.setPlayerAtStart(player);
 	frameRate(60);
 	strokeWeight(2);
-	
 }
 function keyPressed() {
   if (key == 'h') help = !help;
@@ -58,8 +48,9 @@ function draw() {
   	background(0, 0, 51);
 
 	if(player.dead){
-		respawnButton.draw();
-		player.health = 100;
+    maze.setPlayerAtStart(player);
+    player.health = 100;
+    player.dead = false;
 	}
 
   	if(frameCount % 30 === 0){
