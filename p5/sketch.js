@@ -47,7 +47,8 @@ function draw() {
   	frameRate(60);
   	background(0, 0, 51);
 
-	if(player.dead){
+	if(player.dead){ // for now, if player is dead just respawn them
+    // later to be changed to do something with overlay
     maze.setPlayerAtStart(player);
     player.health = 100;
     player.dead = false;

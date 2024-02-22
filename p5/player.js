@@ -10,6 +10,7 @@ class Player extends RoverCam {
       	this.speed = 0.04;
 		this.health = 100;
       	this.dead = false;
+		console.log("player health: ", this.health);
     }
     
     controller() { // override
@@ -50,7 +51,7 @@ class Player extends RoverCam {
 	takeHit(){
 		if(this.health > 0){
 			this.health -= 10;
-			console.log(this.health);
+			console.log("player health: ", this.health);
 		} else {
 			this.dead = true;
 		}
