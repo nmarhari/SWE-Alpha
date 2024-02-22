@@ -15,6 +15,8 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
+
+
 var player, maze, f, help = false,
   canvas;
 
@@ -38,6 +40,11 @@ function setup() {
   frameRate(60);
   strokeWeight(2);
 }
+
+// viewport resize when window size changes
+window.addEventListener('resize', function(event){
+  resizeCanvas(windowWidth, windowHeight);
+});
 
 function keyPressed() {
   if (key == 'h') help = !help;
