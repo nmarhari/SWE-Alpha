@@ -1,5 +1,10 @@
 
+//globals
+let start; //canvas for start screen
+let startVisible = true; // renders start screen once
 
+let death;
+let deathVisible = false;
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
@@ -21,16 +26,20 @@ function preload() {
 }
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-	strokeWeight(0.04);
-	textFont(f);
-	textSize(12);
-	ball = new FireBall(10, -20, 10, 2);
-	player = new Player();
-	maze = new Maze(22,12);
-	maze.setPlayerAtStart(player);
-	frameRate(60);
-	strokeWeight(2);
+  start = createGraphics(windowWidth, windowHeight, WEBGL);
+  death = createGraphics(windowWidth, windowHeight, WEBGL);
+
+  strokeWeight(0.04);
+  textFont(f);
+  textSize(12);
+  ball = new FireBall(10, -20, 10, 2);
+  player = new Player();
+  maze = new Maze(22,12);
+  maze.setPlayerAtStart(player);
+  frameRate(60);
+  strokeWeight(2);
 }
+
 function keyPressed() {
   if (key == 'h') help = !help;
   if(key=='+'){
@@ -46,13 +55,6 @@ function keyPressed() {
 function draw() {
   	frameRate(60);
   	background(0, 0, 51);
-
-	if(player.dead){ // for now, if player is dead just respawn them
-    // later to be changed to do something with overlay
-    maze.setPlayerAtStart(player);
-    player.health = 100;
-    player.dead = false;
-	}
 
   	if(frameCount % 30 === 0){
       	maze.checkLavaCollision(player);
@@ -86,7 +88,16 @@ function draw() {
 		text('       h : help', 10, 80);
 		pop();
 	}
+
+  
+  if (startVisible) {
+    startScreen();
+    startVisible = false; // render only once
+  }
+  
 	}
+
+  
 
 	// function drawAxes(){
 	// 	push();

@@ -54,6 +54,7 @@ class Player extends RoverCam {
 			console.log("player health: ", this.health);
 		} else {
 			this.dead = true;
+			deathScreen();
 		}
 
 	}
