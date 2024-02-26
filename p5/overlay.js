@@ -35,3 +35,45 @@ function closeStartScreen() {
     startDiv.remove();
     start.remove();
 }
+
+
+let deathButton;
+let deathDiv;
+let deathCheck;
+let deathTitle;
+
+function deathScreen() {
+    frameRate(0);
+    deathDiv = createDiv();
+    deathDiv.size(windowWidth, windowHeight); 
+    deathDiv.position(0,0);
+    deathDiv.style('background-color', 'black');
+    deathDiv.style('opacity', '0.5');
+    deathTitle = createP('You Died!');
+    deathTitle.position(windowWidth/2/2, 40);
+    deathTitle.style('color', 'white');
+    deathTitle.style('font-size', '42px')
+    deathCheck = createCheckbox('make lava harmless');
+    deathCheck.position(windowWidth/2/2, 200);
+    deathCheck.style('color', 'white')
+    deathButton = createButton('start');
+    deathButton.position(windowWidth/2/2, 250);
+    deathButton.mouseClicked(respawnPlayer);
+}
+
+function respawnPlayer() {
+    player.dead = false;
+    player.health = 100;
+    maze.setPlayerAtStart(player);
+    deathVisible = false;
+    
+    frameRate(60);
+
+    console.log("clearing death screen...")
+    deathTitle.remove();
+    deathCheck.remove();
+    deathButton.remove();
+    deathDiv.remove();
+    death.remove();
+
+}
