@@ -124,8 +124,7 @@ function draw() {
     startScreen();
     startVisible = false; // render only once
   }
-  
-	}
+
 
   
 
