@@ -36,6 +36,7 @@ function closeStartScreen() {
     start.remove();
 }
 
+
 let deathButton;
 let deathDiv;
 let deathCheck;

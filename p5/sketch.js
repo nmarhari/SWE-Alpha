@@ -3,6 +3,7 @@
 let start; //canvas for start screen
 let startVisible = true; // renders start screen once
 
+
 let death;
 let deathVisible = false;
 
@@ -21,9 +22,11 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 var player, maze, f, help = false, canvas;
 
 function preload() {
-	f = loadFont('inconsolata.otf');
-	lava = loadImage('../assets/lava.jpg');
+  f = loadFont('inconsolata.otf');
+  lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+  // this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
+
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
   start = createGraphics(windowWidth, windowHeight, WEBGL);
@@ -61,12 +64,39 @@ function draw() {
 		ball.checkCollision(player);
   	}
 
+
 	maze.update();
 	maze.display();
 	player.update();
 	ball.display();
 	ball.update(player);
 	//drawAxes();
+  if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
+    push(); // this affects the frame rate
+    camera(0, 0, (height / 2.0) / tan(PI * 30.0 / 180.0), 0, 0, 0, 0, 1, 0);
+    ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 1000);
+    fill(0, 0, 0, 200);
+    noStroke();
+    translate(-380, -380, 0);
+    scale(2);
+    rect(0, 0, 140, 85);
+    fill(127);
+    text('mouse: left/right : pan', 10, 10);
+    text('       up/down : tilt', 10, 20);
+    text('       click : ptrlock', 10, 30);
+    text(' keys: a/d : left/right', 10, 40);
+    text('       w/s : fwd/bkwd', 10, 50);
+    text('       e/q : up/down', 10, 60);
+    text('       space : jump', 10, 70);
+    text('       h : help', 10, 80);
+    pop();
+  }
+
+  if (startVisible) {
+    startScreen();
+    startVisible = false; // render only once
+  }
+}
 
 	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
 		push(); // this affects the frame rate
