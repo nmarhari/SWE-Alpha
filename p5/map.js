@@ -1,13 +1,13 @@
 // Ported to JS from github.com/jrc03c/queasycam/tree/master/examples/MazeRunner
 let lava; 
 class Block {
-  constructor(x, y, z, w, h, d, t) {
-    this.position = createVector(x, y, z);
-    this.dimensions = createVector(w, h, d);
-    this.fillColor = color(random(150, 200));
-    this.texture = t;
-    this.visited = false;
-  }
+  	constructor(x, y, z, w, h, d, t) {
+		this.position = createVector(x, y, z);
+		this.dimensions = createVector(w, h, d);
+		this.fillColor = color(random(150, 200));
+		this.texture = t;
+		this.visited = false;
+	}
 
  	update() {
 		let playerLeft = player.position.x - player.dimensions.x / 2;
@@ -59,24 +59,24 @@ class Block {
 		}
     }
 
-  display() {
-    push();
-    translate(this.position.x, this.position.y, this.position.z);
-    if (this.texture!=null) {
-      texture(this.texture);
-      //console.log(this.texture);
-    } else{
-      fill(this.fillColor);
-      //console.log(this.texture);
-    }
-    box(this.dimensions.x, this.dimensions.y, this.dimensions.z);
-    //console.log(lava);
-    pop();
-  }
+  	display() {
+		push();
+		translate(this.position.x, this.position.y, this.position.z);
+		if (this.texture!=null) {
+			texture(this.texture);
+			//console.log(this.texture);
+		} else{
+			fill(this.fillColor);
+			//console.log(this.texture);
+		}
+		box(this.dimensions.x, this.dimensions.y, this.dimensions.z);
+		//console.log(lava);
+		pop();
+  	}
 
-  moveDown() {
-    this.position.y += 5;
-  }
+  	moveDown() {
+    	this.position.y += 5;
+  	}
   // moveUp() {
   //   this.position.y += 5;
   // }
