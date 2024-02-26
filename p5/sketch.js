@@ -21,6 +21,7 @@ var player, maze, f, help = false,
 function preload() {
   f = loadFont('inconsolata.otf');
   lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+  msb = '../assets/MSBInterior.obj'
   // this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -31,10 +32,13 @@ function setup() {
   strokeWeight(0.04);
   textFont(f);
   textSize(12);
-  ball = new FireBall(10, -20, 10, 2);
+  //ball = new FireBall(10, -20, 10, 2);
   player = new Player();
-  maze = new Maze(22,12);
-  maze.setPlayerAtStart(player);
+  env = new MSB(-12,12,-12,msb);
+  env.setPlayerAtStart(player);
+  camera(0, -200, 400, 0, 0, 0, 0, 1, 0);
+  //maze = new Maze(22,12);
+  //maze.setPlayerAtStart(player);
   frameRate(60);
   strokeWeight(2);
 }
@@ -53,13 +57,16 @@ function keyPressed() {
 
 function draw() {
   frameRate(60);
-  background(0, 0, 51);
+  background(0, 0, 0);
 
-  maze.update();
-  maze.display();
+  //maze.update();
+  //maze.display();
+  lights();
+  env.update();
+  env.display();
   player.update();
-  ball.display();
-  ball.update();
+  //ball.display();
+  //ball.update();
   //drawAxes();
 
   if (help || frameCount < 400) { // Heads Up Display extension by jWilliam

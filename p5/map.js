@@ -171,3 +171,91 @@ class Maze {
     player.position = p5.Vector.add(this.start.position, createVector(0, -15, 0));
   }
 }
+
+//TODO: We may want to eventually refactor this into a separate file. 
+//what follows are the functions involved in detecting collisions
+//code is taken from this example: https://editor.p5js.org/rjgilmour/sketches/1_pX_xPfD
+function sdfTriangle(p, a, b, c)
+{
+  let ba = math.subtract(b, a); 
+  let pa = math.subtract(p, a);
+  let cb = math.subtract(c, b); 
+  let pb = math.subtract(p, b);
+  let ac = math.subtract(a, c); 
+  let pc = math.subtract(p, c);
+  let nor = math.cross( ba, ac );
+
+  return math.sqrt(
+    (math.sign(math.dot(math.cross(ba,nor),pa)) +
+     math.sign(math.dot(math.cross(cb,nor),pb)) +
+     math.sign(math.dot(math.cross(ac,nor),pc))<2.0)
+     ?
+     math.min( math.min(
+     dot2(math.subtract(math.multiply(ba, constrain(math.dot(ba,pa)/dot2(ba),0.0,1.0)), pa)),
+     dot2(math.subtract(math.multiply(cb, constrain(math.dot(cb,pb)/dot2(cb),0.0,1.0)), pb)) ),
+     dot2(math.subtract(math.multiply(ac, constrain(math.dot(ac,pc)/dot2(ac),0.0,1.0)), pc)) )
+     :
+     math.dot(nor,pa)*math.dot(nor,pa)/dot2(nor) );
+}
+
+
+function dot2(v) {
+  return math.dot(v, v)
+}
+
+function detectCollision(p, o, thresh) {
+  for(let i = 0; i < o.faces.length; i++){
+    let a = [
+      o.vertices[ o.faces[i][0] ].x,
+      o.vertices[ o.faces[i][0] ].y,
+      o.vertices[ o.faces[i][0] ].z,
+    ]
+    let b = [
+      o.vertices[ o.faces[i][1] ].x,
+      o.vertices[ o.faces[i][1] ].y,
+      o.vertices[ o.faces[i][1] ].z,
+    ]
+    let c = [
+      o.vertices[ o.faces[i][2] ].x,
+      o.vertices[ o.faces[i][2] ].y,
+      o.vertices[ o.faces[i][2] ].z,
+    ]
+    
+    if( sdfTriangle(p, a, b, c) < thresh) {
+      return true
+    }
+  }
+  return false;
+}
+// end of code from tutorial
+
+class MSB {
+  //position - a vector specifying the position of the model
+  //path - the relative path to the .obj file
+  constructor(x, y , z, path) {
+    this.model = loadModel(path);
+    this.position = createVector(x,y,z);
+  }
+
+  update() {
+    let pt = [this.position.x, this.position.y, this.position.z];
+    if (detectCollision(pt, this.model, 10)) {
+      console.log("touching MSB");
+    }
+  }
+
+  display() {
+    push();
+    translate(this.position.x, this.position.y, this.position.z);
+    rotateX(PI);
+    model(this.model);
+    scale(1);
+    translate();
+    pop();
+  }
+
+  setPlayerAtStart(player) {
+    player.position = p5.Vector.add(this.position, createVector(0, -15, 0))
+  }
+
+}
