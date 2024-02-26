@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+div {
+    justify-content: center;
+    text-align: center;
+}
