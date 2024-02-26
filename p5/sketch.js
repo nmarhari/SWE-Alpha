@@ -1,8 +1,6 @@
-
 //globals
 let start; //canvas for start screen
 let startVisible = true; // renders start screen once
-
 
 let death;
 let deathVisible = false;
