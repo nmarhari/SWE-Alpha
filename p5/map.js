@@ -237,6 +237,17 @@ class MSB {
     this.position = createVector(x,y,z);
   }
 
+  reflectXAxis(){
+    for (let i = 0; i<this.model.getChileCount(); i++){
+      let child = this.model.getChild(i);
+      if (child instanceof p5.Geometry){
+        for (let j = 0; j < child.vertices.length; j++) {
+          child.verticies[j].x *= -1;
+        }
+      }
+    }
+  }
+
   update() {
     let pt = [this.position.x, this.position.y, this.position.z];
     if (detectCollision(pt, this.model, 10)) {
