@@ -232,6 +232,7 @@ let resolutionNum1 = 0.005;
 let terrainRange = 100;
 let widthOfMap = 200;
 let depth = 200;
+let mapLava = 6;
 class GeneratedMap {
 	
 	constructor(size) {
@@ -246,7 +247,7 @@ class GeneratedMap {
 				pop();
 			}
 		}
-		this.start = this.blocks[0][0];
+		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
 	}
 
 	update(size) {
