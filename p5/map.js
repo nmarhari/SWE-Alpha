@@ -228,6 +228,8 @@ class FireBall {
   }
 }*/
 
+let resolutionNum1 = 0.005;
+let terrainRange = 100;
 let widthOfMap = 200;
 let depth = 200;
 class GeneratedMap {
@@ -237,7 +239,7 @@ class GeneratedMap {
 		for (let x = 0; x < widthOfMap; x+= size){
 			this.blocks[x] = new Array(size);
 			for (let z = 0; z < depth; z+=size) {
-				let y = 0;
+				let y = noise(x * resolutionNum1, z * resolutionNum1) * terrainRange;
 				push();
 				translate(x,0,z);
 				this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, null);
