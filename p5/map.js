@@ -128,7 +128,7 @@ class FireBall {
 
 }
 
-class Maze {
+/*class Maze {
   constructor(size1, size2) {
     this.blocks = new Array(size1);
 
@@ -226,4 +226,45 @@ class Maze {
     //return false; // No collision detected
 	//console.log("false");
   }
+}*/
+
+let widthOfMap = 200;
+let depth = 200;
+class GeneratedMap {
+	
+	constructor(size) {
+		this.blocks = new Array(size);
+		for (let x = 0; x < widthOfMap; x+= size){
+			this.blocks[x] = new Array(size);
+			for (let z = 0; z < depth; z+=size) {
+				let y = 0;
+				push();
+				translate(x,0,z);
+				this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, null);
+				pop();
+			}
+		}
+		this.start = this.blocks[0][0];
+	}
+
+	update(size) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+		  for (let z = 0; z < this.blocks[x].length; z+=size) {
+			this.blocks[x][z].update();
+		  }
+		}
+	}
+
+	display(size) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				this.blocks[x][z].display();
+			}
+		}
+	}
+  
+	setPlayerAtStart(player) {
+	  player.position = p5.Vector.add(this.start.position, createVector(0, -3, 0));
+	}
+  
 }

@@ -20,11 +20,11 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
-var player, maze, f, help = false, canvas;
+var player, map, f, help = false, canvas;
 
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+	//lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -36,10 +36,9 @@ function setup() {
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
-  	ball = new FireBall(10, -20, 10, 2);
   	player = new Player();
-  	maze = new Maze(22,12);
- 	maze.setPlayerAtStart(player);
+  	map = new GeneratedMap(5);
+ 	map.setPlayerAtStart(player);
  	frameRate(60);
   	strokeWeight(2);
 }
@@ -72,17 +71,16 @@ function draw() {
 	frameRate(60);
   	background(0, 0, 51);
 
-  	if(frameCount % 30 === 0){
+  	/*if(frameCount % 30 === 0){
       	maze.checkLavaCollision(player);
 		ball.checkCollision(player);
-  	}
+  	}*/
 
 
-	maze.update();
-	maze.display();
+	map.update(5);
+	//maze.display();
+	map.display(5);
 	player.update();
-	ball.display();
-	ball.update(player);
 	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
 		push(); // this affects the frame rate

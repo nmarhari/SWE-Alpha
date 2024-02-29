@@ -11,6 +11,9 @@ class Player extends RoverCam {
 		this.health = 100;
       	this.dead = false;
 		console.log("player health: ", this.health);
+		console.log(this.position.x);
+		console.log(this.position.y);
+		console.log(this.position.z);
     }
     
     controller() { // override
