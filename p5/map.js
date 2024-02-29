@@ -241,10 +241,14 @@ class GeneratedMap {
 			this.blocks[x] = new Array(size);
 			for (let z = 0; z < depth; z+=size) {
 				let y = noise(x * resolutionNum1, z * resolutionNum1) * terrainRange;
-				push();
-				translate(x,0,z);
-				this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, null);
-				pop();
+					console.log(y);
+					push();
+					translate(x,0,z);
+					if (y > 55) { this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, lava);
+					} else {
+						this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, null);
+					}
+					pop();
 			}
 		}
 		this.start = this.blocks[(widthOfMap/2)][(depth/2)];

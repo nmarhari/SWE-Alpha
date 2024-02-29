@@ -24,7 +24,7 @@ var player, map, f, help = false, canvas;
 
 function preload() {
 	f = loadFont('inconsolata.otf');
-	//lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
