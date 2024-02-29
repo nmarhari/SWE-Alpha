@@ -71,10 +71,10 @@ function draw() {
 	frameRate(60);
   	background(0, 0, 51);
 
-  	/*if(frameCount % 30 === 0){
-      	maze.checkLavaCollision(player);
-		ball.checkCollision(player);
-  	}*/
+  	if(frameCount % 30 === 0){
+      	map.checkLavaCollision(player, 5);
+		
+  	}
 
 
 	map.update(5);

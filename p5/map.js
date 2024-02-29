@@ -273,5 +273,45 @@ class GeneratedMap {
 	setPlayerAtStart(player) {
 	  player.position = p5.Vector.add(this.start.position, createVector(0, -3, 0));
 	}
+
+	checkLavaCollision(player, size) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			  for (let z = 0; z < this.blocks[x].length; z+=size) {
+				let block = this.blocks[x][z];
+				if (this.blocks[x][z].texture === lava) {
+					let playerLeft = player.position.x - player.dimensions.x / 2;
+					let playerRight = player.position.x + player.dimensions.x / 2;
+					let playerTop = player.position.y - player.dimensions.y / 2;
+					let playerBottom = player.position.y + player.dimensions.y / 2;
+					let playerFront = player.position.z - player.dimensions.z / 2;
+					let playerBack = player.position.z + player.dimensions.z / 2;
+	
+					let blockLeft = block.position.x - block.dimensions.x / 2;
+					let blockRight = block.position.x + block.dimensions.x / 2;
+					let blockTop = block.position.y - block.dimensions.y / 2;
+					let blockBottom = block.position.y + block.dimensions.y / 2;
+					let blockFront = block.position.z - block.dimensions.z / 2;
+					let blockBack = block.position.z + block.dimensions.z / 2;
+				  // Assuming the player has a radius, you need to adjust the collision detection
+				  if (
+						playerBottom >= blockTop &&
+						playerRight >= blockLeft &&
+						playerLeft <= blockRight &&
+						playerBack >= blockFront &&
+						playerFront <= blockBack &&
+						playerTop <= blockBottom
+					) {
+						// Collision detected with lava tile
+						// Handle collision here, e.g., reduce player health
+							//return true; // Collision detected
+							//console.log("true");
+							player.takeHit();
+					  }
+				}
+			  }
+		}
+		//return false; // No collision detected
+		//console.log("false");
+	  }
   
 }
