@@ -163,12 +163,11 @@ if (startVisible) {
 	// 	pop();
 	// }
 
-	function mouseClicked() {
+function mouseClicked() {
 	if (!player.pointerLock) {
 		player.pointerLock = true;
 		requestPointerLock();
 	} else {
-		exitPointerLock();
-		player.pointerLock = false;
+		console.log("click interaction on else mouseClicked()");
 	}
 }
