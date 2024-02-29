@@ -230,8 +230,8 @@ class FireBall {
 
 let resolutionNum1 = 0.005;
 let terrainRange = 100;
-let widthOfMap = 200;
-let depth = 200;
+let widthOfMap = 220;
+let depth = 220;
 let mapLava = 6;
 class GeneratedMap {
 	
