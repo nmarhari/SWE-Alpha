@@ -1,17 +1,18 @@
 
 //globals
-//let start; //canvas for start screen
-//let startVisible = true; // renders start screen once
+let pause; //canvas for start screen
+let startVisible = true; // renders start screen once
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 
 var player, maze, f, help = false,
   canvas;
-
+  // let start; //canvas for start screen
+  // let startVisible = true; // renders start screen once
 
 function preload() {
   f = loadFont('inconsolata.otf');
   lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
-  //name_text = loadImage('C:/Users/AUC/Desktop/SWE-Alpha-cs-test/SWE-Alpha/assets/floorIsLava.png');
+  //name_text = loadImage('https://github.com/nmarhari/SWE-Alpha/blob/screens/assets/floorIsLava.png');
   // this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -23,7 +24,6 @@ function setup() {
   manager.addScene ( startscene );
   manager.addScene ( gamescene );
   manager.showNextScene();
-  current_scene = 0; 
 
 }
 
@@ -50,7 +50,13 @@ function startscene()
   this.setup = function()
   {
     background(0); 
-    //image(name_text, 0, 0);
+    fill('orange');
+    textFont(f);
+    textSize(60);
+    textAlign(CENTER);
+    text('Floor is Lava', 0, 0);
+    text('press Enter to start', 0, 60)
+
   }
   this.keyPressed = function()
   {
@@ -73,12 +79,13 @@ function gamescene()
     maze.setPlayerAtStart(player);
     frameRate(60);
     strokeWeight(2);
+    pause = createGraphics(windowWidth, windowHeight);
   }
   this.draw = function()
   {
     frameRate(60);
     background(0, 0, 51);
-  
+    
     maze.update();
     maze.display();
     player.update();
@@ -106,6 +113,10 @@ function gamescene()
       text('       h : help', 10, 80);
       pop();
     }
+    if (startVisible) {
+      overlay();
+      startVisible = false; // render only once
+    }
   }
   
   this.keyPressed = function()
@@ -119,8 +130,7 @@ function gamescene()
       player.pov.fovy += 0.1;
       player.updatePOV();
     }
-  }
-  
+    }
   
   this.mouseClicked = function() {
     if (!player.pointerLock) {
