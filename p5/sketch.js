@@ -167,7 +167,7 @@ function mouseClicked() {
 	if (!player.pointerLock) {
 		player.pointerLock = true;
 		requestPointerLock();
-	} else {
-		console.log("click interaction on else mouseClicked()");
-	}
+	} /*else {
+		//click interaction
+	}*/
 }

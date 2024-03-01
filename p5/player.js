@@ -32,6 +32,7 @@ class Player extends RoverCam {
 			if (keyIsDown(69)) this.moveZ(0.05); // e
 		}
 		if (keyPressed(ESCAPE)) this.pointerLock = false;
+		// unlock pointer if ESC is pressed
     }
     
     update() {
