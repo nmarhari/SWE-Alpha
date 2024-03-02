@@ -32,7 +32,8 @@ function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
   	start = createGraphics(windowWidth, windowHeight, WEBGL);
   	death = createGraphics(windowWidth, windowHeight, WEBGL);
-
+	soundFormats('mp3', 'wav');
+	walking = loadSound('assets/walking.mp3');
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
