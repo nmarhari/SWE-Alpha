@@ -44,6 +44,7 @@ let deathTitle;
 
 function deathScreen() {
     frameRate(0);
+    hideHealth();
     deathDiv = createDiv();
     deathDiv.size(windowWidth, windowHeight); 
     deathDiv.position(0,0);
@@ -68,6 +69,7 @@ function respawnPlayer() {
     deathVisible = false;
     
     frameRate(60);
+    startShowingHealth = true;
 
     console.log("clearing death screen...")
     deathTitle.remove();
@@ -82,12 +84,12 @@ function respawnPlayer() {
 // on screen health bar
 let healthBarDiv;
 let healthInBar;
-
 function showHealth() {
     healthBarDiv = createDiv();
 	healthBarDiv.id('healthBarBorder');
 	healthInBar = createDiv();
 	healthInBar.parent('healthBarBorder');
+    healthInBar.id('healthInBar');
 		
 	healthInBar.style('width', 50+'%');
 	healthInBar.style('color', 'green');
@@ -97,4 +99,8 @@ function showHealth() {
 }
 function updateHealth(hp) {
     healthInBar.style('width', hp+'%');
+}
+function hideHealth() {
+    healthBarDiv.remove();
+    healthInBar.remove();
 }

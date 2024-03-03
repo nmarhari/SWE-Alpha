@@ -33,8 +33,8 @@ function preload() {
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-  //	start = createGraphics(windowWidth, windowHeight, WEBGL);
-  //	death = createGraphics(windowWidth, windowHeight, WEBGL);
+  	start = createGraphics(windowWidth, windowHeight, WEBGL);
+  	death = createGraphics(windowWidth, windowHeight, WEBGL);
 	//healthBar = createGraphics(windowWidth, windowHeight, WEBGL);
 
   	strokeWeight(0.04);
