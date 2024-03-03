@@ -5,6 +5,9 @@ let startVisible = true; // renders start screen once
 let death;
 let deathVisible = false;
 
+let healthBar;
+let startShowingHealth = true;
+
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
 
@@ -30,8 +33,9 @@ function preload() {
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-  	start = createGraphics(windowWidth, windowHeight, WEBGL);
-  	death = createGraphics(windowWidth, windowHeight, WEBGL);
+  //	start = createGraphics(windowWidth, windowHeight, WEBGL);
+  //	death = createGraphics(windowWidth, windowHeight, WEBGL);
+	//healthBar = createGraphics(windowWidth, windowHeight, WEBGL);
 
   	strokeWeight(0.04);
  	textFont(f);
@@ -110,6 +114,10 @@ function draw() {
 		startVisible = false; // render only once
 	}
 
+	if (startShowingHealth) {
+		showHealth();
+		startShowingHealth = false;
+	}
 }
 
 if (help || frameCount < 400) { // Heads Up Display extension by jWilliam

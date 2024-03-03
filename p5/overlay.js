@@ -77,3 +77,24 @@ function respawnPlayer() {
     death.remove();
 
 }
+
+
+// on screen health bar
+let healthBarDiv;
+let healthInBar;
+
+function showHealth() {
+    healthBarDiv = createDiv();
+	healthBarDiv.id('healthBarBorder');
+	healthInBar = createDiv();
+	healthInBar.parent('healthBarBorder');
+		
+	healthInBar.style('width', 50+'%');
+	healthInBar.style('color', 'green');
+		
+	healthBarDiv.style('height', '14px');
+	healthInBar.style('height', '14px');
+}
+function updateHealth(hp) {
+    healthInBar.style('width', hp+'%');
+}
