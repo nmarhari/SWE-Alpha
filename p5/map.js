@@ -117,15 +117,27 @@ class FireBall {
 		}
 
 		checkCollision(player){
-			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
-				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) && // player left
-				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) && // player right
-				(player.position.z - player.dimensions.z / 2) <= (this.position.z + this.radius) && // player front
-				(player.position.z + player.dimensions.z / 2) >= (this.position.z = this.radius) // player back
-			)
-				console.log("fireball hit");
-		}
 
+			if( (player.position.x - 10) <= (this.position.x + this.radius) ||
+				(player.position.x + 10) >= (this.position.x - this.radius) ||
+				(player.position.z - 10) <= (this.position.z + this.radius) ||
+				(player.position.z + 10) >= (this.position.z - this.radius) 
+			){
+				let para = createP("FIREBALL INCOMING!!");
+				para.position(windowWidth/2, windowHeight/2); // Set the position of the paragraph
+				para.style("color", "red"); // Set the color of the text
+			}
+
+			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
+				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left
+				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) &&  // player right
+				(player.position.z - player.dimensions.z / 2) <= (this.position.z + this.radius) &&  // player front
+				(player.position.z + player.dimensions.z / 2) >= (this.position.z - this.radius)     // player back
+			){
+				console.log("fireball hit");
+				player.takeHit();
+			}
+		}
 }
 
 class Maze {
