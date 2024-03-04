@@ -228,11 +228,11 @@ class FireBall {
   }
 }*/
 
-let resolutionNum1 = 0.005;
-let terrainRange = 100;
-let widthOfMap = 220;
-let depth = 220;
-let mapLava = 6;
+let resolutionNum1 = 0.005;		// how 'crazy' the map generation gets
+let terrainRange = 150;		// how much the y level will vary
+let widthOfMap = 60 *5;		// *5 for width and depth as that is the size of the blocks
+let depth = 60 *5;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
+//let mapLava = 6;
 class GeneratedMap {
 	
 	constructor(size) {
