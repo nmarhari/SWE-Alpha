@@ -112,34 +112,6 @@ function draw() {
 
 }
 
-if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
-	push(); // this affects the frame rate
-	camera(0, 0, (height / 2.0) / tan(PI * 30.0 / 180.0), 0, 0, 0, 0, 1, 0);
-	ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 1000);
-	fill(0, 0, 0, 200);
-	noStroke();
-	translate(-380, -380, 0);
-	scale(2);
-	rect(0, 0, 140, 85);
-	fill(127);
-	text('mouse: left/right : pan', 10, 10);
-	text('       up/down : tilt', 10, 20);
-	text('       click : ptrlock', 10, 30);
-	text(' keys: a/d : left/right', 10, 40);
-	text('       w/s : fwd/bkwd', 10, 50);
-	text('       e/q : up/down', 10, 60);
-	text('       space : jump', 10, 70);
-	text('       h : help', 10, 80);
-	pop();
-}
-
-  
-if (startVisible) {
-	startScreen();
-	startVisible = false; // render only once
-}
-
-
   
 
 	// function drawAxes(){

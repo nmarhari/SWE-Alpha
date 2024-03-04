@@ -45,17 +45,18 @@ class Player extends RoverCam {
         	this.grounded = false;
         	this.velocity.y = -1.5;
         	this.position.y -= 0.2;
-      	}
+    	}
     }
 
 	takeHit(){
-		if(this.health > 0){
-			this.health -= 10;
-			console.log("player health: ", this.health);
-		} else {
+		if(this.health == 0){
 			this.dead = true;
 			deathScreen();
 		}
 
+		if(this.health > 0){
+			this.health -= 10;
+			console.log("player health: ", this.health);
+		}
 	}
 }
