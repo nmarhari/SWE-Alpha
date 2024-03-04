@@ -42,4 +42,8 @@ class Player extends RoverCam {
         this.position.y -= 0.2;
       }
     }
+    
+    getPosition() {
+      return [this.position.x, this.position.y, this.position.z];
+    }
   }

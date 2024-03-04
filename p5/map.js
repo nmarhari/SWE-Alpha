@@ -168,13 +168,14 @@ class Maze {
   }
 
   setPlayerAtStart(player) {
-    player.position = p5.Vector.add(this.start.position, createVector(0, -15, 0));
+    player.position = p5.Vector.add(this.start.position, createVector(15, 15, 15));
   }
 }
 
 //TODO: We may want to eventually refactor this into a separate file. 
 //what follows are the functions involved in detecting collisions
 //code is taken from this example: https://editor.p5js.org/rjgilmour/sketches/1_pX_xPfD
+//TODO: understand what this function does
 function sdfTriangle(p, a, b, c)
 {
   let ba = math.subtract(b, a); 
@@ -203,25 +204,28 @@ function dot2(v) {
   return math.dot(v, v)
 }
 
-function detectCollision(p, o, thresh) {
-  for(let i = 0; i < o.faces.length; i++){
+function detectCollision(cameraPositionVector, objectModelGeometry, thresh) {
+  for(let i = 0; i < objectModelGeometry.faces.length; i++){
+    //for every face of the model (each triangle that it consists of)
+    // set three variables a, b, and c to be the Vertices consisting of that face
+    // x, y, z are the positions of each vertex in space
     let a = [
-      o.vertices[ o.faces[i][0] ].x,
-      o.vertices[ o.faces[i][0] ].y,
-      o.vertices[ o.faces[i][0] ].z,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][0] ].x,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][0] ].y,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][0] ].z,
     ]
     let b = [
-      o.vertices[ o.faces[i][1] ].x,
-      o.vertices[ o.faces[i][1] ].y,
-      o.vertices[ o.faces[i][1] ].z,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][1] ].x,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][1] ].y,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][1] ].z,
     ]
     let c = [
-      o.vertices[ o.faces[i][2] ].x,
-      o.vertices[ o.faces[i][2] ].y,
-      o.vertices[ o.faces[i][2] ].z,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][2] ].x,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][2] ].y,
+      objectModelGeometry.vertices[ objectModelGeometry.faces[i][2] ].z,
     ]
-    
-    if( sdfTriangle(p, a, b, c) < thresh) {
+    //determine whether the camera is close to the face being iterated over
+    if( sdfTriangle(cameraPositionVector, a, b, c) < thresh) {
       return true
     }
   }
@@ -248,20 +252,24 @@ class MSB {
     }
   }
 
-  update() {
-    let pt = [this.position.x, this.position.y, this.position.z];
-    if (detectCollision(pt, this.model, 10)) {
-      console.log("touching MSB");
+  update(cameraPosition) {
+    //let pt = [this.position.x, this.position.y, this.position.z];
+    // if (detectCollision(cameraPosition, this.model, 1)) {
+    //   console.log("touching MSB");
+    // }
+    if (detectCollision(cameraPosition, this.model, 1)) {
+      player.grounded = true;
+      console.log("collision")
     }
   }
 
   display() {
     push();
-    translate(this.position.x, this.position.y, this.position.z);
-    rotateX(PI);
+    //translate(this.position.x, this.position.y, this.position.z);
+    //rotateX(PI);
     model(this.model);
     scale(1);
-    translate();
+    //translate();
     pop();
   }
 

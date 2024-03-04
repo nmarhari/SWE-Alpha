@@ -21,7 +21,7 @@ var player, maze, f, help = false,
 function preload() {
   f = loadFont('inconsolata.otf');
   lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
-  msb = '../assets/MSBInterior.obj'
+  msb = '../assets/MSBInterior(1).obj'
   // this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -55,6 +55,8 @@ function keyPressed() {
   }
 }
 
+let cameraPosition;
+
 function draw() {
   frameRate(60);
   background(0, 0, 0);
@@ -62,9 +64,9 @@ function draw() {
   //maze.update();
   //maze.display();
   lights();
-  env.update();
   env.display();
   player.update();
+  env.update(player.getPosition());
   //ball.display();
   //ball.update();
   //drawAxes();
