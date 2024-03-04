@@ -1,3 +1,4 @@
+
 class Player extends RoverCam {
     constructor() {
       	super();
@@ -27,9 +28,22 @@ class Player extends RoverCam {
 				if (keyIsDown(82)) this.pitch(-0.02); // r
 				if (keyIsDown(70)) this.pitch(0.02);  // f
 			}
-			if (keyIsDown(87) || keyIsDown(UP_ARROW)) this.moveX(this.speed);    // w
-			if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) this.moveX(-this.speed); // s
-			if (keyIsDown(69)) this.moveZ(0.05); // e
+			if (keyIsDown(87) || keyIsDown(UP_ARROW)){
+				this.moveX(this.speed);    // w
+				if(!walking.isPlaying()){
+					walking.play();
+				}
+			} 
+			else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)){
+				this.moveX(-this.speed); // s
+				if(!walking.isPlaying()){
+					walking.play();
+				}
+			}
+			else if (keyIsDown(69)) this.moveZ(0.05); // e
+			else {
+				walking.pause();
+			}
 		}
     }
     
