@@ -136,12 +136,11 @@ function draw() {
 	// 	pop();
 	// }
 
-	function mouseClicked() {
+function mouseClicked() {
 	if (!player.pointerLock) {
 		player.pointerLock = true;
 		requestPointerLock();
-	} else {
-		exitPointerLock();
-		player.pointerLock = false;
-	}
+	} /*else {
+		//click interaction
+	}*/
 }

@@ -45,6 +45,8 @@ class Player extends RoverCam {
 				walking.pause();
 			}
 		}
+		if (keyPressed(ESCAPE)) this.pointerLock = false;
+		// unlock pointer if ESC is pressed
     }
     
     update() {
