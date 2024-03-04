@@ -117,15 +117,15 @@ class FireBall {
 		}
 
 		checkCollision(player){
-
-			if( (player.position.x - 10) <= (this.position.x + this.radius) ||
-				(player.position.x + 10) >= (this.position.x - this.radius) ||
-				(player.position.z - 10) <= (this.position.z + this.radius) ||
-				(player.position.z + 10) >= (this.position.z - this.radius) 
-			){
+			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
+			let threshold = 75;
+			if (distance < threshold) {
 				let para = createP("FIREBALL INCOMING!!");
-				para.position(windowWidth/2, windowHeight/2); // Set the position of the paragraph
-				para.style("color", "red"); // Set the color of the text
+				para.class("fireball-notification");
+	
+				setTimeout(function() {
+					para.style("display", "none");
+				}, 2000);
 			}
 
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top

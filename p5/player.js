@@ -45,7 +45,7 @@ class Player extends RoverCam {
         	this.grounded = false;
         	this.velocity.y = -1.5;
         	this.position.y -= 0.2;
-      	}
+    	}
     }
 
 	takeHit(){
