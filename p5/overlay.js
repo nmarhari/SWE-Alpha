@@ -23,6 +23,7 @@ function startScreen() {
     startCheck.style('color', 'white')
     startButton = createButton('start');
     startButton.position(windowWidth/2/2, 250);
+    frameRate(0);   // pause game so that game is paused when screen is up
     startButton.mouseClicked(closeStartScreen);
 }
 
@@ -34,6 +35,7 @@ function closeStartScreen() {
     startButton.remove();
     startDiv.remove();
     start.remove();
+    frameRate(60);  // unpause game
 }
 
 
