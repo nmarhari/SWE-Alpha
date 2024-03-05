@@ -229,9 +229,9 @@ class FireBall {
 }*/
 
 let resolutionNum1 = 0.005;		// how 'crazy' the map generation gets
-let terrainRange = 150;		// how much the y level will vary
-let widthOfMap = 60 *5;		// *5 for width and depth as that is the size of the blocks
-let depth = 60 *5;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
+let terrainRange = 100;		// how much the y level will vary
+let widthOfMap = 30 *5;		// *5 for width and depth as that is the size of the blocks
+let depth = 30 *5;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
 //let mapLava = 6;
 class GeneratedMap {
 	
@@ -240,11 +240,12 @@ class GeneratedMap {
 		for (let x = 0; x < widthOfMap; x+= size){
 			this.blocks[x] = new Array(size);
 			for (let z = 0; z < depth; z+=size) {
-				let y = noise(x * resolutionNum1, z * resolutionNum1) * terrainRange;
+				let y = floor(noise(x * resolutionNum1, z * resolutionNum1) * terrainRange);
 					console.log(y);
 					push();
 					translate(x,0,z);
-					if (y > 55) { this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, lava);
+					if (y > 60) { 
+						this.blocks[x][z] = new Block(x, 60, z, 5, 5, 5, lava);
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, null);
 					}
