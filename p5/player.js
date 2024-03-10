@@ -66,11 +66,15 @@ class Player extends RoverCam {
 
 	takeHit(){
 		if(this.health == 0){
+			scream.play();
 			this.dead = true;
 			deathScreen();
 		}
 
 		if(this.health > 0){
+			if(!hit.isPlaying()){
+				hit.play();
+			}
 			this.health -= 10;
 			console.log("player health: ", this.health);
 		}

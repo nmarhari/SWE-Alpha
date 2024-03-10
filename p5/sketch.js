@@ -34,6 +34,8 @@ function setup() {
   	death = createGraphics(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
 	walking = loadSound('assets/walking.mp3');
+	hit = loadSound('assets/hit.wav'); 
+	scream = loadSound('assets/scream.wav'); 
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
