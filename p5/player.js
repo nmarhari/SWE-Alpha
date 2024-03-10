@@ -11,6 +11,7 @@ class Player extends RoverCam {
       	this.speed = 0.04;
 		this.health = 100;
       	this.dead = false;
+		this.jumps = 1;
 		console.log("player health: ", this.health);
     }
     
@@ -50,6 +51,10 @@ class Player extends RoverCam {
     }
     
     update() {
+		if(this.grounded && frameCount % 60 == 0){
+			this.jumps = 1;
+		}
+
       	if (keyIsPressed && key == 'e') {
         	this.grounded = false;
         	return;
@@ -57,10 +62,11 @@ class Player extends RoverCam {
       	this.velocity.add(this.gravity);
       	this.position.add(this.velocity);
   
-     	if (this.grounded && keyIsPressed && keyCode == 32) { // space
+     	if (this.grounded && keyPressed && keyCode == 32 && this.jumps > 0) { // space
+			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
-        	this.velocity.y = -1.5;
-        	this.position.y -= 0.2;
+        	this.velocity.y = -.8;
+        	this.position.y -= 0.5;
     	}
     }
 
