@@ -21,13 +21,12 @@ function onPointerlockChange() {
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 var player, maze, f, help = false, canvas;
-let book, bookModel, tigressModel;
+let book, bookModel;
 
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
-	tigressModel = loadModel('../assets/Tigress.obj')
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -47,7 +46,6 @@ function setup() {
   	maze = new Maze(22,12);
  	maze.setPlayerAtStart(player);
 	book = new Collectible("Nesterenko's C++ Book", 95, -3.5, 30, 10, bookModel);
-	tigress = new Collectible("Tigress", 80, -3.5, 25, 10, tigressModel);
  	frameRate(60);
   	strokeWeight(2);
 }
@@ -92,7 +90,6 @@ function draw() {
 			book.display();
 		}
 	
-		tigress.display();
 	
 
 
