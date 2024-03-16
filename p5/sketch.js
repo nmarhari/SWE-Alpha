@@ -80,7 +80,6 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
-		ball.checkCollision(player);
   	}
 
 	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){

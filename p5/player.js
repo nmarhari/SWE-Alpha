@@ -1,4 +1,3 @@
-
 class Player extends RoverCam {
     constructor() {
       	super();

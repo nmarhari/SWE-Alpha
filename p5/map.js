@@ -92,10 +92,20 @@ class FireBall {
 		}
 
 	  	update(player) {
-		// if(this.position.y === playerTop + 1){
-		// 	player.takeHit();
-		// 	console.log("got hit")
-		// } 
+			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
+			let threshold = 75;
+			if (distance < threshold) {
+				if(frameCount % 15 == 0)
+					this.checkCollision(player);
+				
+				let para = createP("FIREBALL INCOMING!!");
+				para.class("fireball-notification");
+	
+				setTimeout(function() {
+					para.style("display", "none");
+				}, 2000);
+			}
+
     		this.position.y += 1; 
 			if(this.position.y>10) {
 				this.position.y = -100;
@@ -117,17 +127,6 @@ class FireBall {
 		}
 
 		checkCollision(player){
-			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
-			let threshold = 75;
-			if (distance < threshold) {
-				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
-	
-				setTimeout(function() {
-					para.style("display", "none");
-				}, 2000);
-			}
-
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
 				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left
 				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) &&  // player right
@@ -154,7 +153,7 @@ class Maze {
       }
     }
 
-    this.start = this.blocks[1][1];
+    this.start = this.blocks[1][2];
     //this.blocks[1][1].fillColor = color(63, 127, 63);
     // var m = [
     //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
