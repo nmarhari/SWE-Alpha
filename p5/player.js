@@ -11,7 +11,7 @@ class Player extends RoverCam {
       	this.speed = 0.04;
 		this.health = 100;
       	this.dead = false;
-		this.collectable = false;
+		this.collectedItems = [];
 		console.log("player health: ", this.health);
     }
     
@@ -70,14 +70,12 @@ class Player extends RoverCam {
       	this.velocity.add(this.gravity);
       	this.position.add(this.velocity);
   
+
      	if (this.grounded && keyIsPressed && keyCode == 32) { // space
         	this.grounded = false;
         	this.velocity.y = -1.5;
         	this.position.y -= 0.2;
     	}
-		
-		if(this.collectable)
-			console.log('found');
     }
 
 	takeHit(){
@@ -94,5 +92,40 @@ class Player extends RoverCam {
 			this.health -= 10;
 			console.log("player health: ", this.health);
 		}
+	}
+
+	collect(collectible){
+		this.collectedItems.push(collectible);
+		if(collectible.name === "Nesterenko's C++ Book"){
+			let para = document.createElement("p");
+			let text1 = document.createTextNode("C++ Book Found");
+			let text2 = document.createTextNode("Return to Dr. Nesterenko IMMEDIATELY!!");
+			
+			para.appendChild(text1);
+			para.appendChild(document.createElement("br")); // Create a line break
+			para.appendChild(text2);
+				para.classList.add("collectible-notification");
+	
+				// Append the paragraph to the document body
+				document.body.appendChild(para);
+	
+				// Remove the paragraph after 3 seconds
+				setTimeout(function() {
+					para.remove(); // Remove the paragraph after another 3 seconds
+				}, 4000);
+		}
+	}
+
+	remove(collectible) {
+		const index = this.collectedItems.indexOf(collectible);
+		if (index !== -1) {
+		  this.collectedItems.splice(index, 1);
+		  return true; // Indicate success
+		}
+		return false; // Indicate failure (item not found)
+	  }
+
+	hasCollected(collectible){ // returns if player has collected said item
+		return this.collectedItems.includes(collectible); 
 	}
 }

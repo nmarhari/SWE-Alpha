@@ -119,6 +119,7 @@ class FireBall {
 		checkCollision(player){
 			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
 			let threshold = 75;
+			/*
 			if (distance < threshold) {
 				let para = createP("FIREBALL INCOMING!!");
 				para.class("fireball-notification");
@@ -126,7 +127,7 @@ class FireBall {
 				setTimeout(function() {
 					para.style("display", "none");
 				}, 2000);
-			}
+			}*/
 
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
 				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left

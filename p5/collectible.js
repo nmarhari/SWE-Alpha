@@ -1,5 +1,6 @@
-class Collectable{
-    constructor(x, y, z, size, model){
+class Collectible{
+    constructor(name, x, y, z, size, model){
+        this.name = name;
         this.position = createVector(x, y, z);
         this.size = size; // size of model
         this.draw = true;
