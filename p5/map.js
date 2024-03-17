@@ -9,7 +9,7 @@ class Block {
 		this.visited = false;
 	}
 
- 	update() {
+ 	update(reddish) {
 		let playerLeft = player.position.x - player.dimensions.x / 2;
 		let playerRight = player.position.x + player.dimensions.x / 2;
 		let playerTop = player.position.y - player.dimensions.y / 2;
@@ -57,6 +57,8 @@ class Block {
 					}
 				}
 		}
+		if(reddish == 'red') this.fillColor = 'red'; 
+		else this.fillColor = color(200)
     }
 
   	display() {
@@ -89,9 +91,11 @@ class FireBall {
 			// this.fillColor = color(random(150, 200));
 			this.texture = lava;
 			this.visited = false;
+			this.blockx = 0;
+			this.blockz = 0; 
 		}
 
-	  	update(player) {
+	  	update(maze) {
 		// if(this.position.y === playerTop + 1){
 		// 	player.takeHit();
 		// 	console.log("got hit")
@@ -101,8 +105,18 @@ class FireBall {
 				this.position.y = -100;
 				//this.position.x = random(10,100);
 				//this.position.z = random(10,50);
-				this.position.x = player.position.x + random(10,75);
-				this.position.z = player.position.z + random(10,50);
+				// this.position.x = player.position.x + random(10,75);
+				// this.position.z = player.position.z + random(10,50);
+				this.blockx = Math.floor(random(1, maze.size1-1)); 
+				this.blockz = Math.floor(random(1, maze.size2-1));
+				if(this.blockx == maze.size1-1){
+					this.blockx = this.blockx-1; 
+				}
+				if(this.blockz == maze.size2-1){
+					this.blockz = this.blockz-1; 
+				}
+				this.position.x = this.blockx*5
+				this.position.z = this.blockz*5  
 			}
   		}	
 
@@ -117,8 +131,8 @@ class FireBall {
 		}
 
 		checkCollision(player){
-			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
-			let threshold = 75;
+			//let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
+			//let threshold = 75;
 			/*
 			if (distance < threshold) {
 				let para = createP("FIREBALL INCOMING!!");
@@ -144,7 +158,8 @@ class FireBall {
 class Maze {
   constructor(size1, size2) {
     this.blocks = new Array(size1);
-
+	this.size1 = size1; 
+	this.size2 = size2;
     for (let i = 0; i < size1; i++) {
       this.blocks[i] = new Array(size2);
       for (let j = 0; j < size2; j++) {
@@ -180,10 +195,12 @@ class Maze {
   }
 
 
-  update() {
+  update(fireball) {
     for (let i = 0; i < this.blocks.length; i++) {
       for (let j = 0; j < this.blocks[i].length; j++) {
-        this.blocks[i][j].update();
+		if(fireball.blockx == i && fireball.blockz == j)
+        	this.blocks[i][j].update('red');
+		else this.blocks[i][j].update('none'); 
       }
     }
   }
