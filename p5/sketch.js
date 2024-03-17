@@ -45,7 +45,7 @@ function setup() {
   	player = new Player();
   	maze = new Maze(22,12);
  	maze.setPlayerAtStart(player);
-	book = new Collectible("Nesterenko's C++ Book", 95, -3.5, 30, 10, bookModel);
+	book = new Collectible("Delozier's SE Book", 95, -3.5, 30, 10, bookModel);
  	frameRate(60);
   	strokeWeight(2);
 
