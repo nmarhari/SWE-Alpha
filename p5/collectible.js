@@ -35,7 +35,6 @@ class entity{
         this.size = size; // size of model
         this.draw = true;
         this.model = model;
-        this.flippedVertices = [];
     }
 
     display() {

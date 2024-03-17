@@ -48,6 +48,16 @@ function setup() {
 	book = new Collectible("Nesterenko's C++ Book", 95, -3.5, 30, 10, bookModel);
  	frameRate(60);
   	strokeWeight(2);
+
+	  word = new Word3D(
+		"P5.3D",       // The actual character that you want to draw (anything that can be passed into "text()")
+		1.5,             // How thick the 3D rendered letter is (i.e. how many cube pixels of size "size" it is on z-axis)  
+		windowWidth/2000,     // The size of a unit "box()" making up part of the letter  
+		35,            // The size of the canvas it renders the letter on (higher is more detailed, 30-40 is a good range)  
+		true,          // [OPTIONAL, default = true] Gives the bevelled, embossed 3D look (as seen in screenshot)  
+		"Arial",     // [OPTIONAL, default = "Georgia"] Gives the font uses, can be any default ones or anything added  
+		BOLD           // [OPTIONAL, default = BOLD] Gives the chosen style out of BOLD, NORMAL, ITALIC  
+	  );
 }
 
 // viewport resize when window size changes
@@ -91,8 +101,12 @@ function draw() {
 		}
 	
 	
+push();
+		word.show();
 
 
+		translate(0, 0, -5);
+		pop();
 	maze.update();
 	maze.display();
 	player.update();

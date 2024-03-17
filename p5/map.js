@@ -122,7 +122,7 @@ class FireBall {
 			/*
 			if (distance < threshold) {
 				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
+	d			para.class("fireball-notification");
 	
 				setTimeout(function() {
 					para.style("display", "none");
@@ -155,7 +155,7 @@ class Maze {
       }
     }
 
-    this.start = this.blocks[1][1];
+    this.start = this.blocks[1][2];
     //this.blocks[1][1].fillColor = color(63, 127, 63);
     // var m = [
     //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
