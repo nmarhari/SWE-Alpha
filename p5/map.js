@@ -122,7 +122,7 @@ class FireBall {
 			/*
 			if (distance < threshold) {
 				let para = createP("FIREBALL INCOMING!!");
-	d			para.class("fireball-notification");
+				para.class("fireball-notification");
 	
 				setTimeout(function() {
 					para.style("display", "none");
