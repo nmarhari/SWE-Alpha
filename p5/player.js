@@ -65,8 +65,8 @@ class Player extends RoverCam {
      	if (this.grounded && keyPressed && keyCode == 32 && this.jumps > 0) { // space
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
-        	this.velocity.y = -.8;
-        	this.position.y -= 0.5;
+        	this.velocity.y -= 1;
+        	this.position.y -= 0.65;
     	}
     }
 
