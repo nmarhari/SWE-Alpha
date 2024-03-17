@@ -46,4 +46,8 @@ class Player extends RoverCam {
     getPosition() {
       return [this.position.x, this.position.y, this.position.z];
     }
+
+    getVelocity() {
+      return this.velocity
+    }
   }

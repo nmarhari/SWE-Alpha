@@ -66,7 +66,12 @@ function draw() {
   lights();
   env.display();
   player.update();
-  env.update(player.getPosition());
+  let adjustedVelocity = env.update(player.getPosition(), player.getVelocity());
+  if (adjustedVelocity) {
+    player.velocity.x = adjustedVelocity[0]
+    player.velocity.y = adjustedVelocity[1]
+    player.velocity.z = adjustedVelocity[2]
+  }
   //ball.display();
   //ball.update();
   //drawAxes();

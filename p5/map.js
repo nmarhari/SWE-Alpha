@@ -176,29 +176,33 @@ class Maze {
 //what follows are the functions involved in detecting collisions
 //code is taken from this example: https://editor.p5js.org/rjgilmour/sketches/1_pX_xPfD
 //TODO: understand what this function does
-function sdfTriangle(p, a, b, c)
-{
-  let ba = math.subtract(b, a); 
-  let pa = math.subtract(p, a);
-  let cb = math.subtract(c, b); 
-  let pb = math.subtract(p, b);
-  let ac = math.subtract(a, c); 
-  let pc = math.subtract(p, c);
-  let nor = math.cross( ba, ac );
+function sdfTriangle(cameraPosition, a, b, c)
+{ //This is a signed distance function
+  let baDistance = math.subtract(b, a); 
+  let CAMaDistance = math.subtract(cameraPosition, a);
+  let cbDistance = math.subtract(c, b); 
+  let CAMbDistance = math.subtract(cameraPosition, b);
+  let acDistance = math.subtract(a, c); 
+  let CAMcDistance = math.subtract(cameraPosition, c);
+  let nor = math.cross(baDistance, acDistance);
 
   return math.sqrt(
-    (math.sign(math.dot(math.cross(ba,nor),pa)) +
-     math.sign(math.dot(math.cross(cb,nor),pb)) +
-     math.sign(math.dot(math.cross(ac,nor),pc))<2.0)
+    (math.sign(math.dot(math.cross(baDistance,nor),CAMaDistance)) +
+     math.sign(math.dot(math.cross(cbDistance,nor),CAMbDistance)) +
+     math.sign(math.dot(math.cross(acDistance,nor),CAMcDistance))<2.0)
      ?
      math.min( math.min(
-     dot2(math.subtract(math.multiply(ba, constrain(math.dot(ba,pa)/dot2(ba),0.0,1.0)), pa)),
-     dot2(math.subtract(math.multiply(cb, constrain(math.dot(cb,pb)/dot2(cb),0.0,1.0)), pb)) ),
-     dot2(math.subtract(math.multiply(ac, constrain(math.dot(ac,pc)/dot2(ac),0.0,1.0)), pc)) )
+     dot2(math.subtract(math.multiply(baDistance, constrain(math.dot(baDistance,CAMaDistance)/dot2(baDistance),0.0,1.0)), CAMaDistance)),
+     dot2(math.subtract(math.multiply(cbDistance, constrain(math.dot(cbDistance,CAMbDistance)/dot2(cbDistance),0.0,1.0)), CAMbDistance)) ),
+     dot2(math.subtract(math.multiply(acDistance, constrain(math.dot(acDistance,CAMcDistance)/dot2(acDistance),0.0,1.0)), CAMcDistance)) )
      :
-     math.dot(nor,pa)*math.dot(nor,pa)/dot2(nor) );
+     math.dot(nor,CAMaDistance)*math.dot(nor,CAMaDistance)/dot2(nor) );
 }
 
+function projectToPlane(v, n){
+  let vProjN = math.multiply( math.dot(v, n) / (dot2(n)**2) , n)
+  return math.subtract(v, vProjN)
+}
 
 function dot2(v) {
   return math.dot(v, v)
@@ -252,14 +256,63 @@ class MSB {
     }
   }
 
-  update(cameraPosition) {
-    //let pt = [this.position.x, this.position.y, this.position.z];
-    // if (detectCollision(cameraPosition, this.model, 1)) {
-    //   console.log("touching MSB");
-    // }
-    if (detectCollision(cameraPosition, this.model, 1)) {
+  update(cameraPosition, velocity) {
+    //VARIABLES FOR COLLISION DETECTION HANDLING
+    let inputVector = [velocity.x, velocity.y, velocity.z]
+    let camTh = atan2(cameraPosition[2], cameraPosition[0])
+    let inputTh = atan2(inputVector[1], inputVector[0])
+    let polys = this.model
+    let inputMag = dist(0, 0, inputVector[0], inputVector[1])
+    let input3D = [inputMag * cos(camTh + inputTh), 
+                   0, 
+                   inputMag * sin(camTh + inputTh)]
+    //END OF VARIABLES FOR COLLISION DETECTION HANDLING
+    let collision = detectCollision(cameraPosition, this.model, 10)
+    if (collision) {
+      let i = collision-1 //TOD: this should NOT be a single letter identifier
       player.grounded = true;
       console.log("collision")
+      //START OF COLLISION DETECTION HANDLING
+      let head = [cos(camTh + inputTh), 0, sin(camTh + inputTh)]
+      let normal = [
+        polys.vertexNormals[polys.faces[i][0]].x,
+        polys.vertexNormals[polys.faces[i][0]].y,
+        polys.vertexNormals[polys.faces[i][0]].z
+      ]
+      
+      let proj = projectToPlane(head, normal)
+      
+      let projMag = sqrt(dot2(proj))
+      input3D = [proj[0] * inputMag / projMag, proj[1] * inputMag / projMag, proj[2] * inputMag / projMag]
+      
+      
+      let a = [
+        polys.vertices[ polys.faces[i][0] ].x,
+        polys.vertices[ polys.faces[i][0] ].y,
+        polys.vertices[ polys.faces[i][0] ].z
+      ]
+      let b = [
+        polys.vertices[ polys.faces[i][1] ].x,
+        polys.vertices[ polys.faces[i][1] ].y,
+        polys.vertices[ polys.faces[i][1] ].z
+      ]
+      let c = [
+        polys.vertices[ polys.faces[i][2] ].x,
+        polys.vertices[ polys.faces[i][2] ].y,
+        polys.vertices[ polys.faces[i][2] ].z
+      ]
+      
+      // d for distance here
+      let result = cameraPosition
+      let d = sdfTriangle(result, a, b, c)
+      if ( d < 10){
+        let diff = d - r + 0.01;
+        result[0] -= diff * normal[0]
+        result[1] -= diff * normal[1]
+        result[2] -= diff * normal[2]
+      }
+      //END OF COLLISION DETECTION HANDLING
+      return result
     }
   }
 
