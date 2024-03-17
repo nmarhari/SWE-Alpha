@@ -94,11 +94,11 @@ function draw() {
 	
 
 
-	maze.update();
+	maze.update(ball);
 	maze.display();
 	player.update();
 	ball.display();
-	ball.update(player);
+	ball.update(maze);
 	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
 		push(); // this affects the frame rate
