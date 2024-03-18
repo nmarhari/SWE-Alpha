@@ -26,7 +26,7 @@ let book, bookModel;
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
-	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj')
+	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -45,9 +45,21 @@ function setup() {
   	player = new Player();
   	maze = new Maze(22,12);
  	maze.setPlayerAtStart(player);
-	book = new Collectable(95, -3.5, 30, 10, bookModel);
+	book = new Collectible("Delozier's SE Book", 95, -3.5, 30, 10, bookModel);
  	frameRate(60);
   	strokeWeight(2);
+
+	/*
+	  word = new Word3D(
+		"P5.3D",       // The actual character that you want to draw (anything that can be passed into "text()")
+		1.5,             // How thick the 3D rendered letter is (i.e. how many cube pixels of size "size" it is on z-axis)  
+		windowWidth/2000,     // The size of a unit "box()" making up part of the letter  
+		35,            // The size of the canvas it renders the letter on (higher is more detailed, 30-40 is a good range)  
+		true,          // [OPTIONAL, default = true] Gives the bevelled, embossed 3D look (as seen in screenshot)  
+		"Arial",     // [OPTIONAL, default = "Georgia"] Gives the font uses, can be any default ones or anything added  
+		BOLD           // [OPTIONAL, default = BOLD] Gives the chosen style out of BOLD, NORMAL, ITALIC  
+	  );
+	  */
 }
 
 // viewport resize when window size changes
@@ -83,14 +95,15 @@ function draw() {
   	}
 
 	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
-			player.collectable = true;
+			player.collect(book);
 			book.remove();
 		} else {
 			book.display();
 		}
 	
-
 	
+
+		//word.show(); // 3d text
 
 
 	maze.update(ball);
@@ -98,6 +111,7 @@ function draw() {
 	player.update();
 	ball.display();
 	ball.update(maze, player);
+
 	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
 		push(); // this affects the frame rate

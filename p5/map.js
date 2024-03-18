@@ -9,7 +9,8 @@ class Block {
 		this.visited = false;
 	}
 
-	update(reddish) {
+ 	update(reddish) {
+
 		let playerLeft = player.position.x - player.dimensions.x / 2;
 		let playerRight = player.position.x + player.dimensions.x / 2;
 		let playerTop = player.position.y - player.dimensions.y / 2;
@@ -92,6 +93,7 @@ class FireBall {
 			this.texture = lava;
 			this.visited = false;
 			this.blockx = 0;
+
 			this.blockz = 0;
 		}
 
@@ -113,24 +115,7 @@ class FireBall {
 				*/
 			}
 			this.position.y += 1; 
-			if(this.position.y>10) {
-				this.position.y = -100;
-				//this.position.x = random(10,100);
-				//this.position.z = random(10,50);
-				// this.position.x = player.position.x + random(10,75);
-				// this.position.z = player.position.z + random(10,50);
-				this.blockx = Math.floor(random(1, maze.size1-1)); 
-				this.blockz = Math.floor(random(1, maze.size2-1));
-				if(this.blockx == maze.size1-1){
-					this.blockx = this.blockx-1; 
-				}
-				if(this.blockz == maze.size2-1){
-					this.blockz = this.blockz-1; 
-				}
-				this.position.x = this.blockx*5
-				this.position.z = this.blockz*5  
-			}
-		}
+
 
 
 		display() {
@@ -144,6 +129,21 @@ class FireBall {
 		}
 
 		checkCollision(player){
+
+
+			//let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
+			//let threshold = 75;
+			/*
+			if (distance < threshold) {
+				let para = createP("FIREBALL INCOMING!!");
+				para.class("fireball-notification");
+	
+				setTimeout(function() {
+					para.style("display", "none");
+				}, 2000);
+			}*/
+
+
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
 				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left
 				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) &&  // player right
@@ -157,6 +157,7 @@ class FireBall {
 }
 
 class Maze {
+
 	constructor(size1, size2) {
 		this.blocks = new Array(size1);
 		this.size1 = size1; 
@@ -170,6 +171,7 @@ class Maze {
 			this.blocks[i][j] = new Block(x, y, z, 5, 5, 5, null);
 		  }
 		}
+
     this.start = this.blocks[1][2];
     //this.blocks[1][1].fillColor = color(63, 127, 63);
     // var m = [
