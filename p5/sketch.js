@@ -92,7 +92,6 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
-		ball.checkCollision(player);
   	}
 
 	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
@@ -111,7 +110,8 @@ function draw() {
 	maze.display();
 	player.update();
 	ball.display();
-	ball.update(maze);
+	ball.update(maze, player);
+
 	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
 		push(); // this affects the frame rate

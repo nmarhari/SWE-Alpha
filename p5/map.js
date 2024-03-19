@@ -10,6 +10,7 @@ class Block {
 	}
 
  	update(reddish) {
+
 		let playerLeft = player.position.x - player.dimensions.x / 2;
 		let playerRight = player.position.x + player.dimensions.x / 2;
 		let playerTop = player.position.y - player.dimensions.y / 2;
@@ -92,15 +93,29 @@ class FireBall {
 			this.texture = lava;
 			this.visited = false;
 			this.blockx = 0;
-			this.blockz = 0; 
+
+			this.blockz = 0;
 		}
 
-	  	update(maze) {
-		// if(this.position.y === playerTop + 1){
-		// 	player.takeHit();
-		// 	console.log("got hit")
-		// } 
-    		this.position.y += 1; 
+		update(maze, player) {
+			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
+			let threshold = 75;
+			//console.log("Player position:", player.position.x, player.position.y, player.position.z);
+    		//console.log("Fireball position:", this.position.x, this.position.y, this.position.z);
+			if (distance < threshold) {
+				if(frameCount % 15 == 0)
+					this.checkCollision(player);
+				/*
+				let para = createP("FIREBALL INCOMING!!");
+				para.class("fireball-notification");
+	
+				setTimeout(function() {
+					para.style("display", "none");
+				}, 2000);
+				*/
+			}
+			this.position.y += 1; 
+
 			if(this.position.y>10) {
 				this.position.y = -100;
 				//this.position.x = random(10,100);
@@ -118,7 +133,8 @@ class FireBall {
 				this.position.x = this.blockx*5
 				this.position.z = this.blockz*5  
 			}
-  		}	
+		}
+
 
 		display() {
 			push();
@@ -131,6 +147,8 @@ class FireBall {
 		}
 
 		checkCollision(player){
+
+
 			//let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
 			//let threshold = 75;
 			/*
@@ -143,6 +161,7 @@ class FireBall {
 				}, 2000);
 			}*/
 
+
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
 				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left
 				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) &&  // player right
@@ -153,22 +172,23 @@ class FireBall {
 				player.takeHit();
 			}
 		}
-}
+	}
 
 class Maze {
-  constructor(size1, size2) {
-    this.blocks = new Array(size1);
-	this.size1 = size1; 
-	this.size2 = size2;
-    for (let i = 0; i < size1; i++) {
-      this.blocks[i] = new Array(size2);
-      for (let j = 0; j < size2; j++) {
-        let x = i * 5;
-        let y = 0;
-        let z = j * 5;
-        this.blocks[i][j] = new Block(x, y, z, 5, 5, 5, null);
-      }
-    }
+
+	constructor(size1, size2) {
+		this.blocks = new Array(size1);
+		this.size1 = size1; 
+		this.size2 = size2;
+		for (let i = 0; i < size1; i++) {
+		  this.blocks[i] = new Array(size2);
+		  for (let j = 0; j < size2; j++) {
+			let x = i * 5;
+			let y = 0;
+			let z = j * 5;
+			this.blocks[i][j] = new Block(x, y, z, 5, 5, 5, null);
+		  }
+		}
 
     this.start = this.blocks[1][2];
     //this.blocks[1][1].fillColor = color(63, 127, 63);
