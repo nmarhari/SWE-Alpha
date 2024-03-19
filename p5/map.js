@@ -145,7 +145,6 @@ class FireBall {
 			//console.log(lava);
 			pop();
 		}
-		
 
 		checkCollision(player){
 
