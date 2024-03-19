@@ -116,6 +116,24 @@ class FireBall {
 			}
 			this.position.y += 1; 
 
+			if(this.position.y>10) {
+				this.position.y = -100;
+				//this.position.x = random(10,100);
+				//this.position.z = random(10,50);
+				// this.position.x = player.position.x + random(10,75);
+				// this.position.z = player.position.z + random(10,50);
+				this.blockx = Math.floor(random(1, maze.size1-1)); 
+				this.blockz = Math.floor(random(1, maze.size2-1));
+				if(this.blockx == maze.size1-1){
+					this.blockx = this.blockx-1; 
+				}
+				if(this.blockz == maze.size2-1){
+					this.blockz = this.blockz-1; 
+				}
+				this.position.x = this.blockx*5
+				this.position.z = this.blockz*5  
+			}
+		}
 
 
 		display() {
@@ -127,6 +145,7 @@ class FireBall {
 			//console.log(lava);
 			pop();
 		}
+		
 
 		checkCollision(player){
 
@@ -154,7 +173,7 @@ class FireBall {
 				player.takeHit();
 			}
 		}
-}
+	}
 
 class Maze {
 
