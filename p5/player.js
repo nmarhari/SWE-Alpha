@@ -11,6 +11,7 @@ class Player extends RoverCam {
       	this.speed = 0.04;
 		this.health = 100;
       	this.dead = false;
+		this.collectedItems = [];
 		console.log("player health: ", this.health);
     }
     
@@ -19,8 +20,8 @@ class Player extends RoverCam {
 			if (player.pointerLock) {
 				this.yaw(movedX * this.sensitivity);   // mouse left/right
 				this.pitch(movedY * this.sensitivity); // mouse up/down
-				if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(0.01 * 3); // a
-				if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-0.01 * 3);// d
+				if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(0.01 * 2); // a
+				if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-0.01 * 2);// d
 			}
 			else { // otherwise yaw/pitch with keys
 				if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) this.yaw(-0.02); // a
@@ -28,23 +29,51 @@ class Player extends RoverCam {
 				if (keyIsDown(82)) this.pitch(-0.02); // r
 				if (keyIsDown(70)) this.pitch(0.02);  // f
 			}
+
 			if (keyIsDown(87) || keyIsDown(UP_ARROW)){
-				this.moveX(this.speed);    // w
+				if(keyIsDown(16)){
+					this.moveX(this.speed * 1.1);    // shift w
+				} else {
+					this.moveX(this.speed / 1.5);
+				}
+
 				if(!walking.isPlaying()){
 					walking.play();
 				}
 			} 
+
 			else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)){
-				this.moveX(-this.speed); // s
+				this.moveX(-this.speed / 2); // s
 				if(!walking.isPlaying()){
 					walking.play();
 				}
 			}
-			else if (keyIsDown(69)) this.moveZ(0.05); // e
+
+			else if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)){
+				if(!walking.isPlaying()) {
+					walking.play();
+				}
+			}
+
+			else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)){
+				if(!walking.isPlaying()) {
+					walking.play();
+				}
+			}
+			
+			else if (keyIsDown(69)) {
+				this.moveZ(0.05); // e
+			}
+			
 			else {
 				walking.pause();
 			}
+
+			if(keyIsDown(76)) //printing player position to the console // key is L
+				console.log(this.position.x, this.position.y, this.position.z);
 		}
+		if (keyPressed(ESCAPE)) this.pointerLock = false;
+		// unlock pointer if ESC is pressed
     }
     
     update() {
