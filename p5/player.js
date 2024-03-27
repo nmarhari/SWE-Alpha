@@ -1,7 +1,7 @@
 class Player extends RoverCam {
     constructor() {
       	super();
-      	this.dimensions = createVector(1, 3, 1);
+      	this.dimensions = createVector(5, 15, 5);
       	this.velocity = createVector(0, 0, 0);
       	this.gravity = createVector(0, 0.03, 0);
       	this.grounded = false;

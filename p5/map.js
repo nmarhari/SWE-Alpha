@@ -228,7 +228,7 @@ class FireBall {
   }
 }*/
 
-let resolutionNum1 = 0.005;		// how 'crazy' the map generation gets
+let resolutionNum1 = 0.01;		// how 'crazy' the map generation gets
 let terrainRange = 100;		// how much the y level will vary
 let widthOfMap = 30 *5;		// *5 for width and depth as that is the size of the blocks
 let depth = 30 *5;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
@@ -245,14 +245,14 @@ class GeneratedMap {
 					push();
 					translate(x,0,z);
 					if (y > 60) { 
-						this.blocks[x][z] = new Block(x, 60, z, 5, 5, 5, lava);
+						this.blocks[x][z] = new Block(x, 60, z, 10, 10, 10, lava);
 					} else {
-						this.blocks[x][z] = new Block(x, y, z, 5, 5, 5, null);
+						this.blocks[x][z] = new Block(x, y, z, 10, 10, 10, null);
 					}
 					pop();
 			}
 		}
-		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
+		this.start = this.blocks[(widthOfMap/3)][(depth/3)];
 	}
 
 	update(size) {
@@ -272,7 +272,7 @@ class GeneratedMap {
 	}
   
 	setPlayerAtStart(player) {
-	  player.position = p5.Vector.add(this.start.position, createVector(0, -3, 0));
+	  player.position = p5.Vector.add(this.start.position, createVector(0, -15, 0));
 	}
 
 	checkLavaCollision(player, size) {
