@@ -5,6 +5,12 @@ let startDiv;
 let startCheck; 
 let startTitle;
 
+let container;
+function initContainerHTML() {
+    container = createDiv();
+    container.id('container');
+}
+
 function startScreen() {
     //function which draws the start screen 
     //secondary canvas is created using the createGraphics() function
@@ -76,4 +82,36 @@ function respawnPlayer() {
     deathDiv.remove();
     death.remove();
 
+}
+
+
+// on screen health bar
+let healthBarDiv;
+let healthInBar;
+
+function showHealth() {
+
+    healthBarDiv = createDiv();
+	healthBarDiv.id('healthBarBorder');
+    healthBarDiv.class('range');
+    healthBarDiv.parent('container');
+
+	healthInBar = createDiv('Health');
+	healthInBar.parent('healthBarBorder');
+    healthInBar.class('range__label');
+    healthInBar.id('healthInBar');
+
+	
+    // initialize health as 1
+    healthBarDiv.style('--p:', '1');
+
+}
+function updateHealth(hp) {
+    // normal javascript because p5 does not have the right function!
+    hb = document.getElementById("healthBarBorder");
+    hb.style.setProperty('--p', hp);
+}
+function hideHealth() {
+    healthBarDiv.remove();
+    healthInBar.remove();
 }
