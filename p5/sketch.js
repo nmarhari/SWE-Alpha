@@ -37,7 +37,7 @@ function setup() {
  	textFont(f);
  	textSize(12);
   	player = new Player();
-  	map = new GeneratedMap(10);
+  	map = new GeneratedMap(1);
  	map.setPlayerAtStart(player);
  	frameRate(60);
   	strokeWeight(2);
@@ -72,14 +72,14 @@ function draw() {
   	background(0, 0, 51);
 
   	if(frameCount % 30 === 0){
-      	map.checkLavaCollision(player, 10);
+      	map.checkLavaCollision(player, 1);
 		
   	}
 
 
-	map.update(10);
+	map.update(1);
 	//maze.display();
-	map.display(10);
+	map.display(1);
 	player.update();
 	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
