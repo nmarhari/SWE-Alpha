@@ -37,13 +37,15 @@ function startScreen() {
 function closeStartScreen() {
     //removes all p5 elements associated with start screen
     console.log("clearing start screen...")
+    player.gameStarted = true;
     startTitle.remove();
     startCheck.remove();
     startButton.remove();
     startDiv.remove();
+    
     start.remove();
     //indicate that the game has started
-    player.gameStarted = true;
+    
 }
 
 
