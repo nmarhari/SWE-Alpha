@@ -92,9 +92,9 @@ class FireBall {
 			// this.fillColor = color(random(150, 200));
 			this.texture = lava;
 			this.visited = false;
-			this.blockx = 0;
+			this.blockx = 1000000;
 
-			this.blockz = 0;
+			this.blockz = 1000000;
 		}
 
 		update(maze, player) {
@@ -216,11 +216,17 @@ class Maze {
 
 
   update(fireball) {
+	for (let i = 0; i < this.blocks.length; i++) {
+		for (let j = 0; j < this.blocks[i].length; j++) {
+			this.blocks[i][j].update('none');
+		}
+	}
     for (let i = 0; i < this.blocks.length; i++) {
       for (let j = 0; j < this.blocks[i].length; j++) {
-		if(fireball.blockx == i && fireball.blockz == j)
-        	this.blocks[i][j].update('red');
-		else this.blocks[i][j].update('none'); 
+		for(let k = 0; k<fireball.length; k++){
+			if(fireball[k].blockx == i && fireball[k].blockz == j)
+        		this.blocks[i][j].update('red');
+		}
       }
     }
   }
