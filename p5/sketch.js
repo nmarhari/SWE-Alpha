@@ -22,7 +22,9 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 var player, maze, f, help = false, canvas;
 let book, bookModel;
-
+let numberOfBalls = 100; 
+let currentBalls = 0; 
+const balls = [];
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
@@ -41,7 +43,9 @@ function setup() {
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
-  	ball = new FireBall(10, -20, 10, 2);
+	for (let i = 0; i < numberOfBalls; i++) {
+		balls.push(new FireBall(10, random(-30, 100), 10, 2));
+	}
   	player = new Player();
   	maze = new Maze(22,12);
  	maze.setPlayerAtStart(player);
@@ -105,12 +109,13 @@ function draw() {
 
 		//word.show(); // 3d text
 
-
-	maze.update(ball);
+	maze.update(balls);
 	maze.display();
 	player.update();
-	ball.display();
-	ball.update(maze, player);
+	for (let i = 0; i < currentBalls; i++) {
+		balls[i].display();
+		balls[i].update(maze, player);
+	}
 
 	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
@@ -137,6 +142,9 @@ function draw() {
 	if (startVisible) {
 		startScreen();
 		startVisible = false; // render only once
+	}
+	if(frameCount%100 == 1){
+		currentBalls++;
 	}
 
 }
