@@ -1,5 +1,6 @@
 // Ported to JS from github.com/jrc03c/queasycam/tree/master/examples/MazeRunner
 let lava; 
+
 class Block {
   	constructor(x, y, z, w, h, d, t) {
 		this.position = createVector(x, y, z);
@@ -100,9 +101,14 @@ class FireBall {
 		// 	player.takeHit();
 		// 	console.log("got hit")
 		// } 
+
+		
     		this.position.y += 1; 
 			if(this.position.y>10) {
 				this.position.y = -100;
+
+		
+
 				//this.position.x = random(10,100);
 				//this.position.z = random(10,50);
 				// this.position.x = player.position.x + random(10,75);
@@ -118,6 +124,19 @@ class FireBall {
 				this.position.x = this.blockx*5
 				this.position.z = this.blockz*5  
 			}
+
+			let b = new Bug(this.position.x, this.position.y, this.position.z, random(1, 5));
+		bugs.push(b);
+
+		for(let i = bugs.length -1; i>= 0; i--){
+			bugs[i].move();
+			bugs[i].show();
+			bugs[i].shrink();
+		 
+			if(bugs[i].radius <= 0 ){//remove the dead ones
+				 bugs.splice(i, 1);
+			}
+		}
   		}	
 
 		display() {

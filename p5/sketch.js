@@ -5,6 +5,10 @@ let startVisible = true; // renders start screen once
 let death;
 let deathVisible = false;
 
+let bugs = [];
+let numBugs = 40;
+
+
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
 
@@ -28,12 +32,20 @@ function preload() {
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
+		
+	/* lava = createVideo(['../assets/lava.mp4']);
+	//lava.elt.muted = true;
+	lava.loop();
+	lava.hide(); */
+
 }
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
   	start = createGraphics(windowWidth, windowHeight, WEBGL);
   	death = createGraphics(windowWidth, windowHeight, WEBGL);
+
+
 	soundFormats('mp3', 'wav');
 	walking = loadSound('assets/walking.mp3');
 	hit = loadSound('assets/hit.wav'); 
@@ -101,8 +113,6 @@ function draw() {
 		} else {
 			book.display();
 		}
-	
-	
 
 		//word.show(); // 3d text
 
