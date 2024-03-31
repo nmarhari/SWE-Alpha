@@ -125,10 +125,10 @@ class FireBall {
 				this.position.z = this.blockz*5  
 			}
 
-			let b = new Bug(this.position.x, this.position.y, this.position.z, random(1, 5));
+		let b = new Bug(this.position.x, this.position.y, this.position.z, random(1, 5));
 		bugs.push(b);
 
-		for(let i = bugs.length -1; i>= 0; i--){
+		for(let i = bugs.length - 1; i>= 0; i--){
 			bugs[i].move();
 			bugs[i].show();
 			bugs[i].shrink();

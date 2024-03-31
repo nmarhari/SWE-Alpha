@@ -29,14 +29,14 @@ let book, bookModel;
 
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+	//lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 		
-	/* lava = createVideo(['../assets/lava.mp4']);
+	 lava = createVideo(['../assets/lava.mp4']);
 	//lava.elt.muted = true;
 	lava.loop();
-	lava.hide(); */
+	lava.hide(); 
 
 }
 
