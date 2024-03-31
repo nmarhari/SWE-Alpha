@@ -5,6 +5,8 @@ let startVisible = true; // renders start screen once
 let death;
 let deathVisible = false;
 
+let startShowingHealth = true;
+
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
 
@@ -32,8 +34,8 @@ function preload() {
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-  	start = createGraphics(windowWidth, windowHeight, WEBGL);
-  	death = createGraphics(windowWidth, windowHeight, WEBGL);
+  	//start = createGraphics(windowWidth, windowHeight, WEBGL);
+  	//death = createGraphics(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
 	walking = loadSound('assets/walking.mp3');
 	hit = loadSound('assets/hit.wav'); 
@@ -59,7 +61,9 @@ function setup() {
 		"Arial",     // [OPTIONAL, default = "Georgia"] Gives the font uses, can be any default ones or anything added  
 		BOLD           // [OPTIONAL, default = BOLD] Gives the chosen style out of BOLD, NORMAL, ITALIC  
 	  );
-	  */
+	*/
+
+	initContainerHTML();
 }
 
 // viewport resize when window size changes
@@ -137,6 +141,10 @@ function draw() {
 	if (startVisible) {
 		startScreen();
 		startVisible = false; // render only once
+	}
+	if (startShowingHealth) {
+		showHealth();
+		startShowingHealth = false;
 	}
 
 }
