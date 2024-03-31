@@ -165,7 +165,7 @@ function draw() {
 	// }
 
 function mouseClicked() {
-	if (!player.pointerLock) {
+	if (!player.pointerLock && player.gameStarted) {
 		player.pointerLock = true;
 		requestPointerLock();
 	}

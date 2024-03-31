@@ -6,6 +6,8 @@ let startCheck;
 let startTitle;
 
 function startScreen() {
+    //pointer can't be locked until this disappears
+    player.gameStarted = false;
     //function which draws the start screen 
     //secondary canvas is created using the createGraphics() function
     //    this function call is located in setup() in sketch.js
@@ -34,6 +36,8 @@ function closeStartScreen() {
     startButton.remove();
     startDiv.remove();
     start.remove();
+    //indicate that the game has started
+    player.gameStarted = true;
 }
 
 
@@ -43,6 +47,9 @@ let deathCheck;
 let deathTitle;
 
 function deathScreen() {
+    player.gameStarted = false;
+    player.pointerLock = false;
+    exitPointerLock();
     frameRate(0);
     deathDiv = createDiv();
     deathDiv.size(windowWidth, windowHeight); 
@@ -66,6 +73,9 @@ function respawnPlayer() {
     player.health = 100;
     maze.setPlayerAtStart(player);
     deathVisible = false;
+    player.gameStarted = true;
+    player.pointerLock = true;
+    requestPointerLock();
     
     frameRate(60);
 

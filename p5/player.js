@@ -6,6 +6,7 @@ class Player extends RoverCam {
       	this.gravity = createVector(0, 0.03, 0);
       	this.grounded = false;
       	this.pointerLock = false;
+		this.gameStarted = false;
       	this.sensitivity = 0.002;
       	this.speed = 0.04;
 		this.health = 100;
@@ -81,6 +82,8 @@ class Player extends RoverCam {
 		if(this.health == 0){
 			scream.play();
 			this.dead = true;
+			//ulock the pointer here
+			this.pointerLock = false;
 			deathScreen();
 		}
 
