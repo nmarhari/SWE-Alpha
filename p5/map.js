@@ -102,12 +102,12 @@ class FireBall {
 		// 	console.log("got hit")
 		// } 
 
+		let b = new FireParticle(this.position.x, this.position.y, this.position.z, random(1, 3));
+		ballParticles.push(b);
 		
     		this.position.y += 1; 
 			if(this.position.y>10) {
 				this.position.y = -100;
-
-		
 
 				//this.position.x = random(10,100);
 				//this.position.z = random(10,50);
@@ -125,18 +125,17 @@ class FireBall {
 				this.position.z = this.blockz*5  
 			}
 
-		let b = new Bug(this.position.x, this.position.y, this.position.z, random(1, 5));
-		bugs.push(b);
 
-		for(let i = bugs.length - 1; i>= 0; i--){
-			bugs[i].move();
-			bugs[i].show();
-			bugs[i].shrink();
-		 
-			if(bugs[i].radius <= 0 ){//remove the dead ones
-				 bugs.splice(i, 1);
+
+			for(let i = ballParticles.length - 1; i>= 0; i--){
+				ballParticles[i].move();
+				ballParticles[i].show();
+				ballParticles[i].shrink();
+			
+				if(ballParticles[i].radius <= 0 ){//remove the dead ones
+					ballParticles.splice(i, 1);
+				}
 			}
-		}
   		}	
 
 		display() {

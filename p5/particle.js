@@ -1,4 +1,4 @@
-class Bug{
+class FireParticle{
   	constructor(tempX, tempY, tempZ, tempR) {
 		this.x = tempX;
 		this.y = tempY;
@@ -23,7 +23,7 @@ class Bug{
 			push();
 			fill(this.color);
 			noStroke();
-			translate(this.x, this.y, 0);
+			translate(this.x, this.y, this.z);
 			sphere(this.radius);
 			pop();
 		}
@@ -33,9 +33,9 @@ class Bug{
 	remove(){this.display = false;}
 
   	move() {
-		this.x += random(-3, 3);
+		this.x += random(-2, 2);
 		this.y -= random(1, 4);
-		this.z += random(-3, 3);
+		this.z += random(-1, 1);
   	}
   
   	shrink(){    // shrink size over time
