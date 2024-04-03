@@ -23,14 +23,18 @@ function onPointerlockChange() {
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 var player, maze, f, help = false, canvas;
-let book, bookModel;
-let numberOfBalls = 100; 
+let book, bookModel, OBJarray = []; //have to splice objs from array to remove on screen
+let numberOfBalls = 50; 
 let currentBalls = 0; 
 const balls = [];
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+	lava = loadImage('../assets/pixel.jpg');
+	meteorite = loadImage('../assets/lavapixel.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
+	bookTexture = loadImage('../assets/leather.jpg');
+	chairModel = loadModel('../assets/chair.obj');
+	drModel = loadModel('../assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 }
 
@@ -49,9 +53,11 @@ function setup() {
 		balls.push(new FireBall(10, random(-30, 100), 10, 2));
 	}
   	player = new Player();
-  	maze = new Maze(22,12);
+  	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
-	book = new Collectible("Delozier's SE Book", 95, -3.5, 30, 10, bookModel);
+	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
+	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
+	dr = new Collectible("Delozier", 10, -2.5, 25, 1.5, drModel);
  	frameRate(60);
   	strokeWeight(2);
 
@@ -102,12 +108,32 @@ function draw() {
       	maze.checkLavaCollision(player);
   	}
 
+	
 	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
 			player.collect(book);
 			book.remove();
 		} else {
+			push();
+			texture(bookTexture);
+			noStroke();
 			book.display();
+			pop();
 		}
+
+		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
+			player.collect(chair);
+			chair.remove();
+		} else {
+			push();
+			texture(bookTexture);
+			chair.display();
+			pop();
+		}
+		push();
+		texture(lava);
+		dr.display();
+		pop();
+
 	
 	
 
@@ -151,7 +177,7 @@ function draw() {
 		showHealth();
 		startShowingHealth = false;
 	}
-	if(frameCount%100 == 1){
+	if(frameCount % 360 == 0){
 		currentBalls++;
 	}
 

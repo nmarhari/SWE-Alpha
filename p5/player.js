@@ -9,16 +9,17 @@ class Player extends RoverCam {
 		this.gameStarted = false;
       	this.sensitivity = 0.002;
       	this.speed = 0.04;
-		    this.health = 100;
+		this.health = 100;
       	this.dead = false;
-		    this.jumps = 1;
-		    this.collectedItems = [];
+		this.jumps = 1;
+		this.collectedItems = [];
 
 		console.log("player health: ", this.health);
     }
     
     controller() { // override
 		if(!this.dead){
+			//console.log('controller');
 			if (player.pointerLock) {
 				this.yaw(movedX * this.sensitivity);   // mouse left/right
 				this.pitch(movedY * this.sensitivity); // mouse up/down
@@ -34,7 +35,7 @@ class Player extends RoverCam {
 
 			if (keyIsDown(87) || keyIsDown(UP_ARROW)){
 				if(keyIsDown(16)){
-					this.moveX(this.speed * 1.1);    // shift w
+					this.moveX(this.speed * 1.6);    // shift w
 				} else {
 					this.moveX(this.speed / 1.5);
 				}
@@ -78,11 +79,12 @@ class Player extends RoverCam {
       	this.position.add(this.velocity);
   
 
-     	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
+     	if (this.grounded && keyPressed && keyCode == 32 && this.jumps > 0) { // space
+			console.log('if this grounded');
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
-        	this.velocity.y -= 1;
-        	this.position.y -= 0.65;
+        	this.velocity.y -= .8;
+        	this.position.y -= 2;
     	}
     }
 
@@ -90,9 +92,9 @@ class Player extends RoverCam {
 		if(this.health == 0){
 			scream.play();
 			this.dead = true;
-			//ulock the pointer here
-			this.pointerLock = false;
+			this.pointerLock = false; //unlock the pointer here
 			deathScreen();
+			currentBalls = 0; // fixes fireballs so there arent mutiple when respawning
 		}
 
 		if(this.health > 0){
