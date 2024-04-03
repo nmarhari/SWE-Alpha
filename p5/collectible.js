@@ -13,6 +13,7 @@ class Collectible{  // abstract class
 			translate(this.position.x, this.position.y, this.position.z);
 			scale(this.size);
             rotateX(PI);
+            rotateY(PI);
             noStroke();
 			model(this.model);
 			pop();

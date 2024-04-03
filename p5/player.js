@@ -3,7 +3,7 @@ class Player extends RoverCam {
       	super();
       	this.dimensions = createVector(1, 3, 1);
       	this.velocity = createVector(0, 0, 0);
-      	this.gravity = createVector(0, 0.03, 0);
+      	this.gravity = createVector(0, 0.035, 0);
       	this.grounded = false;
       	this.pointerLock = false;
 		this.gameStarted = false;
@@ -35,7 +35,7 @@ class Player extends RoverCam {
 
 			if (keyIsDown(87) || keyIsDown(UP_ARROW)){
 				if(keyIsDown(16)){
-					this.moveX(this.speed * 1.6);    // shift w
+					this.moveX(this.speed * 1.35);    // shift w
 				} else {
 					this.moveX(this.speed / 1.5);
 				}
@@ -79,7 +79,7 @@ class Player extends RoverCam {
       	this.position.add(this.velocity);
   
 
-     	if (this.grounded && keyPressed && keyCode == 32 && this.jumps > 0) { // space
+     	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
 			console.log('if this grounded');
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;

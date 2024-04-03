@@ -211,18 +211,21 @@ class Maze {
 				else if(i > 2 && j > 0){this.blocks[i][j].texture = lava;
 					this.blocks[i][j].dimensions.y = 4} 
 					else this.blocks[i][j].fillColor = color(127);
+					if(i > 16 && j < 5){this.blocks[i][j].texture = null;}
 					this.blocks[7][6].texture = null;
+					this.blocks[10][6].texture = null;
+					this.blocks[12][4].texture = null;
+					this.blocks[13][8].texture = null;
 					this.blocks[3][1].texture = null;
 					this.blocks[6][1].texture = null;
 					this.blocks[6][3].texture = null;
 					this.blocks[6][3].dimensions.y = 7;
 					this.blocks[7][6].dimensions.y = 7;
 					this.blocks[3][1].dimensions.y = 5;
-					//this.blocks[3][3].changeHeight(10); 
 		}
 	}
-    //this.blocks[3][3].fillColor = color(127, 63, 63);
-  }
+    new Block(65, -9, 51, 10, 2, 2, null);
+  	}
 
 
   update(fireball) {

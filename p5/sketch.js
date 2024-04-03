@@ -57,7 +57,7 @@ function setup() {
  	maze.setPlayerAtStart(player);
 	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
 	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", 10, -2.5, 25, 1.5, drModel);
+	dr = new Collectible("Delozier", 90, -1.8, 4.5, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
 
@@ -130,12 +130,12 @@ function draw() {
 			pop();
 		}
 		push();
-		texture(lava);
+		normalMaterial();
+		translate(20, -10, 10);
+		plane(50, 50);
 		dr.display();
 		pop();
 
-	
-	
 
 		//word.show(); // 3d text
 
@@ -177,7 +177,7 @@ function draw() {
 		showHealth();
 		startShowingHealth = false;
 	}
-	if(frameCount % 360 == 0){
+	if(frameCount % 600 == 0){
 		currentBalls++;
 	}
 
