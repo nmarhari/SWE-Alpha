@@ -49,17 +49,20 @@ function setup() {
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
-	for (let i = 0; i < numberOfBalls; i++) {
-		balls.push(new FireBall(10, random(-30, 100), 10, 2));
-	}
+
+		for (let i = 0; i < numberOfBalls; i++) {
+			balls.push(new FireBall(10, random(-30, 100), 10, 2));
+		}
   	player = new Player();
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
 	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
 	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", 90, -1.8, 4.5, 1.4, drModel);
+	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
+
+	
 
 	/*
 	  word = new Word3D(
@@ -131,13 +134,12 @@ function draw() {
 		}
 		push();
 		normalMaterial();
-		translate(20, -10, 10);
-		plane(50, 50);
 		dr.display();
 		pop();
 
 
 		//word.show(); // 3d text
+
 
 	maze.update(balls);
 	maze.display();

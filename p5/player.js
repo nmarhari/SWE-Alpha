@@ -67,6 +67,14 @@ class Player extends RoverCam {
     }
     
     update() {
+		if(this.health == 0){
+			scream.play();
+			this.dead = true;
+			this.pointerLock = false; //unlock the pointer here
+			deathScreen();
+			currentBalls = 0; // fixes fireballs so there arent mutiple when respawning
+		}
+		
 		if(this.grounded && frameCount % 60 == 0){
 			this.jumps = 1;
 		}
@@ -89,19 +97,11 @@ class Player extends RoverCam {
     }
 
 	takeHit(){
-		if(this.health == 0){
-			scream.play();
-			this.dead = true;
-			this.pointerLock = false; //unlock the pointer here
-			deathScreen();
-			currentBalls = 0; // fixes fireballs so there arent mutiple when respawning
-		}
-
 		if(this.health > 0){
 			if(!hit.isPlaying()){
 				hit.play();
 			}
-			this.health -= 10;
+			this.health -= 50;
 			console.log("player health: ", this.health);
 		}
 	}

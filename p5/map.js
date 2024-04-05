@@ -211,10 +211,14 @@ class Maze {
 				else if(i > 2 && j > 0){this.blocks[i][j].texture = lava;
 					this.blocks[i][j].dimensions.y = 4} 
 					else this.blocks[i][j].fillColor = color(127);
-					if(i > 16 && j < 5){this.blocks[i][j].texture = null;}
+					if(i > 16 && j < 5 && j != 0 && i != 0 && i != size1-1 && j != size2-1){this.blocks[i][j].texture = null;
+					this.blocks[i][j].dimensions.y = 12;}
 					this.blocks[7][6].texture = null;
 					this.blocks[10][6].texture = null;
-					this.blocks[12][4].texture = null;
+					this.blocks[13][10].texture = null;
+					this.blocks[17][10].texture = null;
+					this.blocks[18][8].texture = null;
+					this.blocks[18][6].texture = null;
 					this.blocks[13][8].texture = null;
 					this.blocks[3][1].texture = null;
 					this.blocks[6][1].texture = null;
@@ -222,6 +226,12 @@ class Maze {
 					this.blocks[6][3].dimensions.y = 7;
 					this.blocks[7][6].dimensions.y = 7;
 					this.blocks[3][1].dimensions.y = 5;
+					this.blocks[10][6].dimensions.y = 8;
+					this.blocks[18][8].dimensions.y = 10;
+					this.blocks[18][6].dimensions.y = 11;
+					this.blocks[13][10].dimensions.y = 10;
+					this.blocks[17][10].dimensions.y = 10;
+					this.blocks[13][8].dimensions.y = 8;
 		}
 	}
     new Block(65, -9, 51, 10, 2, 2, null);
