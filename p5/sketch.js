@@ -132,10 +132,17 @@ function draw() {
 			chair.display();
 			pop();
 		}
-		push();
-		normalMaterial();
-		dr.display();
-		pop();
+
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
+			let result = player.remove(book);
+			result = player.remove(chair);
+		}
+			push();
+			normalMaterial();
+			dr.display();
+			pop();
+
+		
 
 
 		//word.show(); // 3d text

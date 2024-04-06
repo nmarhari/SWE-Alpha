@@ -135,9 +135,9 @@ class Player extends RoverCam {
 		  return true; // Indicate success
 		}
 		return false; // Indicate failure (item not found)
-	  }
+	}
 
-	hasCollected(collectible){ // returns if player has collected said item
+	hasCollected(collectible){ // returns true if player has collected said item
 		return this.collectedItems.includes(collectible); 
 	}
 }
