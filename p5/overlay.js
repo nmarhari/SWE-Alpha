@@ -6,13 +6,14 @@ function initContainerHTML() {
     container.id('container');
 }
 
-let startButton;
+
 let startDiv;
-let startCheck; 
-let startTitle;
 let startText;
-let startClickables;
+let startTitle;
 let startDesc;
+let startClickables;
+let startButton;
+//let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
     player.gameStarted = false;
@@ -58,40 +59,51 @@ function closeStartScreen() {
     //removes all p5 elements associated with start screen
     console.log("clearing start screen...")
     player.gameStarted = true;
+    startDiv.remove();
     startText.remove();
+    startTitle.remove();
+    startDesc.remove();
+    startClickables.remove();
     //startCheck.remove();
     startButton.remove();
-    startDiv.remove();
     
     //indicate that the game has started
     startShowingHealth = true;
 }
 
 
-let deathButton;
 let deathDiv;
-let deathCheck;
-let deathTitle;
-
+let deathBlur;
+let deathText;
+let deathClickables;
+let deathButton;
 function deathScreen() {
     player.gameStarted = false;
     player.pointerLock = false;
     exitPointerLock();
     frameRate(0);
+    startShowingHealth = false;
+    hideHealth();
+
     deathDiv = createDiv();
-    deathDiv.size(windowWidth, windowHeight); 
-    deathDiv.position(0,0);
-    deathDiv.style('background-color', 'black');
-    deathDiv.style('opacity', '0.5');
-    deathTitle = createP('You Died!');
-    deathTitle.position(windowWidth/2/2, 40);
-    deathTitle.style('color', 'white');
-    deathTitle.style('font-size', '42px')
-    deathCheck = createCheckbox('make lava harmless');
-    deathCheck.position(windowWidth/2/2, 200);
-    deathCheck.style('color', 'white')
-    deathButton = createButton('start');
-    deathButton.position(windowWidth/2/2, 250);
+    deathDiv.parent('container');
+    deathDiv.id('deathDiv');
+    
+    deathBlur = createDiv();
+    deathBlur.parent('deathDiv');
+    deathBlur.id('deathBlur');
+
+    deathText = createDiv('You Died!');
+    deathText.parent('deathDiv');
+    deathText.id('deathText');
+    
+    deathClickables = createDiv();
+    deathClickables.parent('deathDiv');
+    deathClickables.id('deathClickables');
+
+    deathButton = createButton('Restart');
+    deathButton.parent('deathClickables');
+    deathButton.id('deathButton');
     deathButton.mouseClicked(respawnPlayer);
 }
 
@@ -107,19 +119,18 @@ function respawnPlayer() {
     frameRate(60);
 
     console.log("clearing death screen...")
-    deathTitle.remove();
-    deathCheck.remove();
-    deathButton.remove();
     deathDiv.remove();
-    death.remove();
-
+    deathBlur.remove();
+    deathText.remove();
+    deathClickables.remove();
+    deathButton.remove();
+    startShowingHealth = true;
 }
 
 
 // on screen health bar
 let healthBarDiv;
 let healthInBar;
-
 function showHealth() {
 
     healthBarDiv = createDiv();
@@ -139,8 +150,10 @@ function showHealth() {
 }
 function updateHealth(hp) {
     // normal javascript because p5 does not have the right function!
-    hb = document.getElementById("healthBarBorder");
-    hb.style.setProperty('--p', hp);
+    if (healthInBar) {
+        hb = document.getElementById("healthBarBorder");
+        hb.style.setProperty('--p', hp);
+    }    
 }
 function hideHealth() {
     healthBarDiv.remove();
