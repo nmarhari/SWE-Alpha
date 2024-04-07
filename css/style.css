@@ -104,6 +104,11 @@ main {
     text-shadow: 4px 4px 8px black;
     box-shadow: 4px 4px 8px black;
 }
+#startButton:hover{
+    border: 3px solid white;
+    padding: 14px 24px;
+    margin: 8px 0px;
+}
 
 #deathDiv {
     color: white;
