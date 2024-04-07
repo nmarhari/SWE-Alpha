@@ -6,6 +6,7 @@ let death;
 let deathVisible = false;
 
 let startShowingHealth = true;
+let startShowInventory = true;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
@@ -141,7 +142,7 @@ function draw() {
 		text('       space : jump', 10, 70);
 		text('       h : help', 10, 80);
 		pop();
-}
+	}
 
 	if (startVisible) {
 		startScreen();
@@ -151,10 +152,16 @@ function draw() {
 		showHealth();
 		startShowingHealth = false;
 	}
+
 	if(frameCount%100 == 1){
 		currentBalls++;
 	}
-
+	
+	//Calls showInventory function once
+	if (startShowInventory) {
+		showInventory();
+		startShowInventory = false;
+	}
 }
 
   

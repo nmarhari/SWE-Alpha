@@ -127,3 +127,23 @@ function hideHealth() {
     healthBarDiv.remove();
     healthInBar.remove();
 }
+
+//On screen inventory slots
+
+let inventoryContainer;
+let inventoryItems;
+
+function showInventory(){
+    inventoryContainer = createDiv();
+    inventoryContainer.id('inventoryContainer');
+    inventoryItems = createDiv();
+    inventoryContainer.style('opacity', '0.3');
+    inventoryItems.id('inventorySlot');
+    inventoryItems.parent('inventoryContainer');
+    inventoryContainer.parent('container');
+    for (let i=0; i < 5; i++) {
+        const itemSlot = createDiv();
+        itemSlot.class('inventorySlot emptySlot');
+        itemSlot.parent('inventoryContainer');
+    }
+}
