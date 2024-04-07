@@ -42,8 +42,6 @@ function closeStartScreen() {
     startCheck.remove();
     startButton.remove();
     startDiv.remove();
-    
-    start.remove();
     //indicate that the game has started
     
 }
@@ -92,8 +90,6 @@ function respawnPlayer() {
     deathCheck.remove();
     deathButton.remove();
     deathDiv.remove();
-    death.remove();
-
 }
 
 
