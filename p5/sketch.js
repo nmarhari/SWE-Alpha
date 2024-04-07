@@ -1,4 +1,5 @@
 //globals
+
 let ballParticles = [];
 let numParticles = 40;
 
@@ -9,6 +10,7 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 let startVisible = true; // renders start screen once
 let deathVisible = false;
 let startShowingHealth = false;
+let startShowInventory = true;
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
@@ -140,7 +142,7 @@ function draw() {
 		text('       space : jump', 10, 70);
 		text('       h : help', 10, 80);
 		pop();
-}
+	}
 
 	if (startVisible) {
 		startScreen();
@@ -150,10 +152,16 @@ function draw() {
 		showHealth();
 		startShowingHealth = false;
 	}
+
 	if(frameCount%100 == 1){
 		currentBalls++;
 	}
-
+	
+	//Calls showInventory function once
+	if (startShowInventory) {
+		showInventory();
+		startShowInventory = false;
+	}
 }
 
   

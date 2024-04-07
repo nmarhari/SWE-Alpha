@@ -229,3 +229,26 @@ Health Bar
         transform: translate(2%, -23%);
     }
   }
+
+  
+  #inventoryContainer {
+    position: absolute; 
+    margin-top: 99vh;
+    width: 600px;
+    height: 90px;
+    background-color: rgb(214, 214, 214);
+    border: 2px solid #000;
+    border-radius: 0px;
+    opacity: 0.35;
+  }
+  
+  .inventorySlot {
+    display: inline-block;
+    width: 80px;
+    height: 60px;
+    margin-top: 1.25vh;
+    border: 3px solid #000;
+    background-color: #686ad8;
+    text-align: center;
+    margin: 15px;
+  }
