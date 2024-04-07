@@ -1,16 +1,18 @@
 //this file contains functions associated with any 2D interface
 
-let startButton;
-let startDiv;
-let startCheck; 
-let startTitle;
-
 let container;
 function initContainerHTML() {
     container = createDiv();
     container.id('container');
 }
 
+let startButton;
+let startDiv;
+let startCheck; 
+let startTitle;
+let startText;
+let startClickables;
+let startDesc;
 function startScreen() {
     //pointer can't be locked until this disappears
     player.gameStarted = false;
@@ -18,34 +20,51 @@ function startScreen() {
     //secondary canvas is created using the createGraphics() function
     //    this function call is located in setup() in sketch.js
     startDiv = createDiv();
-    startDiv.size(windowWidth, windowHeight); 
-    startDiv.position(0,0);
-    startDiv.style('background-color', 'black');
-    startDiv.style('opacity', '0.5');
+    startDiv.parent('container');
+    startDiv.id('startDiv');
+
+    startText = createDiv();
+    startText.parent('startDiv');
+    startText.id('startText');
+
     startTitle = createP('The Floor is Lava');
-    startTitle.position(windowWidth/2/2, 40);
-    startTitle.style('color', 'white');
-    startTitle.style('font-size', '42px')
+    startTitle.parent('startText');
+    startTitle.id('startTitle');
+
+    startDesc = createP('Navigate a changing environment as the floor turns to lava!')
+    startDesc.parent('startText');
+    startDesc.id('startDesc');
+
+    startClickables = createDiv();
+    startClickables.parent('startDiv');
+    startClickables.id('startClickables');
+
+    /*
     startCheck = createCheckbox('make lava harmless');
-    startCheck.position(windowWidth/2/2, 200);
-    startCheck.style('color', 'white')
-    startButton = createButton('start');
-    startButton.position(windowWidth/2/2, 250);
+    startCheck.parent('startClickables');
+    startCheck.id('startCheck');
+    */
+
+    startButton = createButton('Start');
     startButton.mouseClicked(closeStartScreen);
+    startButton.parent('startClickables');
+    startButton.id('startButton');
+    
+    frameRate(0);
 }
 
 function closeStartScreen() {
+    frameRate(60);
     //removes all p5 elements associated with start screen
     console.log("clearing start screen...")
     player.gameStarted = true;
-    startTitle.remove();
-    startCheck.remove();
+    startText.remove();
+    //startCheck.remove();
     startButton.remove();
     startDiv.remove();
     
-    start.remove();
     //indicate that the game has started
-    
+    startShowingHealth = true;
 }
 
 

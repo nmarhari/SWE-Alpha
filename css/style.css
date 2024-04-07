@@ -41,17 +41,71 @@ div {
     justify-content: center;
     align-items: center;
     display: flex;
-    z-index: -1;
+    z-index: 1;
 }
 
 main {
     position: absolute;
+    z-index: -1;
 }
 
 #healthBarBorder {
     margin-top: 85vh;
     --p: 1;
 }
+
+#startDiv {
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2;
+    background-image: url('../assets/Kentpocalypse.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+}
+
+#startText {
+    width: 50%;
+    margin-left: 10vw;
+    margin-top: 10vh;
+    text-align: left;
+}
+
+#startTitle {
+    font-size: 44px;
+    font-family: "VT323", monospace;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px black;
+}
+
+#startDesc {
+    text-shadow: 1px 1px 2px black;
+    margin-top: 1vh;
+    font-family: "VT323", monospace;
+}
+
+#startClickables {
+    width: 50%;
+    margin-top: 75vh;
+}
+
+#startButton {
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px 0px;
+    transition: 1s;
+    background-color: transparent;
+    font-family: "VT323", monospace;
+    text-shadow: 2px 2px 4px black;
+    box-shadow: 2px 2px 4px black;
+
+}
+
 
 /*
 Health Bar
@@ -108,24 +162,24 @@ Health Bar
 
   @keyframes load {
     to {
-      width: var(--width);
+        width: var(--width);
     }
   }
   
   @keyframes glitch {
     0%, 5% {
-      transform: translate(0, 0);
+        transform: translate(0, 0);
     }
     1% {
-      transform: translate(-5%, -10%);
+        transform: translate(-5%, -10%);
     }
     2% {
-      transform: translate(10%, 30%);
+        transform: translate(10%, 30%);
     }
     3%{
-      transform: translate(-43%, 10%);
+        transform: translate(-43%, 10%);
     }
     4% {
-      transform: translate(2%, -23%);
+        transform: translate(2%, -23%);
     }
   }

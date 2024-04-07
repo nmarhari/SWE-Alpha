@@ -1,14 +1,11 @@
 //globals
-let start; //canvas for start screen
-let startVisible = true; // renders start screen once
-
-let death;
-let deathVisible = false;
-
-let startShowingHealth = true;
-
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
+
+// overlay
+let startVisible = true; // renders start screen once
+let deathVisible = false;
+let startShowingHealth = false;
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
@@ -36,8 +33,6 @@ function preload() {
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-  	//start = createGraphics(windowWidth, windowHeight, WEBGL);
-  	//death = createGraphics(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
 	walking = loadSound('assets/walking.mp3');
 	hit = loadSound('assets/hit.wav'); 
@@ -68,6 +63,7 @@ function setup() {
 	*/
 
 	initContainerHTML();
+	// initialize container in html for overlay elements
 }
 
 // viewport resize when window size changes
@@ -75,11 +71,6 @@ window.addEventListener('resize', async function(event){
   await sleep(10); // wait 10 ms for screen to report right value
 
   resizeCanvas(windowWidth, windowHeight); // resizes p5js canvas
-
-  startDiv.size(windowWidth, windowHeight); // resizes start overlay
-  startTitle.position(windowWidth/2/2, 40);
-  startCheck.position(windowWidth/2/2, 200);
-  startButton.position(windowWidth/2/2, 250);
 });
 
 function keyPressed() {
