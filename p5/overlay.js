@@ -89,7 +89,7 @@ function respawnPlayer() {
     deathTitle.remove();
     deathCheck.remove();
     deathButton.remove();
-
+    deathDiv.remove();
 }
 
 
