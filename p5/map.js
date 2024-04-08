@@ -1,6 +1,5 @@
 // Ported to JS from github.com/jrc03c/queasycam/tree/master/examples/MazeRunner
-let lava; 
-
+let lava, meteorite;
 class Block {
   	constructor(x, y, z, w, h, d, t) {
 		this.position = createVector(x, y, z);
@@ -67,6 +66,7 @@ class Block {
 		push();
 		translate(this.position.x, this.position.y, this.position.z);
 		if (this.texture!=null) {
+			noStroke();
 			texture(this.texture);
 			//console.log(this.texture);
 		} else{
@@ -91,10 +91,9 @@ class FireBall {
 			this.position = createVector(x, y, z);
 			this.radius = r;
 			// this.fillColor = color(random(150, 200));
-			this.texture = lava;
+			this.texture = meteorite;
 			this.visited = false;
 			this.blockx = 1000000;
-
 			this.blockz = 1000000;
 		}
 
@@ -148,10 +147,8 @@ class FireBall {
 				}
 			}
 
-		let b = new FireParticle(this.position.x, this.position.y, this.position.z, random(1, 3));
-		ballParticles.push(b);
-		  
-		this.position.y += 1; 
+			let b = new FireParticle(this.position.x, this.position.y, this.position.z, random(1, 3));
+			ballParticles.push(b);
   		}	
 
 		display() {
@@ -193,7 +190,6 @@ class FireBall {
 	}
 
 class Maze {
-
 	constructor(size1, size2) {
 		this.blocks = new Array(size1);
 		this.size1 = size1; 
@@ -224,13 +220,37 @@ class Maze {
     //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     // ];
-    for (let i = 0; i < size1; i++)
-      for (let j = 0; j < size2; j++)
-        if (i==0 || j == 0 || i == size1-1 || j == size2-1) this.blocks[i][j].dimensions.y=20;
-        else if(i%2 && j%2) this.blocks[i][j].texture = lava;
-        else this.blocks[i][j].fillColor = color(127);
-    //this.blocks[3][3].fillColor = color(127, 63, 63);
-  }
+    for (let i = 0; i < size1; i++){
+      	for (let j = 0; j < size2; j++){
+        	if (i==0 || j == 0 || i == size1-1 || j == size2-1) this.blocks[i][j].dimensions.y=20;
+				else if(i > 2 && j > 0){this.blocks[i][j].texture = lava;
+					this.blocks[i][j].dimensions.y = 4} 
+					else this.blocks[i][j].fillColor = color(127);
+					if(i > 16 && j < 5 && j != 0 && i != 0 && i != size1-1 && j != size2-1){this.blocks[i][j].texture = null;
+					this.blocks[i][j].dimensions.y = 12;}
+					this.blocks[7][6].texture = null;
+					this.blocks[10][6].texture = null;
+					this.blocks[13][10].texture = null;
+					this.blocks[17][10].texture = null;
+					this.blocks[18][8].texture = null;
+					this.blocks[18][6].texture = null;
+					this.blocks[13][8].texture = null;
+					this.blocks[3][1].texture = null;
+					this.blocks[6][1].texture = null;
+					this.blocks[6][3].texture = null;
+					this.blocks[6][3].dimensions.y = 7;
+					this.blocks[7][6].dimensions.y = 7;
+					this.blocks[3][1].dimensions.y = 5;
+					this.blocks[10][6].dimensions.y = 8;
+					this.blocks[18][8].dimensions.y = 10;
+					this.blocks[18][6].dimensions.y = 11;
+					this.blocks[13][10].dimensions.y = 10;
+					this.blocks[17][10].dimensions.y = 10;
+					this.blocks[13][8].dimensions.y = 8;
+		}
+	}
+    new Block(65, -9, 51, 10, 2, 2, null);
+  	}
 
 
   update(fireball) {

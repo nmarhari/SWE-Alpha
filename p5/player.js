@@ -3,22 +3,23 @@ class Player extends RoverCam {
       	super();
       	this.dimensions = createVector(1, 3, 1);
       	this.velocity = createVector(0, 0, 0);
-      	this.gravity = createVector(0, 0.03, 0);
+      	this.gravity = createVector(0, 0.035, 0);
       	this.grounded = false;
       	this.pointerLock = false;
 		this.gameStarted = false;
       	this.sensitivity = 0.002;
       	this.speed = 0.04;
-		    this.health = 100;
+		this.health = 100;
       	this.dead = false;
-		    this.jumps = 1;
-		    this.collectedItems = [];
+		this.jumps = 1;
+		this.collectedItems = [];
 
 		console.log("player health: ", this.health);
     }
     
     controller() { // override
 		if(!this.dead){
+			//console.log('controller');
 			if (player.pointerLock) {
 				this.yaw(movedX * this.sensitivity);   // mouse left/right
 				this.pitch(movedY * this.sensitivity); // mouse up/down
@@ -34,7 +35,7 @@ class Player extends RoverCam {
 
 			if (keyIsDown(87) || keyIsDown(UP_ARROW)){
 				if(keyIsDown(16)){
-					this.moveX(this.speed * 1.1);    // shift w
+					this.moveX(this.speed * 1.35);    // shift w
 				} else {
 					this.moveX(this.speed / 1.5);
 				}
@@ -52,10 +53,10 @@ class Player extends RoverCam {
 				}
 			}
 			
-			if (keyIsDown(69)) this.moveZ(0.05); // e
-			else {
+			if (keyIsDown(69)) {
+				this.moveZ(0.05);
 				walking.pause();
-			}
+			} // e
 
 			if(keyIsDown(76)) //printing player position to the console // key is L
 				console.log(this.position.x, this.position.y, this.position.z);
@@ -66,6 +67,14 @@ class Player extends RoverCam {
     }
     
     update() {
+		if(this.health == 0){
+			scream.play();
+			this.dead = true;
+			this.pointerLock = false; //unlock the pointer here
+			deathScreen();
+			currentBalls = 0; // fixes fireballs so there arent mutiple when respawning
+		}
+		
 		if(this.grounded && frameCount % 60 == 0){
 			this.jumps = 1;
 		}
@@ -79,22 +88,15 @@ class Player extends RoverCam {
   
 
      	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
+			console.log('if this grounded');
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
-        	this.velocity.y -= 1;
-        	this.position.y -= 0.65;
+        	this.velocity.y -= .8;
+        	this.position.y -= 2;
     	}
     }
 
 	takeHit(){
-		if(this.health == 0){
-			scream.play();
-			this.dead = true;
-			//ulock the pointer here
-			this.pointerLock = false;
-			deathScreen();
-		}
-
 		if(this.health > 0){
 			if(!hit.isPlaying()){
 				hit.play();
@@ -133,9 +135,9 @@ class Player extends RoverCam {
 		  return true; // Indicate success
 		}
 		return false; // Indicate failure (item not found)
-	  }
+	}
 
-	hasCollected(collectible){ // returns if player has collected said item
+	hasCollected(collectible){ // returns true if player has collected said item
 		return this.collectedItems.includes(collectible); 
 	}
 }
