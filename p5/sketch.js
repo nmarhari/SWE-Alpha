@@ -35,7 +35,7 @@ function preload() {
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lavapixel.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/leather.jpg');
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/chair.obj');
+	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 		
