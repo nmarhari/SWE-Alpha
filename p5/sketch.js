@@ -29,9 +29,11 @@ let currentBalls = 0;
 const balls = [];
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
-	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
+	//lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lava.jpg');
+	//bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
+    lava = loadImage('../assets/lava.jpg');
+	bookModel = loadModel('../assets/book.obj');
 }
 
 function setup() {
