@@ -24,7 +24,7 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
-var player, maze, f, help = false, canvas;
+var player, map, f, help = false, canvas;
 let book, bookModel, OBJarray = []; //have to splice objs from array to remove on screen
 let numberOfBalls = 50; 
 let currentBalls = 0; 
@@ -57,12 +57,12 @@ function setup() {
  	textFont(f);
  	textSize(12);
 
-		for (let i = 0; i < numberOfBalls; i++) {
-			balls.push(new FireBall(10, random(-30, 100), 10, 2));
-		}
+	for (let i = 0; i < numberOfBalls; i++) {
+		balls.push(new FireBall(10, random(-30, 100), 10, 2));
+	}
   	player = new Player();
-  	maze = new Maze(20,12);
- 	maze.setPlayerAtStart(player);
+  	map = new GeneratedMap(10);
+ 	map.setPlayerAtStart(player);
 	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
 	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
@@ -111,7 +111,7 @@ function draw() {
   	background(0, 0, 51);
 
   	if(frameCount % 60 === 0){
-      	maze.checkLavaCollision(player);
+      	map.checkLavaCollision(player, 10);
   	}
 
 	
@@ -151,12 +151,12 @@ function draw() {
 		//word.show(); // 3d text
 
 
-	maze.update(balls);
-	maze.display();
+	map.update(balls, 10);
+	map.display(10);
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(maze, player);
+		balls[i].update(map, player);
 	}
 
 	//drawAxes();
