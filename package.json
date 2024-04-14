@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "chai": "^5.1.0",
+    "express": "^4.19.2",
+    "mocha": "10.4.0",
+    "selenium-webdriver": "^4.19.0"
+  },
+  "type": "module"
+}
