@@ -237,9 +237,9 @@ class GeneratedMap {
 	
 	constructor(size) {
 		this.blocks = new Array(size);
-		for (let x = 0; x < widthOfMap; x+= size){
+		for (let x = 0; x < widthOfMap; x++){
 			this.blocks[x] = new Array(size);
-			for (let z = 0; z < depth; z+=size) {
+			for (let z = 0; z < depth; z++) {
 				let y = floor(noise(x * resolutionNum1, z * resolutionNum1) * terrainRange);
 					console.log(y);
 					push();
@@ -256,16 +256,16 @@ class GeneratedMap {
 	}
 
 	update(size) {
-		for (let x = 0; x < this.blocks.length; x+=size) {
-		  for (let z = 0; z < this.blocks[x].length; z+=size) {
+		for (let x = 0; x < this.blocks.length; x++) {
+		  for (let z = 0; z < this.blocks[x].length; z++) {
 			this.blocks[x][z].update();
 		  }
 		}
 	}
 
 	display(size) {
-		for (let x = 0; x < this.blocks.length; x+=size) {
-			for (let z = 0; z < this.blocks[x].length; z+=size) {
+		for (let x = 0; x < this.blocks.length; x++) {
+			for (let z = 0; z < this.blocks[x].length; z++) {
 				this.blocks[x][z].display();
 			}
 		}
@@ -276,8 +276,8 @@ class GeneratedMap {
 	}
 
 	checkLavaCollision(player, size) {
-		for (let x = 0; x < this.blocks.length; x+=size) {
-			  for (let z = 0; z < this.blocks[x].length; z+=size) {
+		for (let x = 0; x < this.blocks.length; x++) {
+			  for (let z = 0; z < this.blocks[x].length; z++) {
 				let block = this.blocks[x][z];
 				if (this.blocks[x][z].texture === lava) {
 					let playerLeft = player.position.x - player.dimensions.x / 2;
