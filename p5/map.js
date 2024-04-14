@@ -327,8 +327,8 @@ class Maze {
 //////////////////////
 let resolutionNum1 = 0.005;		// how 'crazy' the map generation gets
 let terrainRange = 100;		// how much the y level will vary
-let widthOfMap = 12 * 5;		// *5 for width and depth as that is the size of the blocks
-let depth = 12 * 5;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
+let widthOfMap = 24 * 10;		// *5 for width and depth as that is the size of the blocks
+let depth = 24 * 10;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
 //let mapLava = 6;
 class GeneratedMap {
 	
@@ -342,9 +342,9 @@ class GeneratedMap {
 					push();
 					translate(x,0,z);
 					if (y > 60) { 
-						this.blocks[x][z] = new Block(x, 60, z, 1, 1, 1, lava);
+						this.blocks[x][z] = new Block(x, 60, z, size, size, size, lava);
 					} else {
-						this.blocks[x][z] = new Block(x, y, z, 1, 1, 1, null);
+						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
 					}
 					pop();
 			}
@@ -360,7 +360,7 @@ class GeneratedMap {
 		}
 		for (let i = 0; i < this.blocks.length; i+=size) {
 		  for (let j = 0; j < this.blocks[i].length; j+=size) {
-			for(let k = 0; k<fireball.length; k++l){
+			for(let k = 0; k<fireball.length; k++){
 				if(fireball[k].blockx == i && fireball[k].blockz == j)
 					this.blocks[i][j].update('red');
 			}
