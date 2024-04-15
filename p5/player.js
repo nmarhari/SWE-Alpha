@@ -32,7 +32,9 @@ class Player extends RoverCam {
 			}
 			if (keyIsDown(87) || keyIsDown(UP_ARROW)) this.moveX(this.speed);    // w
 			if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) this.moveX(-this.speed); // s
-			if (keyIsDown(69)) this.moveZ(0.05); // e
+			if (keyIsDown(69)) {this.moveZ(0.05); console.log(this.position.x, this.position.z); console.log('array pos' , this.playerArrayPosition(this.position.x, this.position.z, 1));
+
+			} // e
 		}
     }
     
@@ -60,5 +62,14 @@ class Player extends RoverCam {
 			deathScreen();
 		}
 
+	}
+
+	playerArrayPosition(playerX, playerZ, blockSize) {
+		// Calculate the array indices based on player coordinates and block size
+		let arrayX = Math.floor(playerX / blockSize);
+		let arrayZ = Math.floor(playerZ / blockSize);
+		if(arrayX < 0) arrayZ = 0;
+		if(arrayZ < 0) arrayZ = 0;
+		return { x: arrayX, z: arrayZ };
 	}
 }

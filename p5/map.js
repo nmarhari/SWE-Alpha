@@ -228,9 +228,9 @@ class FireBall {
   }
 }*/
 
-let resolutionNum1 = 0.005;		// how 'crazy' the map generation gets
+let resolutionNum1 = 0.01;		// how 'crazy' the map generation gets
 let terrainRange = 100;		// how much the y level will vary
-let widthOfMap = 50;		// *5 for width and depth as that is the size of the blocks
+let widthOfMap = 70;		// *5 for width and depth as that is the size of the blocks
 let depth = 50;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
 //let mapLava = 6;
 class GeneratedMap {
@@ -241,7 +241,7 @@ class GeneratedMap {
 			this.blocks[x] = new Array(size);
 			for (let z = 0; z < depth; z++) {
 				let y = floor(noise(x * resolutionNum1, z * resolutionNum1) * terrainRange);
-					console.log(y);
+					//console.log(y);
 					push();
 					translate(x,0,z);
 					if (y > 60) { 
@@ -255,13 +255,25 @@ class GeneratedMap {
 		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
 	}
 
-	update(size) {
-		for (let x = 0; x < this.blocks.length; x++) {
-		  for (let z = 0; z < this.blocks[x].length; z++) {
-			this.blocks[x][z].update();
-		  }
+	update(player, size) {
+		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
+		let radius = 1; // Assuming a 3x3 radius
+	
+		// Calculate loop bounds
+		let startX = Math.max(0, playerPos.x - radius);
+		let endX = Math.min(this.blocks.length - 1, playerPos.x + radius);
+		let startZ = Math.max(0, playerPos.z - radius);
+		let endZ = Math.min(this.blocks[startX].length - 1, playerPos.z + radius);
+	
+		// Iterate over the blocks within the radius
+		for (let x = startX; x <= endX; x++) {
+			for (let z = startZ; z <= endZ; z++) {
+				// Update the block if it's within the bounds
+				this.blocks[x][z].update();
+			}
 		}
 	}
+	
 
 	display(size) {
 		for (let x = 0; x < this.blocks.length; x++) {
@@ -276,8 +288,18 @@ class GeneratedMap {
 	}
 
 	checkLavaCollision(player, size) {
-		for (let x = 0; x < this.blocks.length; x++) {
-			  for (let z = 0; z < this.blocks[x].length; z++) {
+		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
+		let radius = 1; // Assuming a 3x3 radius
+	
+		// Calculate loop bounds
+		let startX = Math.max(0, playerPos.x - radius);
+		let endX = Math.min(this.blocks.length - 1, playerPos.x + radius);
+		let startZ = Math.max(0, playerPos.z - radius);
+		let endZ = Math.min(this.blocks[startX].length - 1, playerPos.z + radius);
+	
+		// Iterate over the blocks within the radius
+		for (let x = startX; x <= endX; x++) {
+			for (let z = startZ; z <= endZ; z++) {
 				let block = this.blocks[x][z];
 				if (this.blocks[x][z].texture === lava) {
 					let playerLeft = player.position.x - player.dimensions.x / 2;

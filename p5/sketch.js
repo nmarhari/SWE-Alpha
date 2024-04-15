@@ -71,13 +71,13 @@ function draw() {
 	frameRate(60);
   	background(0, 0, 51);
 
-  	if(frameCount % 30 === 0){
+  	if(frameCount % 60 === 0){
       	map.checkLavaCollision(player, 1);
 		
   	}
 
-
-	map.update(1);
+	noStroke();
+	map.update(player, 1);
 	//maze.display();
 	map.display(1);
 	player.update();
