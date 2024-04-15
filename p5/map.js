@@ -59,7 +59,6 @@ class Block {
 				}
 		}
 		if(reddish == 'red') this.fillColor = 'red'; 
-		else this.fillColor = color(200)
     }
 
   	display() {
@@ -105,18 +104,10 @@ class FireBall {
 			if (distance < threshold) {
 				if(frameCount % 15 == 0)
 					this.checkCollision(player);
-				/*
-				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
-	
-				setTimeout(function() {
-					para.style("display", "none");
-				}, 2000);
-				*/
 			}
 			this.position.y += 1; 
 
-			if(this.position.y>10) {
+			if(this.position.y > 10) {
 				this.position.y = -100;
 
 				//this.position.x = random(10,100);
@@ -204,7 +195,7 @@ class Maze {
 		  }
 		}
 
-    this.start = this.blocks[0][0];
+    this.start = this.blocks[1][2];
     //this.blocks[1][1].fillColor = color(63, 127, 63);
     // var m = [
     //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
