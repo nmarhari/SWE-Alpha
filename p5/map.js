@@ -204,7 +204,7 @@ class Maze {
 		  }
 		}
 
-    this.start = this.blocks[1][2];
+    this.start = this.blocks[0][0];
     //this.blocks[1][1].fillColor = color(63, 127, 63);
     // var m = [
     //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -249,7 +249,6 @@ class Maze {
 					this.blocks[13][8].dimensions.y = 8;
 		}
 	}
-    new Block(65, -9, 51, 10, 2, 2, null);
   	}
 
 

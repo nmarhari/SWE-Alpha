@@ -141,4 +141,13 @@ class Player extends RoverCam {
 	hasCollected(collectible){ // returns true if player has collected said item
 		return this.collectedItems.includes(collectible); 
 	}
+
+	playerArrayPosition(playerX, playerZ, blockSize) {
+		// Calculate the array indices based on player coordinates and block size
+		let arrayX = Math.floor(playerX / blockSize);
+		let arrayZ = Math.floor(playerZ / blockSize);
+		if(arrayX < 0) arrayZ = 0;
+		if(arrayZ < 0) arrayZ = 0;
+		return { x: arrayX, z: arrayZ };
+	}
 }
