@@ -19,77 +19,50 @@ def step_impl(context):
 
 @when(u'the user is pressing up arrow key 4 times then right arrow key 42 times')
 def step_impl(context):
-    context.browser.execute_script("console.log('appears: '+chair.draw)")
-    ActionChains(context.browser)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_up(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_up(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_up(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_down(Keys.ARROW_UP)\
-        .key_up(Keys.ARROW_UP)\
-        .perform()
+    context.browser.execute_script("console.log('a: '+chair.draw)")
     time.sleep(5)
+    log = context.browser.get_log("browser")
+    assert("t" in log[-1]['message'][log[-1]['message'].find("a:"):log[-1]['message'].find("a:")+6][-3:-1])
+
+    ActionChains(context.browser)\
+        .key_down(Keys.ARROW_UP)\
+        .perform()
+
+    time.sleep(0.28)
+    
+    ActionChains(context.browser)\
+        .key_up(Keys.ARROW_UP)\
+        .perform()
+
     ActionChains(context.browser)\
         .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
-        .key_down(Keys.ARROW_RIGHT)\
         .perform()
-    time.sleep(10)
+
+    time.sleep(5)
+
+    ActionChains(context.browser)\
+        .key_up(Keys.ARROW_RIGHT)\
+        .perform()
+
+    ActionChains(context.browser)\
+        .key_down(Keys.ARROW_UP)\
+        .perform()
+    
 
 
 @then(u'the chair disappears')
 def step_impl(context):
-    context.browser.execute_script("console.log('appears: '+chair.draw)")
+    time.sleep(5)
+    context.browser.execute_script("console.log('b: '+chair.draw)")
     time.sleep(5)
     #f = open('output.txt', "w")
     #for log in context.browser.get_log("browser"):
     
         #f.write(log['message'][log['message'].find("x:"):log['message'].find("x:")+6][-3:-1])
     #parses the console for a the message executed above and checkes the the x value has changed
-    # log = context.browser.get_log("browser")
-    # assert(int(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+6][-3:-1]) > 5)
+    log = context.browser.get_log("browser")
+    print(log)
+    assert("f" in log[4]['message'][log[4]['message'].find("b:"):log[4]['message'].find("b:")+6][-3:-1])
     
     
 
