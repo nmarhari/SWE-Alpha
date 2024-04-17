@@ -37,4 +37,3 @@ def step_impl(context):
     assert(int(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+6][-3:-1]) > 5)
     
     
-
