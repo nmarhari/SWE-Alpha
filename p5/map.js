@@ -325,7 +325,7 @@ class Maze {
 
 
 //////////////////////
-let resolutionNum1 = 0.005;		// how 'crazy' the map generation gets
+let resolutionNum1 = 0.01;		// how 'crazy' the map generation gets
 let terrainRange = 100;		// how much the y level will vary
 let widthOfMap = 24 * 10;		// *5 for width and depth as that is the size of the blocks
 let depth = 24 * 10;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
@@ -338,35 +338,49 @@ class GeneratedMap {
 			this.blocks[x] = new Array(size);
 			for (let z = 0; z < depth; z+=size) {
 				let y = floor(noise(x * resolutionNum1, z * resolutionNum1) * terrainRange);
-					console.log(y);
+					//console.log(y);
 					push();
 					translate(x,0,z);
 					if (y > 60) { 
 						this.blocks[x][z] = new Block(x, 60, z, size, size, size, lava);
+						//console.log(x, z)
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
+						//console.log(x, z)
 					}
 					pop();
 			}
 		}
-		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
+		this.start = this.blocks[0][0];
 	}
 
-	update(fireball, size) {
-		for (let i = 0; i < this.blocks.length; i+=size) {
-			for (let j = 0; j < this.blocks[i].length; j+=size) {
-				this.blocks[i][j].update('none');
+	update(fireball, player, size) {
+		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
+		let radius = 20; // Assuming a 3x3 radius
+	
+		let startX = Math.max(0, playerPos.x - radius);
+		let endX = Math.min(this.blocks.length - size, playerPos.x + radius); // Adjusting endX to stay within array bounds
+		let startZ = Math.max(0, playerPos.z - radius);
+		let endZ = Math.min(this.blocks[startX].length - size, playerPos.z + radius); // Adjusting endZ to stay within array bounds
+	
+		for (let x = startX; x <= endX; x += size) { // Increment by size
+			for (let z = startZ; z <= endZ; z += size) { // Increment by size
+				// Update the block if it's within the bounds
+				//console.log(x, z)
+				this.blocks[x][z].update('none');
 			}
 		}
-		for (let i = 0; i < this.blocks.length; i+=size) {
-		  for (let j = 0; j < this.blocks[i].length; j+=size) {
-			for(let k = 0; k<fireball.length; k++){
-				if(fireball[k].blockx == i && fireball[k].blockz == j)
-					this.blocks[i][j].update('red');
+	
+		for (let i = 0; i < this.blocks.length; i += size) {
+			for (let j = 0; j < this.blocks[i].length; j += size) {
+				for (let k = 0; k < fireball.length; k++) {
+					if (fireball[k].blockx == i && fireball[k].blockz == j)
+						this.blocks[i][j].update('red');
+				}
 			}
-		  }
 		}
-	  }
+	}
+	
 
 	display(size) {
 		for (let x = 0; x < this.blocks.length; x+=size) {
@@ -421,3 +435,4 @@ class GeneratedMap {
 	  }
   
 }
+

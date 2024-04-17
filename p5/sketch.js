@@ -151,7 +151,7 @@ function draw() {
 		//word.show(); // 3d text
 
 
-	map.update(balls, 10);
+	map.update(balls, player, 10);
 	map.display(10);
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {

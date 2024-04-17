@@ -1,9 +1,9 @@
 class Player extends RoverCam {
     constructor() {
       	super();
-      	this.dimensions = createVector(1, 3, 1);
+      	this.dimensions = createVector(1, 10, 1);
       	this.velocity = createVector(0, 0, 0);
-      	this.gravity = createVector(0, 0.035, 0);
+      	this.gravity = createVector(0, 0.05, 0);
       	this.grounded = false;
       	this.pointerLock = false;
 		this.gameStarted = false;
@@ -58,8 +58,10 @@ class Player extends RoverCam {
 				walking.pause();
 			} // e
 
-			if(keyIsDown(76)) //printing player position to the console // key is L
-				console.log(this.position.x, this.position.y, this.position.z);
+			if(keyIsDown(76)){ //printing player position to the console // key is L
+				//console.log(this.position.x, this.position.y, this.position.z);
+				console.log(this.playerArrayPosition(this.position.x, this.position.z, 10))
+			}
 		}
 		if (keyPressed(ESCAPE)) this.pointerLock = false;
 		// unlock pointer if ESC is pressed
@@ -91,8 +93,8 @@ class Player extends RoverCam {
 			console.log('if this grounded');
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
-        	this.velocity.y -= .8;
-        	this.position.y -= 2;
+        	this.velocity.y -= 2.5;
+        	this.position.y -= 3;
     	}
     }
 
@@ -139,5 +141,16 @@ class Player extends RoverCam {
 
 	hasCollected(collectible){ // returns true if player has collected said item
 		return this.collectedItems.includes(collectible); 
+	}
+
+	playerArrayPosition(playerX, playerZ, blockSize) {
+		// Calculate the array indices based on player coordinates and block size
+		let arrayX = Math.floor(playerX / blockSize);
+		let arrayZ = Math.floor(playerZ / blockSize);
+		if(arrayX < 0) arrayX = 0;
+		if(arrayZ < 0) arrayZ = 0;
+		arrayX *= 10;
+		arrayZ *= 10;
+		return { x: arrayX, z: arrayZ };
 	}
 }
