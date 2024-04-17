@@ -59,7 +59,7 @@ main {
     height: 100vh;
     width: 100vw;
     z-index: 2;
-    background-image: url('https://nmarhari.github.io/SWE-Alpha/assets/Kentpocalypse.png');
+    background-image: url('../assets/Kentpocalypse.png');
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
