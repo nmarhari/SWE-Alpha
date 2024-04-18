@@ -58,8 +58,8 @@ class Block {
 					}
 				}
 		}
-		if(reddish == 'red') this.fillColor = 'red' 
-		else (this.fillColor = this.fillColor);
+		if(reddish == 'red') this.fillColor = 'red' // wait 5 seconds then fill color
+		else (this.fillColor = color(random(150, 200))); // need to implement
     }
 
   	display() {
