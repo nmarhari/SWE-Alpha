@@ -24,6 +24,10 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
+function playTheme(){
+	theme.loop();
+}
+
 var player, maze, f, help = false, canvas;
 let book, bookModel, OBJarray = [], skybox, theme; //have to splice objs from array to remove on screen
 let numberOfBalls = 50; 
@@ -45,7 +49,7 @@ function preload() {
 	lava.loop();
 	lava.hide(); */ 
 	skybox = loadImage('../assets/sky.jpg');
-	theme = loadSound('../assets/Theme Song.mp3');
+	theme = loadSound('../assets/Theme_Song.mp3');
 }
 
 function setup() {
@@ -201,6 +205,7 @@ function draw() {
 
 	if (startVisible) {
 		startScreen();
+		playTheme();
 		startVisible = false; // render only once
 	}
 	if (startShowingHealth) {

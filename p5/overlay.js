@@ -50,9 +50,7 @@ function startScreen() {
     startButton.mouseClicked(closeStartScreen);
     startButton.parent('startClickables');
     startButton.id('startButton');
-    
     frameRate(0);
-    if(!theme.isPlaying()) {theme.play();}
 }
 
 function closeStartScreen() {
