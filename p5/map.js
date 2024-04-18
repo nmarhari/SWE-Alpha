@@ -58,7 +58,8 @@ class Block {
 					}
 				}
 		}
-		if(reddish == 'red') this.fillColor = 'red'; 
+		if(reddish == 'red') this.fillColor = 'red' 
+		else (this.fillColor = this.fillColor);
     }
 
   	display() {

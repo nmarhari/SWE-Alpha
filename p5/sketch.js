@@ -76,14 +76,13 @@ function setup() {
 	  word = new Word3D(
 		"Kent Touch This",       // The actual character that you want to draw (anything that can be passed into "text()")
 		1.5,             // How thick the 3D rendered letter is (i.e. how many cube pixels of size "size" it is on z-axis)  
-		windowWidth/2000,     // The size of a unit "box()" making up part of the letter  
+		windowWidth/3000,     // The size of a unit "box()" making up part of the letter  
 		35,            // The size of the canvas it renders the letter on (higher is more detailed, 30-40 is a good range)  
 		true,          // [OPTIONAL, default = true] Gives the bevelled, embossed 3D look (as seen in screenshot)  
 		"Arial",     // [OPTIONAL, default = "Georgia"] Gives the font uses, can be any default ones or anything added  
 		BOLD           // [OPTIONAL, default = BOLD] Gives the chosen style out of BOLD, NORMAL, ITALIC  
 	  );
 	
-	  textureWrap(CLAMP);
 	initContainerHTML();
 	// initialize container in html for overlay elements
 }
@@ -113,13 +112,14 @@ function draw() {
 
 	push();
 	rotateY(-HALF_PI)
-	translate(0, -30, -50)
+	translate(45, -30, -175)
 	normalMaterial();
 	word.show()
 	pop()
 
 	push();
 		noStroke();
+		textureWrap(CLAMP);
 		texture(skybox);
 		translate(50, 0, 100);
 		box(500);
