@@ -25,7 +25,7 @@ function onPointerlockChange() {
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 var player, maze, f, help = false, canvas;
-let book, bookModel, OBJarray = [], skybox; //have to splice objs from array to remove on screen
+let book, bookModel, OBJarray = [], skybox, theme; //have to splice objs from array to remove on screen
 let numberOfBalls = 50; 
 let currentBalls = 0; 
 const balls = [];
@@ -45,7 +45,7 @@ function preload() {
 	lava.loop();
 	lava.hide(); */ 
 	skybox = loadImage('../assets/sky.jpg');
-
+	theme = loadSound('../assets/Theme Song.mp3');
 }
 
 function setup() {
@@ -54,6 +54,7 @@ function setup() {
 	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/hit.wav'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
+	//theme.loop();
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);

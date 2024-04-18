@@ -52,6 +52,7 @@ function startScreen() {
     startButton.id('startButton');
     
     frameRate(0);
+    if(!theme.isPlaying()) {theme.play();}
 }
 
 function closeStartScreen() {
@@ -66,6 +67,7 @@ function closeStartScreen() {
     startClickables.remove();
     //startCheck.remove();
     startButton.remove();
+    theme.pause();
     
     //indicate that the game has started
     startShowingHealth = true;
