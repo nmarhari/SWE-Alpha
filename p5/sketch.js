@@ -25,7 +25,7 @@ function onPointerlockChange() {
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 var player, maze, f, help = false, canvas;
-let book, bookModel, OBJarray = []; //have to splice objs from array to remove on screen
+let book, bookModel, OBJarray = [], skybox; //have to splice objs from array to remove on screen
 let numberOfBalls = 50; 
 let currentBalls = 0; 
 const balls = [];
@@ -44,6 +44,7 @@ function preload() {
 	//lava.elt.muted = true;
 	lava.loop();
 	lava.hide(); */ 
+	skybox = loadImage('../assets/sky.jpg');
 
 }
 
@@ -71,9 +72,9 @@ function setup() {
 
 	
 
-	/*
+	
 	  word = new Word3D(
-		"P5.3D",       // The actual character that you want to draw (anything that can be passed into "text()")
+		"Kent Touch This",       // The actual character that you want to draw (anything that can be passed into "text()")
 		1.5,             // How thick the 3D rendered letter is (i.e. how many cube pixels of size "size" it is on z-axis)  
 		windowWidth/2000,     // The size of a unit "box()" making up part of the letter  
 		35,            // The size of the canvas it renders the letter on (higher is more detailed, 30-40 is a good range)  
@@ -81,8 +82,8 @@ function setup() {
 		"Arial",     // [OPTIONAL, default = "Georgia"] Gives the font uses, can be any default ones or anything added  
 		BOLD           // [OPTIONAL, default = BOLD] Gives the chosen style out of BOLD, NORMAL, ITALIC  
 	  );
-	*/
-
+	
+	  textureWrap(CLAMP);
 	initContainerHTML();
 	// initialize container in html for overlay elements
 }
@@ -108,7 +109,21 @@ function keyPressed() {
 
 function draw() {
 	frameRate(60);
-  	background(0, 0, 51);
+  	background(0,0,51);
+
+	push();
+	rotateY(-HALF_PI)
+	translate(0, -30, -50)
+	normalMaterial();
+	word.show()
+	pop()
+
+	push();
+		noStroke();
+		texture(skybox);
+		translate(50, 0, 100);
+		box(500);
+  	pop();
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
