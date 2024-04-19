@@ -38,7 +38,8 @@ function preload() {
 	meteorite = loadImage('../assets/textures/meteorite.jpg');
 	bookTexture = loadImage('../assets/textures/leather.jpg');
 	wordtexture = loadImage('../assets/textures/molten.jpg');
-	rock = loadImage('../assets/textures/metal.jpg');
+	rock = loadImage('../assets/textures/rock.jpg');
+	metal = loadImage('../assets/textures/metal.jpg');
 	bookModel = loadModel('../assets/book.obj');
 	chairModel = loadModel('../assets/Chair.obj');
 	drModel = loadModel('../assets/Daven/Daven.obj');

@@ -202,8 +202,8 @@ class Maze {
         	if (i==0 || j == 0 || i == size1-1 || j == size2-1) this.blocks[i][j].dimensions.y=20;
 				else if(i > 2 && j > 0){this.blocks[i][j].texture = lava;
 					this.blocks[i][j].dimensions.y = 4} 
-					else this.blocks[i][j].texture = rock;
-					if(i > 16 && j < 5 && j != 0 && i != 0 && i != size1-1 && j != size2-1){this.blocks[i][j].texture = rock;
+					else this.blocks[i][j].texture = metal;
+					if(i > 16 && j < 5 && j != 0 && i != 0 && i != size1-1 && j != size2-1){this.blocks[i][j].texture = metal;
 					this.blocks[i][j].dimensions.y = 12;}
 					this.blocks[7][6].texture = rock;
 					this.blocks[10][6].texture = rock;
@@ -212,9 +212,10 @@ class Maze {
 					this.blocks[18][8].texture = rock;
 					this.blocks[18][6].texture = rock;
 					this.blocks[13][8].texture = rock;
-					this.blocks[3][1].texture = rock;
+					this.blocks[3][1].texture = metal;
 					this.blocks[6][1].texture = rock;
 					this.blocks[6][3].texture = rock;
+					this.blocks[6][1].dimensions.y = 6
 					this.blocks[6][3].dimensions.y = 7;
 					this.blocks[7][6].dimensions.y = 7;
 					this.blocks[3][1].dimensions.y = 5;
