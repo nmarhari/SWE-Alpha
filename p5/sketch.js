@@ -68,7 +68,7 @@ function setup() {
 	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
 	hit = loadSound('../assets/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
-	//theme.loop();
+
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
@@ -212,7 +212,7 @@ function draw() {
 
 	if (startVisible) {
 		startScreen();
-		theme.play();
+		theme.loop();
 		startVisible = false; // render only once
 	}
 
