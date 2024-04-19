@@ -10,7 +10,6 @@ class Block {
 	}
 
  	update(reddish) {
-
 		let playerLeft = player.position.x - player.dimensions.x / 2;
 		let playerRight = player.position.x + player.dimensions.x / 2;
 		let playerTop = player.position.y - player.dimensions.y / 2;
@@ -58,8 +57,8 @@ class Block {
 					}
 				}
 		}
-		if(reddish == 'red') this.fillColor = 'red'; // wait 5 seconds then fill color
-		else (this.fillColor = color(200)); // need to implement
+		if(reddish == 'red') this.fillColor = 'red'; 
+		else this.fillColor = color(200)
     }
 
   	display() {
@@ -105,10 +104,18 @@ class FireBall {
 			if (distance < threshold) {
 				if(frameCount % 15 == 0)
 					this.checkCollision(player);
+				/*
+				let para = createP("FIREBALL INCOMING!!");
+				para.class("fireball-notification");
+	
+				setTimeout(function() {
+					para.style("display", "none");
+				}, 2000);
+				*/
 			}
 			this.position.y += 1; 
 
-			if(this.position.y > 10) {
+			if(this.position.y>10) {
 				this.position.y = -100;
 
 				//this.position.x = random(10,100);
@@ -126,7 +133,6 @@ class FireBall {
 				this.position.x = this.blockx*5
 				this.position.z = this.blockz*5  
 			}
-
 
 
 			for(let i = ballParticles.length - 1; i>= 0; i--){
@@ -196,7 +202,22 @@ class Maze {
 		  }
 		}
 
-    this.start = this.blocks[1][5];
+    this.start = this.blocks[1][2];
+    //this.blocks[1][1].fillColor = color(63, 127, 63);
+    // var m = [
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    // ];
     for (let i = 0; i < size1; i++){
       	for (let j = 0; j < size2; j++){
         	if (i==0 || j == 0 || i == size1-1 || j == size2-1) this.blocks[i][j].dimensions.y=20;
@@ -215,7 +236,7 @@ class Maze {
 					this.blocks[3][1].texture = metal;
 					this.blocks[6][1].texture = rock;
 					this.blocks[6][3].texture = rock;
-					this.blocks[6][1].dimensions.y = 6
+					this.blocks[6][1].dimensions.y = 6;
 					this.blocks[6][3].dimensions.y = 7;
 					this.blocks[7][6].dimensions.y = 7;
 					this.blocks[3][1].dimensions.y = 5;
@@ -227,6 +248,7 @@ class Maze {
 					this.blocks[13][8].dimensions.y = 8;
 		}
 	}
+    new Block(65, -9, 51, 10, 2, 2, null);
   	}
 
 
@@ -298,3 +320,118 @@ class Maze {
 	//console.log("false");
   }
 }
+
+
+
+//////////////////////
+let resolutionNum1 = 0.01;		// how 'crazy' the map generation gets
+let terrainRange = 100;		// how much the y level will vary
+let widthOfMap = 24 * 10;		// *5 for width and depth as that is the size of the blocks
+let depth = 24 * 10;			// ^ better to have it as a multiple of 10 so that it can be divisible easily
+//let mapLava = 6;
+class GeneratedMap {
+	
+	constructor(size) {
+		this.blocks = new Array(size);
+		for (let x = 0; x < widthOfMap; x+= size){
+			this.blocks[x] = new Array(size);
+			for (let z = 0; z < depth; z+=size) {
+				let y = floor(noise(x * resolutionNum1, z * resolutionNum1) * terrainRange);
+					//console.log(y);
+					push();
+					translate(x,0,z);
+					if (y > 60) { 
+						this.blocks[x][z] = new Block(x, 60, z, size, size, size, lava);
+						//console.log(x, z)
+					} else {
+						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
+						//console.log(x, z)
+					}
+					pop();
+			}
+		}
+		this.start = this.blocks[0][0];
+	}
+
+	update(fireball, player, size) {
+		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
+		let radius = 20; // Assuming a 3x3 radius
+	
+		let startX = Math.max(0, playerPos.x - radius);
+		let endX = Math.min(this.blocks.length - size, playerPos.x + radius); // Adjusting endX to stay within array bounds
+		let startZ = Math.max(0, playerPos.z - radius);
+		let endZ = Math.min(this.blocks[startX].length - size, playerPos.z + radius); // Adjusting endZ to stay within array bounds
+	
+		for (let x = startX; x <= endX; x += size) { // Increment by size
+			for (let z = startZ; z <= endZ; z += size) { // Increment by size
+				// Update the block if it's within the bounds
+				//console.log(x, z)
+				this.blocks[x][z].update('none');
+			}
+		}
+	
+		for (let i = 0; i < this.blocks.length; i += size) {
+			for (let j = 0; j < this.blocks[i].length; j += size) {
+				for (let k = 0; k < fireball.length; k++) {
+					if (fireball[k].blockx == i && fireball[k].blockz == j)
+						this.blocks[i][j].update('red');
+				}
+			}
+		}
+	}
+	
+
+	display(size) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				this.blocks[x][z].display();
+			}
+		}
+	}
+  
+	setPlayerAtStart(player) {
+	  player.position = p5.Vector.add(this.start.position, createVector(0, -15, 0));
+	}
+
+	checkLavaCollision(player, size) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			  for (let z = 0; z < this.blocks[x].length; z+=size) {
+				let block = this.blocks[x][z];
+				if (this.blocks[x][z].texture === lava) {
+					let playerLeft = player.position.x - player.dimensions.x / 2;
+					let playerRight = player.position.x + player.dimensions.x / 2;
+					let playerTop = player.position.y - player.dimensions.y / 2;
+					let playerBottom = player.position.y + player.dimensions.y / 2;
+					let playerFront = player.position.z - player.dimensions.z / 2;
+					let playerBack = player.position.z + player.dimensions.z / 2;
+	
+					let blockLeft = block.position.x - block.dimensions.x / 2;
+					let blockRight = block.position.x + block.dimensions.x / 2;
+					let blockTop = block.position.y - block.dimensions.y / 2;
+					let blockBottom = block.position.y + block.dimensions.y / 2;
+					let blockFront = block.position.z - block.dimensions.z / 2;
+					let blockBack = block.position.z + block.dimensions.z / 2;
+				  // Assuming the player has a radius, you need to adjust the collision detection
+				  if (
+						playerBottom >= blockTop &&
+						playerRight >= blockLeft &&
+						playerLeft <= blockRight &&
+						playerBack >= blockFront &&
+						playerFront <= blockBack &&
+						playerTop <= blockBottom
+					) {
+						// Collision detected with lava tile
+						// Handle collision here, e.g., reduce player health
+							//return true; // Collision detected
+							//console.log("true");
+							player.takeHit();
+					  }
+				}
+			  }
+		}
+		//return false; // No collision detected
+		//console.log("false");
+	  }
+  
+}
+

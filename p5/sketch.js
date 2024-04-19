@@ -1,7 +1,7 @@
 //globals
 // fireball and fireball particle arrays
 const balls = [], ballParticles = []; 
-let numParticles = 40, numberOfBalls = 50, currentBalls = 0; // numbers for fireballs and particles on screen
+let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for particles and fireballs on screen
 
 // basic game variables
 var player, maze, f, help = false, canvas;
