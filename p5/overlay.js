@@ -52,7 +52,6 @@ function startScreen() {
     startButton.id('startButton');
     
     frameRate(0);
-    if(!theme.isPlaying()) {theme.play();}
 }
 
 function closeStartScreen() {

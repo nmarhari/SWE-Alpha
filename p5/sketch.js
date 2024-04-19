@@ -1,16 +1,24 @@
 //globals
+// fireball and fireball particle arrays
+const balls = [], ballParticles = []; 
+let numParticles = 40, numberOfBalls = 50, currentBalls = 0; // numbers for fireballs and particles on screen
 
-let ballParticles = [];
-let numParticles = 40;
+// basic game variables
+var player, maze, f, help = false, canvas;
 
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-// ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
+// for models on screen and skybox
+let book, bookModel,  skybox, theme, aspen; 
+let OBJarray = []; //have to splice objs from array to remove on screen
 
 // overlay
 let startVisible = true; // renders start screen once
 let deathVisible = false;
 let startShowingHealth = false;
 let startShowInventory = true;
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+// ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
+
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
@@ -24,44 +32,47 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
-var player, maze, f, help = false, canvas;
-let book, bookModel, OBJarray = [], skybox, theme; //have to splice objs from array to remove on screen
-let numberOfBalls = 50; 
-let currentBalls = 0; 
-const balls = [];
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lavapixel.jpg');
-	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/leather.jpg');
+	wordtexture = loadImage('../assets/molten.jpg');
+	rock = loadImage('../assets/rock.jpg');
+	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
+
+	skybox = loadImage('../assets/sky.jpg');
+	aspen = loadImage('../assets/aspen.png');
+
+	theme = loadSound('../assets/Theme Song.mp3'); // have to preload so it can play when starting the game
+	
+
 		
-	// for moving lava
-	/* lava = createVideo(['../assets/lava.mp4']);
+	/* // for moving lava
+	 lava = createVideo(['../assets/lava.mp4']);
 	//lava.elt.muted = true;
 	lava.loop();
-	lava.hide(); */ 
-	skybox = loadImage('../assets/sky.jpg');
-	theme = loadSound('../assets/Theme Song.mp3');
+	lava.hide();  */
 }
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
 	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
-	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/hit.wav'); 
+	hit = loadSound('../assets/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
 	//theme.loop();
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
 
-		for (let i = 0; i < numberOfBalls; i++) {
-			balls.push(new FireBall(10, random(-30, 100), 10, 2));
-		}
+	for (let i = 0; i < numberOfBalls; i++) {
+		balls.push(new FireBall(10, random(-30, 100), 10, 2));
+	}
+
   	player = new Player();
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
@@ -95,29 +106,20 @@ window.addEventListener('resize', async function(event){
   resizeCanvas(windowWidth, windowHeight); // resizes p5js canvas
 });
 
-function keyPressed() {
-	if (key == 'h') help = !help;
-	if(key=='+'){
-		player.pov.fovy -= 0.1;
-		player.updatePOV();
-	}
-	if(key=='-'){
-		player.pov.fovy += 0.1;
-	player.updatePOV();
-	}
-}
-
 function draw() {
 	frameRate(60);
   	background(0,0,51);
 
+	// for 3d kent touch this sign
 	push();
-	rotateY(-HALF_PI)
-	translate(45, -30, -175)
-	normalMaterial();
-	word.show()
+		rotateY(-HALF_PI)
+		translate(45, -30, -175)
+		noStroke();
+		texture(wordtexture);
+		word.show()
 	pop()
 
+	// starry skybox
 	push();
 		noStroke();
 		textureWrap(CLAMP);
@@ -125,6 +127,15 @@ function draw() {
 		translate(50, 0, 100);
 		box(500);
   	pop();
+
+	// easter egg in skybox
+	push();
+		noStroke();
+		texture(aspen);
+		rotateY(HALF_PI);
+		translate(-50, -100, -165)
+		plane(400, 400);
+	pop();
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
@@ -158,15 +169,11 @@ function draw() {
 			let result = player.remove(book);
 			result = player.remove(chair);
 		}
+
 			push();
 			normalMaterial();
 			dr.display();
 			pop();
-
-		
-
-
-		//word.show(); // 3d text
 
 
 	maze.update(balls);
@@ -177,7 +184,6 @@ function draw() {
 		balls[i].update(maze, player);
 	}
 
-	//drawAxes();
   	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
 		push(); // this affects the frame rate
 		camera(0, 0, (height / 2.0) / tan(PI * 30.0 / 180.0), 0, 0, 0, 0, 1, 0);
@@ -190,24 +196,28 @@ function draw() {
 		fill(127);
 		text('mouse: left/right : pan', 10, 10);
 		text('       up/down : tilt', 10, 20);
-		text('       click : ptrlock', 10, 30);
+		text('       escape : ptrunlock', 10, 30);
 		text(' keys: a/d : left/right', 10, 40);
 		text('       w/s : fwd/bkwd', 10, 50);
 		text('       e/q : up/down', 10, 60);
 		text('       space : jump', 10, 70);
-		text('       h : help', 10, 80);
+		text('       +/- : fov change', 10, 80);
+		text('       h : help', 10, 90);
 		pop();
 	}
 
 	if (startVisible) {
 		startScreen();
+		theme.play();
 		startVisible = false; // render only once
 	}
+
 	if (startShowingHealth) {
 		showHealth();
 		startShowingHealth = false;
 	}
-	if(frameCount % 600 == 0){
+
+	if(frameCount % 1200 == 0){ // every 20 seconds a fireball will spawn in
 		currentBalls++;
 	}
 	
@@ -220,6 +230,7 @@ function draw() {
 
   
 
+	//drawAxes();
 	// function drawAxes(){
 	// 	push();
 	//       noStroke();

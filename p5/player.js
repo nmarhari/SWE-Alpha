@@ -61,9 +61,30 @@ class Player extends RoverCam {
 
 			if(keyIsDown(76)) //printing player position to the console // key is L
 				console.log(this.position.x, this.position.y, this.position.z);
+
+			if(keyIsDown(189)){
+				if(player.pov.fovy <= 2){
+					console.log(player.pov.fovy)
+					player.pov.fovy += 0.01;
+					player.updatePOV();
+				}
+			}
+		
+			if(keyIsDown(187)){
+				if(player.pov.fovy >= .5){
+					console.log(player.pov.fovy)
+					player.pov.fovy -= 0.01;
+					player.updatePOV();
+				}
+			}
+		
+			if(keyIsDown(72)) help = !help;
 		}
-		if (keyPressed(ESCAPE)) this.pointerLock = false;
+
+
 		// unlock pointer if ESC is pressed
+		if (keyPressed(ESCAPE)) this.pointerLock = false;
+
 		if (this.dead == false) updateHealth(this.health);
     }
     
@@ -150,4 +171,7 @@ class Player extends RoverCam {
 		if(arrayZ < 0) arrayZ = 0;
 		return { x: arrayX, z: arrayZ };
 	}
+}
+
+function keyPressed() { // need this here so you can escape with ptr
 }

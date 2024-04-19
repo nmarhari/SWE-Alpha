@@ -58,8 +58,8 @@ class Block {
 					}
 				}
 		}
-		if(reddish == 'red') this.fillColor = 'red' // wait 5 seconds then fill color
-		else (this.fillColor = color(random(150, 200))); // need to implement
+		if(reddish == 'red') this.fillColor = 'red'; // wait 5 seconds then fill color
+		else (this.fillColor = color(200)); // need to implement
     }
 
   	display() {
@@ -196,40 +196,25 @@ class Maze {
 		  }
 		}
 
-    this.start = this.blocks[1][2];
-    //this.blocks[1][1].fillColor = color(63, 127, 63);
-    // var m = [
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    // ];
+    this.start = this.blocks[1][5];
     for (let i = 0; i < size1; i++){
       	for (let j = 0; j < size2; j++){
         	if (i==0 || j == 0 || i == size1-1 || j == size2-1) this.blocks[i][j].dimensions.y=20;
 				else if(i > 2 && j > 0){this.blocks[i][j].texture = lava;
 					this.blocks[i][j].dimensions.y = 4} 
-					else this.blocks[i][j].fillColor = color(127);
-					if(i > 16 && j < 5 && j != 0 && i != 0 && i != size1-1 && j != size2-1){this.blocks[i][j].texture = null;
+					else this.blocks[i][j].texture = rock;
+					if(i > 16 && j < 5 && j != 0 && i != 0 && i != size1-1 && j != size2-1){this.blocks[i][j].texture = rock;
 					this.blocks[i][j].dimensions.y = 12;}
-					this.blocks[7][6].texture = null;
-					this.blocks[10][6].texture = null;
-					this.blocks[13][10].texture = null;
-					this.blocks[17][10].texture = null;
-					this.blocks[18][8].texture = null;
-					this.blocks[18][6].texture = null;
-					this.blocks[13][8].texture = null;
-					this.blocks[3][1].texture = null;
-					this.blocks[6][1].texture = null;
-					this.blocks[6][3].texture = null;
+					this.blocks[7][6].texture = rock;
+					this.blocks[10][6].texture = rock;
+					this.blocks[13][10].texture = rock;
+					this.blocks[17][10].texture = rock;
+					this.blocks[18][8].texture = rock;
+					this.blocks[18][6].texture = rock;
+					this.blocks[13][8].texture = rock;
+					this.blocks[3][1].texture = rock;
+					this.blocks[6][1].texture = rock;
+					this.blocks[6][3].texture = rock;
 					this.blocks[6][3].dimensions.y = 7;
 					this.blocks[7][6].dimensions.y = 7;
 					this.blocks[3][1].dimensions.y = 5;
