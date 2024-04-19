@@ -32,6 +32,10 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
+function playTheme(){
+	theme.loop();
+}
+
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/pixel.jpg');

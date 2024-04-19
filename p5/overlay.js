@@ -50,7 +50,6 @@ function startScreen() {
     startButton.mouseClicked(closeStartScreen);
     startButton.parent('startClickables');
     startButton.id('startButton');
-    
     frameRate(0);
 }
 
