@@ -248,7 +248,6 @@ class Maze {
 					this.blocks[13][8].dimensions.y = 8;
 		}
 	}
-    new Block(65, -9, 51, 10, 2, 2, null);
   	}
 
 
