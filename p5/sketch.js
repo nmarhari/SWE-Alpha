@@ -34,14 +34,14 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
-	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/lavapixel.jpg');
-	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
-	wordtexture = loadImage('../assets/molten.jpg');
-	rock = loadImage('../assets/metal.jpg');
-	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
-	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	lava = loadImage('../assets/textures/pixel.jpg');
+	meteorite = loadImage('../assets/textures/meteorite.jpg');
+	bookTexture = loadImage('../assets/textures/leather.jpg');
+	wordtexture = loadImage('../assets/textures/molten.jpg');
+	rock = loadImage('../assets/textures/metal.jpg');
+	bookModel = loadModel('../assets/book.obj');
+	chairModel = loadModel('../assets/Chair.obj');
+	drModel = loadModel('../assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	skybox = loadImage('../assets/textures/sky.jpg');
@@ -61,9 +61,9 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking.mp3');
+	walking = loadSound('../assets/sounds/walking.mp3');
 	hit = loadSound('../assets/sounds/hit.mp3'); 
-	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
+	scream = loadSound('../assets/sounds/scream.wav'); 
 	ambience = loadSound('../assets/sounds/ambience.mp3');
 	lavaSound = loadSound('../assets/sounds/lava.mp3');
 
