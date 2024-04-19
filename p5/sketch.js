@@ -32,17 +32,13 @@ function onPointerlockChange() {
 }
 document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
-function playTheme(){
-	theme.loop();
-}
-
 function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lavapixel.jpg');
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/leather.jpg');
 	wordtexture = loadImage('../assets/molten.jpg');
-	rock = loadImage('../assets/rock.jpg');
+	rock = loadImage('../assets/metal.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
@@ -68,6 +64,11 @@ function setup() {
 	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
 	hit = loadSound('../assets/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
+	ambience = loadSound('../assets/ambience.mp3');
+	lavaSound = loadSound('../assets/lava.mp3');
+
+	ambience.setVolume(.2);
+	lavaSound.setVolume(1.2);
 
   	strokeWeight(0.04);
  	textFont(f);
@@ -196,17 +197,17 @@ function draw() {
 		noStroke();
 		translate(-380, -380, 0);
 		scale(2);
-		rect(0, 0, 140, 85);
+		rect(0, 0, 170, 110);
 		fill(127);
-		text('mouse: left/right : pan', 10, 10);
-		text('       up/down : tilt', 10, 20);
-		text('       escape : ptrunlock', 10, 30);
-		text(' keys: a/d : left/right', 10, 40);
-		text('       w/s : fwd/bkwd', 10, 50);
-		text('       e/q : up/down', 10, 60);
-		text('       space : jump', 10, 70);
-		text('       +/- : fov change', 10, 80);
-		text('       h : help', 10, 90);
+		text('mouse: left/right : pan', 10, 25);
+		text('       up/down : tilt', 10, 35);
+		text(' keys: escape : ptr unlock', 10, 45);
+		text('       a/d : left/right', 10, 55);
+		text('       w/s : fwd/bkwd', 10, 65);
+		text('       e/q : up/down', 10, 75);
+		text('       space : jump', 10, 85);
+		text('       +/- : fov change', 10, 95);
+		text('       h : help', 10, 105);
 		pop();
 	}
 
@@ -218,6 +219,8 @@ function draw() {
 
 	if (startShowingHealth) {
 		showHealth();
+		lavaSound.loop();
+		ambience.loop();
 		startShowingHealth = false;
 	}
 
