@@ -34,9 +34,9 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/pixel.jpg');
-	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lavapixel.jpg');
-	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/leather.jpg');
+	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
+	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/lavapixel.jpg');
+	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	wordtexture = loadImage('../assets/molten.jpg');
 	rock = loadImage('../assets/metal.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
@@ -44,10 +44,10 @@ function preload() {
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
-	skybox = loadImage('../assets/sky.jpg');
-	aspen = loadImage('../assets/aspen.png');
+	skybox = loadImage('../assets/textures/sky.jpg');
+	aspen = loadImage('../assets/textures/aspen.png');
 
-	theme = loadSound('../assets/Theme Song.mp3'); // have to preload so it can play when starting the game
+	theme = loadSound('../assets/sounds/Theme Song.mp3'); // have to preload so it can play when starting the game
 	
 
 		
@@ -61,11 +61,11 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
-	hit = loadSound('../assets/hit.mp3'); 
-	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
-	ambience = loadSound('../assets/ambience.mp3');
-	lavaSound = loadSound('../assets/lava.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking.mp3');
+	hit = loadSound('../assets/sounds/hit.mp3'); 
+	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
+	ambience = loadSound('../assets/sounds/ambience.mp3');
+	lavaSound = loadSound('../assets/sounds/lava.mp3');
 
 	ambience.setVolume(.2);
 	lavaSound.setVolume(1.2);
@@ -189,7 +189,7 @@ function draw() {
 		balls[i].update(maze, player);
 	}
 
-  	if (help || frameCount < 400) { // Heads Up Display extension by jWilliam
+  	if (help || frameCount < 400) { // Heads Up Display extension
 		push(); // this affects the frame rate
 		camera(0, 0, (height / 2.0) / tan(PI * 30.0 / 180.0), 0, 0, 0, 0, 1, 0);
 		ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 1000);
