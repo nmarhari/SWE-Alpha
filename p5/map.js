@@ -266,12 +266,18 @@ class Maze {
 
   	checkLavaCollision(player) {
 		let playerPos = player.playerArrayPosition(player.position.x, player.position.y, 5);
-		let radius = 5;
+		let radius = 5, endZ;
 
 		let startX = Math.max(0, playerPos.x - radius);
 		let endX = Math.min(this.blocks.length - radius, playerPos.x + radius);
 		let startZ = Math.max(0, playerPos.z - radius);
-		let endZ = Math.min(this.blocks[startX].length - radius, playerPos.z + radius);
+		// for random error you get when flying outside the map
+		try {
+			endZ = Math.min(this.blocks[startX].length - radius, playerPos.z + radius);
+		} catch (error) {
+			console.log('catch');
+			endZ = Math.min(12 - radius, playerPos.z + radius);
+		}
 		
 		for (let i = startX; i <= endX; i+= radius) {
 			for (let j = startZ; j <= endZ; j+= radius) {
@@ -309,4 +315,36 @@ class Maze {
 		//return false; // No collision detected
 		//console.log("false");
 	}
+
+
+	// will raise lava by specified parameter
+	raiseLava(height) {
+		let currentHeight = this.currentLavaHeight();
+	
+		for (let x = 0; x < this.blocks.length; ++x) {
+			for (let z = 0; z < this.blocks[x].length; ++z) {
+				if(this.blocks[x][z].texture == lava){
+					this.blocks[x][z].dimensions.y += height;
+				}
+				if (this.blocks[x][z].dimensions.y <= currentHeight) {
+					this.blocks[x][z].texture = lava;
+					this.blocks[x][z].dimensions.y += height;
+				}
+			}
+		}
+	}
+	
+	// calculates current lava height
+	currentLavaHeight() {
+		let currentHeight = null;
+		for (let x = 0; x < this.blocks.length; ++x) {
+			for (let z = 0; z < this.blocks[x].length; ++z) {
+				if (this.blocks[x][z].texture == lava) {
+					currentHeight = this.blocks[x][z].dimensions.y;
+					return currentHeight;
+				}
+			}
+		}
+	}
+	
 }

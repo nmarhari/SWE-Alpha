@@ -214,7 +214,7 @@ function draw() {
 
 	if (startVisible) {
 		startScreen();
-		theme.loop();
+		//theme.loop();
 		startVisible = false; // render only once
 	}
 
@@ -227,6 +227,7 @@ function draw() {
 
 	if(frameCount % 1200 == 0){ // every 20 seconds a fireball will spawn in
 		currentBalls++;
+		maze.raiseLava(.5);
 	}
 	
 	//Calls showInventory function once
@@ -264,6 +265,11 @@ function mouseClicked() {
 	if (!player.pointerLock && player.gameStarted) {
 		player.pointerLock = true;
 		requestPointerLock();
+	}
+
+	if (!player.gameStarted && !themePlaying) {
+		theme.play();
+		themePlaying = true;
 	}
 }
 
