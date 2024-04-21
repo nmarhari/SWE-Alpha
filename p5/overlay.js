@@ -17,6 +17,7 @@ let startButton;
 function startScreen() {
     //pointer can't be locked until this disappears
     player.gameStarted = false;
+    frameRate(0);
     //function which draws the start screen 
     //secondary canvas is created using the createGraphics() function
     //    this function call is located in setup() in sketch.js
@@ -50,8 +51,6 @@ function startScreen() {
     startButton.mouseClicked(closeStartScreen);
     startButton.parent('startClickables');
     startButton.id('startButton');
-    
-    frameRate(0);
 }
 
 function closeStartScreen() {
