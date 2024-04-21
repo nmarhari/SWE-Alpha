@@ -10,7 +10,7 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 let startVisible = true; // renders start screen once
 let deathVisible = false;
 let startShowingHealth = false;
-let startShowInventory = true;
+let startShowInventory = false;
 
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
