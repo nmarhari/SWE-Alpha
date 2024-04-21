@@ -110,6 +110,7 @@ function deathScreen() {
 function respawnPlayer() {
     player.dead = false;
     player.health = 100;
+    maze = new Maze(20, 12);
     maze.setPlayerAtStart(player);
     deathVisible = false;
     player.gameStarted = true;

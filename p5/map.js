@@ -201,7 +201,7 @@ class Maze {
 
 		for (let i = 0; i < size1; i++){
 			for (let j = 0; j < size2; j++){
-				if (i==0 || j == 0 || i == size1-1 || j == size2-1){ this.blocks[i][j].dimensions.y=20; this.blocks[i][j].texture = metall; }
+				if (i==0 || j == 0 || i == size1-1 || j == size2-1){ this.blocks[i][j].dimensions.y=20; this.blocks[i][j].texture = brick; }
 					else if(i > 2 && j > 0){
 						this.blocks[i][j].texture = lava;
 						this.blocks[i][j].dimensions.y = 4

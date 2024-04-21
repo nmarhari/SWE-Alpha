@@ -7,7 +7,7 @@ let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for part
 var player, maze, f, help = false, canvas, themePlaying = false;
 
 // for models on screen and skybox
-let book, bookModel,  skybox, theme, aspen; 
+let book, bookModel, skybox, theme, aspen; 
 let OBJarray = []; //have to splice objs from array to remove on screen
 
 // overlay
