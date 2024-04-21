@@ -34,22 +34,22 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('../assets/textures/pixel.jpg');
-	meteorite = loadImage('../assets/textures/meteorite.jpg');
-	bookTexture = loadImage('../assets/textures/leather.jpg');
-	wordtexture = loadImage('../assets/textures/molten.jpg');
-	rock = loadImage('../assets/textures/rock.jpg');
-	metal = loadImage('../assets/textures/metal.jpg');
-	brick = loadImage('../assets/textures/brick.jpg');
-	skybox = loadImage('../assets/textures/sky.jpg');
-	aspen = loadImage('../assets/textures/aspen.png');
-	bookModel = loadModel('../assets/book.obj');
-	chairModel = loadModel('../assets/Chair.obj');
-	drModel = loadModel('../assets/Daven/Daven.obj');
+	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
+	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
+	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
+	wordtexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
+	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
+	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
+	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
+	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
+	aspen = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/aspen.png');
+	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
+	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
+	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
-	theme = loadSound('../assets/sounds/Theme Song.mp3'); 
+	theme = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/Theme_Song.mp3'); 
 
 		
 	/* // for moving lava
@@ -62,11 +62,11 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('../assets/sounds/walking.mp3');
-	hit = loadSound('../assets/sounds/hit.mp3'); 
-	scream = loadSound('../assets/sounds/scream.wav'); 
-	ambience = loadSound('../assets/sounds/ambience.mp3');
-	lavaSound = loadSound('../assets/sounds/lava.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking.mp3');
+	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
+	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
+	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
+	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
 	ambience.setVolume(.2);
 	lavaSound.setVolume(1.2);
