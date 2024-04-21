@@ -63,7 +63,7 @@ main {
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    background-size: 100%;
+    background-size: cover;
 }
 
 #startText {

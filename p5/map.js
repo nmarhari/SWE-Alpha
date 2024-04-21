@@ -201,7 +201,7 @@ class Maze {
 
 		for (let i = 0; i < size1; i++){
 			for (let j = 0; j < size2; j++){
-				if (i==0 || j == 0 || i == size1-1 || j == size2-1) this.blocks[i][j].dimensions.y=20;
+				if (i==0 || j == 0 || i == size1-1 || j == size2-1){ this.blocks[i][j].dimensions.y=20; this.blocks[i][j].texture = metall; }
 					else if(i > 2 && j > 0){
 						this.blocks[i][j].texture = lava;
 						this.blocks[i][j].dimensions.y = 4
@@ -265,18 +265,18 @@ class Maze {
   	}
 
   	checkLavaCollision(player) {
-		let playerPos = player.playerArrayPosition(player.position.x, player.position.y, 5);
-		let radius = 5, endZ;
+		let playerArrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		let radius = 1, endZ;
 
-		let startX = Math.max(0, playerPos.x - radius);
-		let endX = Math.min(this.blocks.length - radius, playerPos.x + radius);
-		let startZ = Math.max(0, playerPos.z - radius);
+		let startX = Math.max(0, playerArrPos.x - radius);
+		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
+		let startZ = Math.max(0, playerArrPos.z - radius);
 		// for random error you get when flying outside the map
 		try {
-			endZ = Math.min(this.blocks[startX].length - radius, playerPos.z + radius);
+			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
 		} catch (error) {
 			console.log('catch');
-			endZ = Math.min(12 - radius, playerPos.z + radius);
+			endZ = Math.min(12 - radius, playerArrPos.z + radius);
 		}
 		
 		for (let i = startX; i <= endX; i+= radius) {
@@ -285,7 +285,7 @@ class Maze {
 				if (this.blocks[i][j].texture === lava) {
 					let playerLeft = player.position.x - player.dimensions.x / 2;
 					let playerRight = player.position.x + player.dimensions.x / 2;
-					//let playerTop = player.position.y - player.dimensions.y / 2;
+					let playerTop = player.position.y - player.dimensions.y / 2;
 					let playerBottom = player.position.y + player.dimensions.y / 2;
 					let playerFront = player.position.z - player.dimensions.z / 2;
 					let playerBack = player.position.z + player.dimensions.z / 2;
@@ -293,7 +293,7 @@ class Maze {
 					let blockLeft = block.position.x - block.dimensions.x / 2;
 					let blockRight = block.position.x + block.dimensions.x / 2;
 					let blockTop = block.position.y - block.dimensions.y / 2;
-					//let blockBottom = block.position.y + block.dimensions.y / 2;
+					let blockBottom = block.position.y + block.dimensions.y / 2;
 					let blockFront = block.position.z - block.dimensions.z / 2;
 					let blockBack = block.position.z + block.dimensions.z / 2;
 				// Assuming the player has a radius, you need to adjust the collision detection
@@ -302,8 +302,8 @@ class Maze {
 						playerRight >= blockLeft &&
 						playerLeft <= blockRight &&
 						playerBack >= blockFront &&
-						playerFront <= blockBack //&&
-						//playerTop <= blockBottom
+						playerFront <= blockBack &&
+						playerTop <= blockBottom
 					) {
 							//return true; // Collision detected
 							//console.log("true");

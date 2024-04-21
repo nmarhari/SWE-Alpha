@@ -4,7 +4,7 @@ const balls = [], ballParticles = [];
 let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for particles and fireballs on screen
 
 // basic game variables
-var player, maze, f, help = false, canvas;
+var player, maze, f, help = false, canvas, themePlaying = false;
 
 // for models on screen and skybox
 let book, bookModel,  skybox, theme, aspen; 
@@ -40,16 +40,16 @@ function preload() {
 	wordtexture = loadImage('../assets/textures/molten.jpg');
 	rock = loadImage('../assets/textures/rock.jpg');
 	metal = loadImage('../assets/textures/metal.jpg');
+	brick = loadImage('../assets/textures/brick.jpg');
+	skybox = loadImage('../assets/textures/sky.jpg');
+	aspen = loadImage('../assets/textures/aspen.png');
 	bookModel = loadModel('../assets/book.obj');
 	chairModel = loadModel('../assets/Chair.obj');
 	drModel = loadModel('../assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
-	skybox = loadImage('../assets/textures/sky.jpg');
-	aspen = loadImage('../assets/textures/aspen.png');
-
-	theme = loadSound('../assets/sounds/Theme Song.mp3'); // have to preload so it can play when starting the game
-	
+	// have to preload so it can play when starting the game
+	theme = loadSound('../assets/sounds/Theme Song.mp3'); 
 
 		
 	/* // for moving lava
