@@ -50,7 +50,7 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking-trimmed.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/hit.wav'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
   	strokeWeight(0.04);
