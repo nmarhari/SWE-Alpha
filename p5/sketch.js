@@ -46,7 +46,7 @@ function preload() {
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	skybox = loadImage('../assets/textures/sky.jpg');
-	aspen = loadImage('../assets/textures/aspen.jpg');
+	aspen = loadImage('../assets/textures/aspen.png');
 
 	theme = loadSound('../assets/sounds/Theme Song.mp3'); // have to preload so it can play when starting the game
 	
