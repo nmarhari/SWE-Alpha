@@ -262,9 +262,11 @@ function draw() {
 	// }
 
 function mouseClicked() {
+	if (player.gameStarted && requestPointerLock()) player.pointerLock = true;
+	else
 	if (!player.pointerLock && player.gameStarted) {
-		player.pointerLock = true;
 		requestPointerLock();
+		player.pointerLock = true;
 	}
 
 	if (!player.gameStarted && !themePlaying) {
