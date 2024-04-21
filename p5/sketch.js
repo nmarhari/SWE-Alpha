@@ -14,7 +14,7 @@ let OBJarray = []; //have to splice objs from array to remove on screen
 let startVisible = true; // renders start screen once
 let deathVisible = false;
 let startShowingHealth = false;
-let startShowInventory = true;
+let startShowInventory = false;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 

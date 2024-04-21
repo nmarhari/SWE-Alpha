@@ -69,6 +69,7 @@ function closeStartScreen() {
     
     //indicate that the game has started
     startShowingHealth = true;
+    startShowInventory = true;
 }
 
 
@@ -83,7 +84,9 @@ function deathScreen() {
     exitPointerLock();
     frameRate(0);
     startShowingHealth = false;
+    startShowInventory = false;
     hideHealth();
+    hideInventory();
 
     deathDiv = createDiv();
     deathDiv.parent('container');
@@ -126,6 +129,7 @@ function respawnPlayer() {
     deathClickables.remove();
     deathButton.remove();
     startShowingHealth = true;
+    startShowInventory = true;
 }
 
 
@@ -179,4 +183,8 @@ function showInventory(){
         itemSlot.class('inventorySlot emptySlot');
         itemSlot.parent('inventoryContainer');
     }
+}
+function hideInventory() {
+    inventoryContainer.remove();
+    inventoryItems.remove();
 }
