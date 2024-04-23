@@ -1,0 +1,23 @@
+name: Headless Testing
+
+on:
+  push:
+    branches: [ 'main', 'mocha-*' ]
+  workflow_dispatch:
+
+jobs:
+  headless_testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v2
+      - name: Install Chai
+        run: |
+          echo "$ npm install chai & mocha "
+          npm install chai mocha
+          echo "$ npm mocha --version"
+          npm mocha --version
+      - name: Test headless.mjs
+        run: |
+          echo "$ npm run test"
+          npm run test
