@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  unit_testing:
+  headless_testing:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
