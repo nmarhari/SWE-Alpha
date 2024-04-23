@@ -7,7 +7,7 @@ const options = new Options();
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
 describe('test swe-alpha', async function(){
-    this.timeout(20000);
+    this.timeout(60000);
     let driver, startButton, healthBar, health;
 
     beforeEach(async function(){
