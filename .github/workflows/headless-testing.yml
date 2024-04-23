@@ -15,8 +15,8 @@ jobs:
         run: |
           echo "$ npm install chai & mocha "
           npm install chai mocha
-          echo "$ npm -m mocha --version"
-          npm -m mocha --version
+          echo "$ npm mocha --version"
+          npm mocha --version
       - name: Test headless.mjs
         run: |
           echo "$ npm run test"
