@@ -31,10 +31,10 @@ let currentBalls = 0;
 const balls = [];
 function preload() {
 	f = loadFont('inconsolata.otf');
-	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/pixel.jpg');
-	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/lavapixel.jpg');
+	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
+	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
-	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/leather.jpg');
+	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
@@ -50,9 +50,9 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking.mp3');
-	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/hit.wav'); 
-	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/scream.wav'); 
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking.mp3');
+	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.wav'); 
+	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
   	strokeWeight(0.04);
  	textFont(f);
  	textSize(12);
@@ -156,7 +156,7 @@ function draw() {
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(map, player);
+		balls[i].update(player, map);
 	}
 
 	//drawAxes();

@@ -8,7 +8,7 @@ class Player extends RoverCam {
       	this.pointerLock = false;
 		this.gameStarted = false;
       	this.sensitivity = 0.002;
-      	this.speed = 0.04;
+      	this.speed = 0.08;
 		this.health = 100;
       	this.dead = false;
 		this.jumps = 1;
