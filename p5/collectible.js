@@ -1,10 +1,12 @@
 class Collectible{  // abstract class
-    constructor(name, x, y, z, size, model){
+    constructor(name, x, y, z, size, model, texture){
         this.name = name;
         this.position = createVector(x, y, z);
         this.size = size; // size of model
         this.draw = true;
         this.model = model;
+        this.collected = false;
+        this.texture = texture;
     }
 
     display() {
@@ -23,6 +25,7 @@ class Collectible{  // abstract class
 
     remove(){
         this.draw = false;
+        this.collected = true;
     }
 
     show(){
@@ -31,8 +34,8 @@ class Collectible{  // abstract class
 }
 
 class Book extends Collectible{
-    constructor(name, x, y, z, size, model){
-        super(name, x, y, z, size, model);
+    constructor(name, x, y, z, size, model, texture){
+        super(name, x, y, z, size, model, texture);
     }
 
     display() {
@@ -46,13 +49,5 @@ class Book extends Collectible{
 			model(this.model);
 			pop();
         }
-    }
-
-    remove(){
-        this.draw = false;
-    }
-
-    show(){
-        this.draw = true;
     }
 }
