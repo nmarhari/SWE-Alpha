@@ -13,6 +13,8 @@ let startTitle;
 let startDesc;
 let startClickables;
 let startButton;
+let dlzButton;
+var dlzMode = false;
 //let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
@@ -25,17 +27,13 @@ function startScreen() {
     startDiv.parent('container');
     startDiv.id('startDiv');
 
-    startText = createImg('./assets/Kent Touch This.png');
-    startText.parent('startDiv');
-    startText.id('startText');
-
-    startTitle = createP('The Floor is Lava');
-    startTitle.parent('startText');
-    startTitle.id('startTitle');
+    startImg = createImg('./assets/Kent Touch This.png', 'Logo');
+    startImg.parent('startDiv');
+    startImg.id('startText');
 
     startDesc = createP('Navigate a changing environment as the floor turns to lava!')
     startDesc.parent('startText');
-    startDesc.id('startDesc');
+    startDesc.id('startTitle');
 
     startClickables = createDiv();
     startClickables.parent('startDiv');
@@ -51,6 +49,13 @@ function startScreen() {
     startButton.mouseClicked(closeStartScreen);
     startButton.parent('startClickables');
     startButton.id('startButton');
+    
+    dlzButton = createButton('DLZ Mode');
+    dlzButton.mouseClicked(delozierMode);
+    dlzButton.parent('startClickables');
+    dlzButton.id('dlzButton');
+
+
 }
 
 function closeStartScreen() {
@@ -59,17 +64,21 @@ function closeStartScreen() {
     console.log("clearing start screen...")
     player.gameStarted = true;
     startDiv.remove();
-    startText.remove();
-    startTitle.remove();
+    startImg.remove();
     startDesc.remove();
     startClickables.remove();
     //startCheck.remove();
     startButton.remove();
     theme.pause();
-    
     //indicate that the game has started
     startShowingHealth = true;
     startShowInventory = true;
+}
+
+function delozierMode() {
+    var dlzButton = document.getElementById('dlzButton'); // Get the button element
+    dlzButton.classList.toggle('clicked'); // Toggle the 'clicked' class on the button
+    dlzMode = true;
 }
 
 

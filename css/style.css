@@ -95,6 +95,7 @@ main {
 #startClickables {
     width: 50%;
     margin-top: 75vh;
+    position: relative;
 }
 
 #startButton {
@@ -111,7 +112,40 @@ main {
     text-shadow: 4px 4px 8px black;
     box-shadow: 4px 4px 8px black;
 }
+
 #startButton:hover{
+    border: 3px solid white;
+    padding: 14px 24px;
+    margin: 8px 0px;
+}
+
+#dlzButton{
+    position: absolute;
+    bottom: 20px; /* Adjust this value as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px 0px;
+    transition: 1s;
+    background-color: transparent;
+    font-family: "VT323", monospace;
+    text-shadow: 4px 4px 8px black;
+    box-shadow: 4px 4px 8px black;
+}
+
+#dlzButton.clicked{
+    transition: 1s;
+    border: 3px solid red;
+    color: red;
+    opacity: 75%;
+}
+
+#dlzButton:hover{
     border: 3px solid white;
     padding: 14px 24px;
     margin: 8px 0px;

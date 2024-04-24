@@ -176,7 +176,8 @@ class FireBall {
 				(player.position.z + player.dimensions.z / 2) >= (this.position.z - this.radius)     // player back
 			){
 				console.log("fireball hit");
-				player.takeHit();
+				if(!dlzMode)
+					player.takeHit();
 			}
 		}
 	}
@@ -306,7 +307,8 @@ class Maze {
 					) {
 							//return true; // Collision detected
 							//console.log("true");
-							player.takeHit();
+							if(!dlzMode)
+								player.takeHit();
 					}
 				}
 			}
