@@ -25,7 +25,7 @@ function startScreen() {
     startDiv.parent('container');
     startDiv.id('startDiv');
 
-    startText = createDiv();
+    startText = createImg('./assets/Kent Touch This.png');
     startText.parent('startDiv');
     startText.id('startText');
 

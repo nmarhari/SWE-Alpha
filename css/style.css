@@ -66,6 +66,12 @@ main {
     background-size: cover;
 }
 
+#startDiv img{
+    width: 150vw;
+    height: 80vh;
+    transform: translate(-30%, -10%);
+}
+
 #startText {
     width: 50%;
     margin-left: 10vw;
