@@ -147,8 +147,8 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
-		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		  console.log(arrPos);
+		//let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		//console.log(arrPos);
   	}
 
 	
@@ -207,10 +207,16 @@ function draw() {
 		text(' keys: escape : ptr unlock', 10, 45);
 		text('       a/d : left/right', 10, 55);
 		text('       w/s : fwd/bkwd', 10, 65);
-		text('       e/q : up/down', 10, 75);
-		text('       space : jump', 10, 85);
-		text('       +/- : fov change', 10, 95);
-		text('       h : help', 10, 105);
+		if(dlzMode){
+			text('       e/q : up/down', 10, 75);
+			text('       space : jump', 10, 85);
+			text('       +/- : fov change', 10, 95);
+			text('       h : help', 10, 105);
+		} else {
+			text('       space : jump', 10, 75);
+			text('       +/- : fov change', 10, 85);
+			text('       h : help', 10, 95);
+		}
 		pop();
 	}
 
@@ -234,34 +240,9 @@ function draw() {
 	}
 }
 
-  
-
-	//drawAxes();
-	// function drawAxes(){
-	// 	push();
-	//       noStroke();
-	// 	  fill(127,0,0); // X red
-	// 	  translate(75,0.5,0.5);
-	// 	  box(150,1,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,127,0); // Y green
-	// 	  translate(0.5,75,0.5);
-	// 	  box(1,150,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,0,127); // Z blue
-	// 	  translate(0.5,0.5,75);
-	// 	  box(1,1,150);
-	// 	pop();
-	// }
-
 function mouseClicked() {
 	if (player.gameStarted && requestPointerLock()) player.pointerLock = true;
-	else
-	if (!player.pointerLock && player.gameStarted) {
+	else if (!player.pointerLock && player.gameStarted) {
 		requestPointerLock();
 		player.pointerLock = true;
 	}

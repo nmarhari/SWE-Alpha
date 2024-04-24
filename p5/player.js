@@ -62,6 +62,7 @@ class Player extends RoverCam {
 			
 				if(keyIsDown(76)) //printing player position to the console // key is L
 					console.log(this.position.x, this.position.y, this.position.z);
+					
 			} else { // if you dont do anything the player just stops mid air
 				if (keyIsDown(69)) { // fly // e
 					this.moveZ(-0.05);
