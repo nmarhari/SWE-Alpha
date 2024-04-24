@@ -237,10 +237,9 @@ Health Bar
     margin-top: 99vh;
     width: 600px;
     height: 90px;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(214, 214, 214, .35);
     border: 2px solid #000;
     border-radius: 0px;
-    opacity: 0.35;
   }
   
   .inventorySlot {
@@ -249,7 +248,13 @@ Health Bar
     height: 60px;
     margin-top: 1.25vh;
     border: 3px solid #000;
-    background-color: #686ad8;
+    background-color: rgb(104, 106, 216, .35);
     text-align: center;
     margin: 15px;
   }
+
+  img {
+    width: 90%;
+    height: 90%;
+    margin-top: 3px;
+}
