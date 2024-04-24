@@ -130,23 +130,28 @@ class Player extends RoverCam {
 
 	collect(collectible){
 		this.collectedItems.push(collectible);
-		if(collectible.name === "Delozier's SE Book"){
-			let para = document.createElement("p");
-			let text1 = document.createTextNode("Software Engineering Book Found");
-			let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
-			
-			para.appendChild(text1);
-			para.appendChild(document.createElement("br")); // Create a line break
-			para.appendChild(text2);
-				para.classList.add("collectible-notification");
-	
-				// Append the paragraph to the document body
-				document.body.appendChild(para);
-	
-				// Remove the paragraph after 3 seconds
-				setTimeout(function() {
-					para.remove(); // Remove the paragraph after another 3 seconds
-				}, 4000);
+		switch(collectible.name){
+			case "Book":
+				let para = document.createElement("p");
+				let text1 = document.createTextNode("Software Engineering Book Found");
+				let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
+				
+				para.appendChild(text1);
+				para.appendChild(document.createElement("br")); // Create a line break
+				para.appendChild(text2);
+					para.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(para);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						para.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+			case "Chair":
+
+			case "Dongle":
+
 		}
 	}
 

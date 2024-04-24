@@ -82,14 +82,10 @@ function setup() {
   	player = new Player();
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
-	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
+	book = new Book("Book", 35, -5, 30, 10, bookModel);
 	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
- 	frameRate(60);
   	strokeWeight(2);
-
-	
-
 	
 	  word = new Word3D(
 		"Kent Touch This",       // The actual character that you want to draw (anything that can be passed into "text()")
@@ -103,6 +99,12 @@ function setup() {
 	
 	initContainerHTML();
 	// initialize container in html for overlay elements
+
+	if (startVisible) {
+		startScreen();
+		//theme.loop();
+		startVisible = false; // render only once
+	}
 }
 
 // viewport resize when window size changes
@@ -210,12 +212,6 @@ function draw() {
 		text('       +/- : fov change', 10, 95);
 		text('       h : help', 10, 105);
 		pop();
-	}
-
-	if (startVisible) {
-		startScreen();
-		//theme.loop();
-		startVisible = false; // render only once
 	}
 
 	if (startShowingHealth) {
