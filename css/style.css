@@ -309,8 +309,7 @@ Health Bar
     height: 200px;
     width: 200px;
     position: absolute;
-    right: 0;
-    margin-top: 0;
+    left: 0;
     background-repeat: no-repeat;
 }
 
@@ -318,9 +317,11 @@ Health Bar
     color: white;
     font-size: 50px;
     font-family: fantasy;
-    text-decoration: underline;
+    width: 50vw;
 }
 
 #depositText{
     color: white;
+    margin-top: 10px;
+    width: 75vw;
 }
