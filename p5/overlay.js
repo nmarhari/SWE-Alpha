@@ -118,8 +118,10 @@ function closePause(){
     pauseClickables.remove();
     pauseButton.remove();
     player.gameStarted = true;
-    startShowingHealth = true;
-    startShowInventory = true;
+    if(!depositBool){
+        startShowingHealth = true;
+        startShowInventory = true;
+    }
     player.pointerLock = true;
 }
 
@@ -240,19 +242,36 @@ function hideInventory() {
     inventoryItems.remove();
 }
 
-let depositDiv, depositImg;
+let depositDiv, depositImg, depositText, depositHeader, depositBool = true;
 function deposit(collectible){
-    switch(collectible.name){
-        case "Book":
-            depositDiv = createDiv();
-            depositDiv.parent('container');
-            depositDiv.id('depositDiv');
+    if(depositBool){
+        switch(collectible.name){
+            case "Book":
+                hideHealth();
+                hideInventory();
+                depositBool = false;
+                depositDiv = createDiv();
+                depositDiv.parent('container');
+                depositDiv.id('depositDiv');
 
-            depositImg = createImg() // image of delozier can be a random ai photo
-            depositImg.parent('depositDiv');
-            depositImg.id('depositImg');
+                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg.parent('depositDiv');
+                depositImg.id('depositImg');
 
-            
-        case "Chair":
+                depositHeader = createP('Dr. Delozier');
+                depositHeader.parent('depositDiv');
+                depositHeader.id('depositHeader');
+
+                depositText = createP('Took you long enough to find my software engineering book.');
+                depositText.parent('depositDiv');
+                depositText.id('depositText');
+
+                depositText = createP('If I am going to get us out of here I need my chair. It should be somewhere around here.');
+                depositText.parent('depositDiv');
+                depositText.id('depositText');
+
+                
+            case "Chair":
+        }
     }
 } 

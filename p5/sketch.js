@@ -176,6 +176,9 @@ function draw() {
 
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
 			let result = player.remove(book);
+			if(result){
+				deposit(book);
+			}
 			result = player.remove(chair);
 		}
 

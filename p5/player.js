@@ -95,7 +95,7 @@ class Player extends RoverCam {
 			pauseScreen();
 		}
 
-		if (!this.dead && !pauseActive) updateHealth(this.health);
+		if (!this.dead && !pauseActive && depositBool) updateHealth(this.health);
     }
     
     update() {

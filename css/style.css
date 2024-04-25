@@ -50,7 +50,7 @@ main {
 }
 
 #healthBarBorder {
-    margin-top: 85vh;
+    margin-top: 80vh;
     --p: 1;
 }
 
@@ -293,3 +293,34 @@ Health Bar
     text-align: center;
     margin: 15px;
   }
+
+#depositDiv{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    background-color: rgb(0,0,0,.35);
+    filter: blur(50);
+    
+}
+
+#depositImg{
+    opacity: 100%;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    right: 0;
+    margin-top: 0;
+    background-repeat: no-repeat;
+}
+
+#depositHeader{
+    color: white;
+    font-size: 50px;
+    font-family: fantasy;
+    text-decoration: underline;
+}
+
+#depositText{
+    color: white;
+}
