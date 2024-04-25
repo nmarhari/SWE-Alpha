@@ -67,8 +67,8 @@ class Chair extends Collectible{
             push();
             noStroke();
 			scale(this.size);
+            rotateX(PI)
             translate(this.position.x, this.position.y, this.position.z);
-            rotateY(HALF_PI);
             model(this.model);
 			pop();
         }
