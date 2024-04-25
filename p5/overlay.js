@@ -262,11 +262,11 @@ function deposit(collectible){
                 depositHeader.parent('depositDiv');
                 depositHeader.id('depositHeader');
 
-                depositText = createP('Took you long enough to find my software engineering book.');
+                depositText = createP("Took you long enough to find my software engineering book. If I'm going to get us out of here I'll need my chair.");
                 depositText.parent('depositDiv');
                 depositText.id('depositText');
 
-                depositText = createP('If I am going to get us out of here I need my chair. It should be somewhere around here.');
+                depositText = createP("Go find it and I can work on a solution to get us out of this mess.");
                 depositText.parent('depositDiv');
                 depositText.id('depositText');
 

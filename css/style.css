@@ -321,7 +321,11 @@ Health Bar
 }
 
 #depositText{
+    display: flex;
     color: white;
     margin-top: 10px;
-    width: 75vw;
+    margin-left: 15vw;
+    text-align: left;
+    font-size: 25px;
+    width: 100vw;
 }
