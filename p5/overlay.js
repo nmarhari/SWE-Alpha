@@ -243,9 +243,10 @@ function hideInventory() {
 }
 
 let depositDiv, depositImg, depositText, depositHeader, depositBool = true;
+let showPressF = true, pressFpara, pressFtext;
 function deposit(collectible){
     if(depositBool){
-        console.log(collectible.name)
+        showPressF = false;
         switch(collectible.name){
             case 'Book':
                 hideHealth();
@@ -324,3 +325,21 @@ function deposit(collectible){
         }
     }
 } 
+
+function pressF(){
+    if(showPressF){
+        showPressF = false;
+
+        pressFpara = document.createElement("p");
+		pressFtext = document.createTextNode("Press F to give");
+		pressFpara.appendChild(pressFtext);
+		pressFpara.classList.add("collectible-notification");
+		document.body.appendChild(pressFpara);
+    }
+}
+
+function hidepressF(){
+    showPressF = true;
+    pressFpara.remove();
+    pressFtext.remove()
+}

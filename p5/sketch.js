@@ -174,14 +174,23 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
-			let result = player.remove(book);
-			if(result){
-				deposit(book);
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
+			pressF();
+			if(keyIsDown(70)){
+				let result = player.remove(book);
+				if(result){
+					deposit(book);
+				}
+				result = player.remove(chair);
+				if(result){
+					deposit(chair);
+				}
 			}
-			result = player.remove(chair);
-			if(result)
-				deposit(chair);
+		} else {
+			try{
+				hidepressF();
+			} catch(error){}
+
 		}
 
 			push();
