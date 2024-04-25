@@ -7,6 +7,7 @@ class Collectible{  // abstract class
         this.model = model;
     }
 
+    // have to translate before scaling and rotating or xyz positions will be off
     display() {
         if(this.draw){
             push();
@@ -66,9 +67,9 @@ class Chair extends Collectible{
         if(this.draw){
             push();
             noStroke();
+            translate(this.position.x, this.position.y, this.position.z);
 			scale(this.size);
             rotateX(PI)
-            translate(this.position.x, this.position.y, this.position.z);
             model(this.model);
 			pop();
         }

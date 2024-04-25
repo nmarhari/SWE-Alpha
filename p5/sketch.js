@@ -84,7 +84,7 @@ function setup() {
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
 	book = new Book("Book", 35, -5, 30, 10, bookModel);
-	chair = new Chair("Chair", -10, 20, 15, 2.5, chairModel);
+	chair = new Chair("Chair", 10, -3, 40, .75, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
   	strokeWeight(2);
 	
@@ -180,6 +180,8 @@ function draw() {
 				deposit(book);
 			}
 			result = player.remove(chair);
+			if(result)
+				deposit(chair);
 		}
 
 			push();

@@ -245,8 +245,9 @@ function hideInventory() {
 let depositDiv, depositImg, depositText, depositHeader, depositBool = true;
 function deposit(collectible){
     if(depositBool){
+        console.log(collectible.name)
         switch(collectible.name){
-            case "Book":
+            case 'Book':
                 hideHealth();
                 hideInventory();
                 depositBool = false;
@@ -269,9 +270,57 @@ function deposit(collectible){
                 depositText = createP("Go find it and I can work on a solution to get us out of this mess.");
                 depositText.parent('depositDiv');
                 depositText.id('depositText');
+                break;
+            case 'Chair':
+                hideHealth();
+                hideInventory();
+                depositBool = false;
+                depositDiv = createDiv();
+                depositDiv.parent('container');
+                depositDiv.id('depositDiv');
 
-                
-            case "Chair":
+                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg.parent('depositDiv');
+                depositImg.id('depositImg');
+
+                depositHeader = createP('Dr. Delozier');
+                depositHeader.parent('depositDiv');
+                depositHeader.id('depositHeader');
+
+                depositText = createP("Finally I can actually sit down and do some work.");
+                depositText.parent('depositDiv');
+                depositText.id('depositText');
+
+                depositText = createP("Wait...  Where's my dongle at?");
+                depositText.parent('depositDiv');
+                depositText.id('depositText');
+                break;
+            case 'Dongle':
+                hideHealth();
+                hideInventory();
+                depositBool = false;
+                depositDiv = createDiv();
+                depositDiv.parent('container');
+                depositDiv.id('depositDiv');
+
+                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg.parent('depositDiv');
+                depositImg.id('depositImg');
+
+                depositHeader = createP('Dr. Delozier');
+                depositHeader.parent('depositDiv');
+                depositHeader.id('depositHeader');
+
+                depositText = createP("Yanno everyone should have one of these.");
+                depositText.parent('depositDiv');
+                depositText.id('depositText');
+
+                depositText = createP("They're really useful. You can pick one up at Walmart for $40.");
+                depositText.parent('depositDiv');
+                depositText.id('depositText');
+                break;
+            default:
+                break;
         }
     }
 } 
