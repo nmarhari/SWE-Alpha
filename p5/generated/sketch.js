@@ -4,7 +4,7 @@ const balls = [], ballParticles = [];
 let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for particles and fireballs on screen
 
 // basic game variables
-var player, maze, f, help = false, canvas, themePlaying = false;
+var player, gmap, f, help = false, canvas, themePlaying = false;
 
 // for models on screen and skybox
 let book, bookModel, skybox, theme, aspen; 
@@ -80,8 +80,8 @@ function setup() {
 	}
 
   	player = new Player();
-  	maze = new Maze(20,12);
- 	maze.setPlayerAtStart(player);
+  	gmap = new GeneratedMap();
+ 	gmap.setPlayerAtStart(player);
 	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
 	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
@@ -144,7 +144,7 @@ function draw() {
 	pop();
 
   	if(frameCount % 60 === 0){
-      	maze.checkLavaCollision(player);
+      	gmap.checkLavaCollision(player);
 		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
 		  console.log(arrPos);
   	}
@@ -174,7 +174,6 @@ function draw() {
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
 			let result = player.remove(book);
 			result = player.remove(chair);
-			result = startGame();
 		}
 
 			push();
@@ -183,12 +182,12 @@ function draw() {
 			pop();
 
 
-	maze.update(balls);
-	maze.display();
+	gmap.update(balls);
+	gmap.display();
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(maze, player);
+		balls[i].update(gmap, player);
 	}
 
   	if (help || frameCount < 400) { // Heads Up Display extension
@@ -228,7 +227,7 @@ function draw() {
 
 	if(frameCount % 1200 == 0){ // every 20 seconds a fireball will spawn in
 		currentBalls++;
-		maze.raiseLava(.5);
+		gmap.raiseLava(.5);
 	}
 	
 	//Calls showInventory function once
