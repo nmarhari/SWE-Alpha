@@ -239,3 +239,20 @@ function hideInventory() {
     inventoryContainer.remove();
     inventoryItems.remove();
 }
+
+let depositDiv, depositImg;
+function deposit(collectible){
+    switch(collectible.name){
+        case "Book":
+            depositDiv = createDiv();
+            depositDiv.parent('container');
+            depositDiv.id('depositDiv');
+
+            depositImg = createImg() // image of delozier can be a random ai photo
+            depositImg.parent('depositDiv');
+            depositImg.id('depositImg');
+
+            
+        case "Chair":
+    }
+} 
