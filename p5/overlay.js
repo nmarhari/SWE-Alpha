@@ -86,6 +86,7 @@ function deathScreen() {
     startShowingHealth = false;
     startcreateInventory = false;
     hideHealth();
+    resetInventory();
     hideInventory();
 
     deathDiv = createDiv();
@@ -113,8 +114,7 @@ function deathScreen() {
 function respawnPlayer() {
     player.dead = false;
     player.health = 100;
-    maze = new Maze(20, 12);
-    maze.setPlayerAtStart(player);
+    resetMap();
     deathVisible = false;
     player.gameStarted = true;
     player.pointerLock = true;
@@ -132,6 +132,17 @@ function respawnPlayer() {
     startcreateInventory = true;
 }
 
+function resetMap() {
+    maze = new Maze(20, 12);
+    maze.setPlayerAtStart(player);
+	//Inventory - replace texture links with chair and dr image files when completed
+    if (book) 
+        book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
+    if (chair)
+        chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg'); // change to chair texture later
+	if (dr) 
+    dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg'); // change to chair texture later
+}
 
 // on screen health bar
 let healthBarDiv;
@@ -207,7 +218,11 @@ function updateInventory() {
     }
 }
 
+function resetInventory() {
+    player.collectedItems = [];
+    updateInventory();
+}
+
 function hideInventory() {
     inventoryContainer.remove();
-    inventoryItems.remove();
 }
