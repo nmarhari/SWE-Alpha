@@ -56,3 +56,29 @@ class Book extends Collectible{
         this.draw = true;
     }
 }
+
+class Chair extends Collectible{
+    constructor(name, x, y, z, size, model){
+        super(name, x, y, z, size, model);
+    }
+
+    display() {
+        if(this.draw){
+            push();
+            noStroke();
+			scale(this.size);
+            translate(this.position.x, this.position.y, this.position.z);
+            rotateY(HALF_PI);
+            model(this.model);
+			pop();
+        }
+    }
+
+    remove(){
+        this.draw = false;
+    }
+
+    show(){
+        this.draw = true;
+    }
+}

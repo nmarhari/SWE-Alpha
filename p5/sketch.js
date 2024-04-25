@@ -37,14 +37,15 @@ function preload() {
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
-	wordtexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
+	wordTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
+	chairTexture = loadImage('../assets/textures/fabric.png')
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
 	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
 	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
 	aspen = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/aspen.png');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
+	chairModel = loadModel('../assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
@@ -83,7 +84,7 @@ function setup() {
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
 	book = new Book("Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
+	chair = new Chair("Chair", -10, -10, 15, 5, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
   	strokeWeight(2);
 	
@@ -123,11 +124,11 @@ function draw() {
 		rotateY(-HALF_PI)
 		translate(45, -30, -175)
 		noStroke();
-		texture(wordtexture);
+		texture(wordTexture);
 		word.show()
 	pop()
 
-	// starry skybox
+	 // starry skybox
 	push();
 		noStroke();
 		textureWrap(CLAMP);
@@ -143,7 +144,7 @@ function draw() {
 		rotateY(HALF_PI);
 		translate(-50, -100, -165)
 		plane(400, 400);
-	pop();
+	pop(); 
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
@@ -168,7 +169,10 @@ function draw() {
 			chair.remove();
 		} else {
 			push();
+			rotateY(HALF_PI)
 			texture(bookTexture);
+			texture(chairTexture);
+
 			chair.display();
 			pop();
 		}

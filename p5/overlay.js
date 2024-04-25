@@ -39,12 +39,6 @@ function startScreen() {
     startClickables.parent('startDiv');
     startClickables.id('startClickables');
 
-    /*
-    startCheck = createCheckbox('make lava harmless');
-    startCheck.parent('startClickables');
-    startCheck.id('startCheck');
-    */
-
     startButton = createButton('Start');
     startButton.mouseClicked(closeStartScreen);
     startButton.parent('startClickables');
@@ -79,6 +73,54 @@ function delozierMode() {
     var dlzButton = document.getElementById('dlzButton'); // Get the button element
     dlzButton.classList.toggle('clicked'); // Toggle the 'clicked' class on the button
     dlzMode = true;
+}
+
+let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
+var pauseActive = false;
+function pauseScreen(){
+    pauseActive = true;
+    frameRate(0);
+    player.gameStarted = false;
+    player.pointerLock = false;
+    startShowingHealth = false;
+    startShowInventory = false;
+    hideHealth();
+    hideInventory();
+
+    pauseDiv = createDiv();
+    pauseDiv.parent('container');
+    pauseDiv.id('deathDiv');
+    
+    pauseBlur = createDiv();
+    pauseBlur.parent('deathDiv');
+    pauseBlur.id('deathBlur');
+
+    pauseText = createDiv('Game Paused!');
+    pauseText.parent('deathDiv');
+    pauseText.id('deathText');
+    
+    pauseClickables = createDiv();
+    pauseClickables.parent('deathDiv');
+    pauseClickables.id('deathClickables');
+
+    pauseButton = createButton('Resume');
+    pauseButton.parent('deathClickables');
+    pauseButton.id('deathButton');
+    pauseButton.mouseClicked(closePause);
+}
+
+function closePause(){
+    frameRate(60);
+    pauseActive = false;
+    pauseDiv.remove();
+    pauseBlur.remove();
+    pauseText.remove();
+    pauseClickables.remove();
+    pauseButton.remove();
+    player.gameStarted = true;
+    startShowingHealth = true;
+    startShowInventory = true;
+    player.pointerLock = true;
 }
 
 

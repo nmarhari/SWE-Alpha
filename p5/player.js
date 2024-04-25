@@ -91,9 +91,11 @@ class Player extends RoverCam {
 
 
 		// unlock pointer if ESC is pressed
-		if (keyPressed(ESCAPE)) this.pointerLock = false;
+		if (keyIsDown(27) && !pauseActive){
+			pauseScreen();
+		}
 
-		if (this.dead == false) updateHealth(this.health);
+		if (!this.dead && !pauseActive) updateHealth(this.health);
     }
     
     update() {
@@ -184,7 +186,4 @@ class Player extends RoverCam {
 		if(arrayZ < 0) arrayZ = 0;
 		return { x: arrayX, z: arrayZ };
 	}
-}
-
-function keyPressed() { // need this here so you can escape with ptr
 }
