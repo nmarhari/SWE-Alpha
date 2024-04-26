@@ -142,25 +142,77 @@ class Player extends RoverCam {
 		this.collectedItems.push(collectible);
 		switch(collectible.name){
 			case "Book":
-				let para = document.createElement("p");
-				let text1 = document.createTextNode("Software Engineering Book Found");
+				let bookP = document.createElement("p");
+				let bookText1 = document.createTextNode("Software Engineering Book Found");
 				let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
 				
-				para.appendChild(text1);
-				para.appendChild(document.createElement("br")); // Create a line break
-				para.appendChild(text2);
-					para.classList.add("collectible-notification");
+				bookP.appendChild(bookText1);
+				bookP.appendChild(document.createElement("br")); // Create a line break
+				bookP.appendChild(text2);
+					bookP.classList.add("collectible-notification");
 		
 					// Append the paragraph to the document body
-					document.body.appendChild(para);
+					document.body.appendChild(bookP);
 		
 					// Remove the paragraph after 3 seconds
 					setTimeout(function() {
-						para.remove(); // Remove the paragraph after another 3 seconds
+						bookP.remove(); // Remove the paragraph after another 3 seconds
 					}, 4000);
+				break;
+
 			case "Chair":
+				let chairP = document.createElement("p");
+				let chairText1 = document.createTextNode("MSB Chair Found");
+				
+				chairP.appendChild(chairText1);
+				chairP.appendChild(document.createElement("br")); // Create a line break
+				chairP.appendChild(text2);
+					chairP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(chairP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						chairP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
 
 			case "Dongle":
+				let dongleP = document.createElement("p");
+				let dongleText1 = document.createTextNode("Dongle Found");
+				
+				dongleP.appendChild(dongleText1);
+				dongleP.appendChild(document.createElement("br")); // Create a line break
+				dongleP.appendChild(text2);
+					dongleP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(dongleP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						dongleP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
+
+			case "Laptop": 
+				let laptopP = document.createElement("p");
+				let laptopText1 = document.createTextNode("Dongle Found");
+				
+				laptopP.appendChild(laptopText1);
+				laptopP.appendChild(document.createElement("br")); // Create a line break
+				laptopP.appendChild(text2);
+					laptopP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(laptopP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						laptopP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
 
 		}
 	}

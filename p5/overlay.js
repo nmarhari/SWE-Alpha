@@ -272,6 +272,7 @@ function deposit(collectible){
                 depositText.parent('depositDiv');
                 depositText.id('depositText');
                 break;
+                
             case 'Chair':
                 hideHealth();
                 hideInventory();
@@ -296,6 +297,7 @@ function deposit(collectible){
                 depositText.parent('depositDiv');
                 depositText.id('depositText');
                 break;
+
             case 'Dongle':
                 hideHealth();
                 hideInventory();
@@ -320,6 +322,31 @@ function deposit(collectible){
                 depositText.parent('depositDiv');
                 depositText.id('depositText');
                 break;
+
+                case 'Laptop':
+                    hideHealth();
+                    hideInventory();
+                    depositBool = false;
+                    depositDiv = createDiv();
+                    depositDiv.parent('container');
+                    depositDiv.id('depositDiv');
+    
+                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg.parent('depositDiv');
+                    depositImg.id('depositImg');
+    
+                    depositHeader = createP('Dr. Delozier');
+                    depositHeader.parent('depositDiv');
+                    depositHeader.id('depositHeader');
+    
+                    depositText = createP("This better have github actions running on it.");
+                    depositText.parent('depositDiv');
+                    depositText.id('depositText');
+    
+                    depositText = createP("If it doesn't have automated testing I don't want it.");
+                    depositText.parent('depositDiv');
+                    depositText.id('depositText');
+                    break;
             default:
                 break;
         }
