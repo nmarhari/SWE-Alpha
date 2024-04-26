@@ -182,7 +182,7 @@ function draw() {
 			pop();
 
 
-	gmap.update(balls);
+	gmap.update(balls, player);
 	gmap.display();
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
