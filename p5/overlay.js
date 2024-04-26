@@ -63,7 +63,7 @@ function closeStartScreen() {
     startClickables.remove();
     //startCheck.remove();
     startButton.remove();
-    theme.pause();
+    theme.stop();
     //indicate that the game has started
     startShowingHealth = true;
     startShowInventory = true;

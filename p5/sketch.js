@@ -38,14 +38,16 @@ function preload() {
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	wordTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
-	chairTexture = loadImage('../assets/textures/fabric.png')
+	chairTexture = loadImage('../assets/textures/fabric.png');
+	//laptopTexture = loadImage('../assets/textures/macScreen.jpg');
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
 	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
 	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
 	aspen = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/aspen.png');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
-	chairModel = loadModel('../assets/Chair.obj');
+	chairModel = loadModel('../assets/chair.obj');
+	//laptopModel = loadModel('../assets/laptop.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
@@ -263,7 +265,7 @@ function mouseClicked() {
 	}
 
 	if (!player.gameStarted && !themePlaying) {
-		theme.play();
+		theme.loop();
 		themePlaying = true;
 	}
 }
