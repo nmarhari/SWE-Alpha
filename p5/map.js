@@ -64,7 +64,7 @@ class Block {
 			let self = this; // Store reference to 'this'
 			setTimeout(() => {
 					self.fillColor = color(random(150, 200)); // Use stored reference
-			}, 3000);
+			}, 1);
 		}
     }
 
