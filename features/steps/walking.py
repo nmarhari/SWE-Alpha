@@ -8,6 +8,7 @@ from behave import *
 @given(u'the user is on the game website and has started playing')
 def step_impl(context):
     options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
     options.set_capability("goog:loggingPrefs", {  # old: loggingPrefs
     "browser": "ALL"})
     context.browser = webdriver.Chrome(options = options)
@@ -34,6 +35,8 @@ def step_impl(context):
         #f.write(log['message'][log['message'].find("x:"):log['message'].find("x:")+6][-3:-1])
     #parses the console for a the message executed above and checkes the the x value has changed
     log = context.browser.get_log("browser")
-    assert(int(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+6][-3:-1]) > 5)
+    print(log)
+    print(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+10][3:10])
+    assert(float(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+10][3:10]) > 5)
     
     

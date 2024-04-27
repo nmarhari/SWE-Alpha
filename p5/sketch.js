@@ -15,10 +15,10 @@ let startShowInventory = true;
 // this is needed to catch the exit from pointerLock when user presses ESCAPE
 function onPointerlockChange() {
 	if (document.pointerLockElement === canvas.elt ||
-		document.mozPointerLockElement === canvas.elt)
-		console.log("locked");
-	else {
-		console.log("unlocked");
+		document.mozPointerLockElement === canvas.elt){
+	    //console.log("locked");
+	} else {
+		//console.log("unlocked");
 		player.pointerLock = false;
 	}
 }
