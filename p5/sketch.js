@@ -48,7 +48,8 @@ function preload() {
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	chairModel = loadModel('../assets/chair.obj');
 	//laptopModel = loadModel('../assets/laptop.obj');
-	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	drModel = loadModel('../assets/Prof.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
