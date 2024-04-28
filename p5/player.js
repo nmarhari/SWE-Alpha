@@ -140,11 +140,11 @@ class Player extends RoverCam {
 
 	collect(collectible){
 		this.collectedItems.push(collectible);
+		let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
 		switch(collectible.name){
 			case "Book":
 				let bookP = document.createElement("p");
 				let bookText1 = document.createTextNode("Software Engineering Book Found");
-				let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
 				
 				bookP.appendChild(bookText1);
 				bookP.appendChild(document.createElement("br")); // Create a line break

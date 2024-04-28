@@ -121,7 +121,7 @@ main {
 
 #dlzButton{
     position: absolute;
-    bottom: 20px; /* Adjust this value as needed */
+    bottom: 10vh; 
     left: 50%;
     transform: translateX(-50%);
     text-decoration: none;
@@ -130,7 +130,7 @@ main {
     padding: 12px 20px;
     font-size: 24px;
     cursor: pointer;
-    margin: 10px 0px;
+    margin: 10px 0px 10px;
     transition: 1s;
     background-color: transparent;
     font-family: "VT323", monospace;
