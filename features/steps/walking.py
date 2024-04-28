@@ -23,7 +23,7 @@ def step_impl(context):
     ActionChains(context.browser)\
         .key_down(Keys.ARROW_UP)\
         .perform()
-    time.sleep(1)
+    time.sleep(5)
 
 
 @then(u'the position should change')
