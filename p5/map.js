@@ -275,7 +275,7 @@ class Maze {
 		try {
 			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
 		} catch (error) {
-			console.log('catch');
+			//console.log('catch');
 			endZ = Math.min(12 - radius, playerArrPos.z + radius);
 		}
 		

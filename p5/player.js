@@ -72,7 +72,7 @@ class Player extends RoverCam {
 
 			if(keyIsDown(189)){
 				if(player.pov.fovy <= 2){
-					console.log(player.pov.fovy)
+					//console.log(player.pov.fovy)
 					player.pov.fovy += 0.01;
 					player.updatePOV();
 				}
@@ -80,7 +80,7 @@ class Player extends RoverCam {
 		
 			if(keyIsDown(187)){
 				if( player.pov.fovy >= .5){
-					console.log(player.pov.fovy)
+					//console.log(player.pov.fovy)
 					player.pov.fovy -= 0.01;
 					player.updatePOV();
 				}
@@ -120,7 +120,7 @@ class Player extends RoverCam {
   
 
      	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
-			console.log('if this grounded');
+			//console.log('if this grounded');
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
         	this.velocity.y -= .8;

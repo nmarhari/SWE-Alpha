@@ -239,7 +239,7 @@ function draw() {
 	}
 
 	if (startShowingHealth) {
-		console.log('showing health')
+		//console.log('showing health')
 		showHealth();
 		lavaSound.loop();
 		ambience.loop();

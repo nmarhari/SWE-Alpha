@@ -55,7 +55,7 @@ function startScreen() {
 function closeStartScreen() {
     frameRate(60);
     //removes all p5 elements associated with start screen
-    console.log("clearing start screen...")
+    //console.log("clearing start screen...")
     player.gameStarted = true;
     startDiv.remove();
     startImg.remove();
@@ -175,7 +175,7 @@ function respawnPlayer() {
     
     frameRate(60);
 
-    console.log("clearing death screen...")
+    //console.log("clearing death screen...")
     deathDiv.remove();
     deathBlur.remove();
     deathText.remove();
