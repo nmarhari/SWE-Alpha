@@ -313,18 +313,24 @@ Health Bar
     background-repeat: no-repeat;
 }
 
+#depositTextDiv{
+    position: flex;
+    width: 100vw;
+    height: 100vh;
+    margin-left: 15vw;
+}
+
 #depositHeader{
     color: white;
     font-size: 50px;
     font-family: fantasy;
-    margin-left: -45vw;
+    text-align: left;
 }
 
 #depositText{
     display: flex;
     color: white;
     margin-top: 10px;
-    margin-left: 20vw;
     font-size: 25px;
 }
 

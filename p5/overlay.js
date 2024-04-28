@@ -242,16 +242,17 @@ function hideInventory() {
     inventoryItems.remove();
 }
 
-let depositDiv, depositImg, depositText, depositHeader, depositBool = true;
+let depositDiv, depositTextDiv, depositImg, depositText, depositHeader, depositActive = true;
 let showPressF = true, pressFpara, pressFtext;
 function deposit(collectible){
-    if(depositBool){
+    if(depositActive){
         showPressF = false;
         switch(collectible.name){
             case 'Book':
+                depositActive = false;
                 hideHealth();
                 hideInventory();
-                depositBool = false;
+
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
@@ -260,23 +261,28 @@ function deposit(collectible){
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
+                depositTextDiv = createDiv();
+                depositTextDiv.parent('depositDiv');
+                depositTextDiv.id('depositTextDiv');
+
                 depositHeader = createP('Dr. Delozier');
-                depositHeader.parent('depositDiv');
+                depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
                 depositText = createP("Took you long enough to find my software engineering book. If I'm going to get us out of here I'll need my chair.");
-                depositText.parent('depositDiv');
+                depositText.parent('depositTextDiv');
                 depositText.id('depositText');
 
                 depositText = createP("Go find it and I can work on a solution to get us out of this mess.");
-                depositText.parent('depositDiv');
+                depositText.parent('depositTextDiv');
                 depositText.id('depositText');
                 break;
                 
             case 'Chair':
+                depositActive = false;
                 hideHealth();
                 hideInventory();
-                depositBool = false;
+
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
@@ -299,9 +305,10 @@ function deposit(collectible){
                 break;
 
             case 'Dongle':
+                depositActive = false;
                 hideHealth();
                 hideInventory();
-                depositBool = false;
+
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
@@ -324,9 +331,10 @@ function deposit(collectible){
                 break;
 
                 case 'Laptop':
+                    depositActive = false;
                     hideHealth();
                     hideInventory();
-                    depositBool = false;
+
                     depositDiv = createDiv();
                     depositDiv.parent('container');
                     depositDiv.id('depositDiv');
@@ -348,6 +356,27 @@ function deposit(collectible){
                     depositText.id('depositText');
                     break;
             default:
+                    /* hideHealth();
+                    hideInventory();
+                    depositDiv = createDiv();
+                    depositDiv.parent('container');
+                    depositDiv.id('depositDiv');
+    
+                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg.parent('depositDiv');
+                    depositImg.id('depositImg');
+    
+                    depositHeader = createP('Dr. Delozier');
+                    depositHeader.parent('depositDiv');
+                    depositHeader.id('depositHeader');
+    
+                    depositText = createP("You don't have any of my items.");
+                    depositText.parent('depositDiv');
+                    depositText.id('depositText');
+    
+                    depositText = createP("Why are you trying to give me something if you don't have it.");
+                    depositText.parent('depositDiv');
+                    depositText.id('depositText'); */
                 break;
         }
     }

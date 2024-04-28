@@ -79,7 +79,7 @@ class Player extends RoverCam {
 			}
 		
 			if(keyIsDown(187)){
-				if(player.pov.fovy >= .5){
+				if( player.pov.fovy >= .5){
 					console.log(player.pov.fovy)
 					player.pov.fovy -= 0.01;
 					player.updatePOV();
@@ -95,7 +95,7 @@ class Player extends RoverCam {
 			pauseScreen();
 		}
 
-		if (!this.dead && !pauseActive && depositBool) updateHealth(this.health);
+		if (!this.dead && !pauseActive && depositActive) updateHealth(this.health);
     }
     
     update() {
