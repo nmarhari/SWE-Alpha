@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "$ npm run test"
           npm run test
-  behavioral_testing:
+  behavioral_headless_testing:
     runs-on: ubuntu-latest
     steps:
       - name: Get code

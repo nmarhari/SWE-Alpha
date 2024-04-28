@@ -8,6 +8,7 @@ from behave import *
 @given(u'the user is on the game website and has started playing')
 def step_impl(context):
     options = webdriver.ChromeOptions()
+    options.add_argument('--headless=new')
     options.set_capability("goog:loggingPrefs", {  # old: loggingPrefs
     "browser": "ALL"})
     context.browser = webdriver.Chrome(options = options)
