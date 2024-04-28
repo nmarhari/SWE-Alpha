@@ -146,7 +146,7 @@ function draw() {
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
 		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		  console.log(arrPos);
+		  //console.log(arrPos);
   	}
 
 	
