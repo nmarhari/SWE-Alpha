@@ -14,7 +14,7 @@ let OBJarray = []; //have to splice objs from array to remove on screen
 let startVisible = true; // renders start screen once
 let deathVisible = false;
 let startShowingHealth = false;
-let startShowInventory = false;
+let startcreateInventory = false;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
@@ -36,16 +36,21 @@ function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
-	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	wordtexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
 	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
 	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
 	aspen = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/aspen.png');
+
+
+	// Load the collectables
+	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
+
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
@@ -82,9 +87,10 @@ function setup() {
   	player = new Player();
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
-	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
+	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
+	//Inventory - replace texture links with chair and dr image files when completed
+	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg'); // change to chair texture later
+	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg'); // change to chair texture later
  	frameRate(60);
   	strokeWeight(2);
 
@@ -150,7 +156,7 @@ function draw() {
   	}
 
 	
-	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
+	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2 && book.collected == false){
 			player.collect(book);
 			book.remove();
 		} else {
@@ -161,7 +167,7 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
+		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2 && chair.collected == false){
 			player.collect(chair);
 			chair.remove();
 		} else {
@@ -171,7 +177,7 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2 && dr.collected == false){
 			let result = player.remove(book);
 			result = player.remove(chair);
 		}
@@ -230,10 +236,10 @@ function draw() {
 		maze.raiseLava(.5);
 	}
 	
-	//Calls showInventory function once
-	if (startShowInventory) {
-		showInventory();
-		startShowInventory = false;
+	//Calls createInventory function once
+	if (startcreateInventory) {
+		createInventory();
+		startcreateInventory = false;
 	}
 }
 

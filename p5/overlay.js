@@ -69,7 +69,7 @@ function closeStartScreen() {
     
     //indicate that the game has started
     startShowingHealth = true;
-    startShowInventory = true;
+    startcreateInventory = true;
 }
 
 
@@ -84,8 +84,9 @@ function deathScreen() {
     exitPointerLock();
     frameRate(0);
     startShowingHealth = false;
-    startShowInventory = false;
+    startcreateInventory = false;
     hideHealth();
+    resetInventory();
     hideInventory();
 
     deathDiv = createDiv();
@@ -113,8 +114,7 @@ function deathScreen() {
 function respawnPlayer() {
     player.dead = false;
     player.health = 100;
-    maze = new Maze(20, 12);
-    maze.setPlayerAtStart(player);
+    resetMap();
     deathVisible = false;
     player.gameStarted = true;
     player.pointerLock = true;
@@ -129,9 +129,20 @@ function respawnPlayer() {
     deathClickables.remove();
     deathButton.remove();
     startShowingHealth = true;
-    startShowInventory = true;
+    startcreateInventory = true;
 }
 
+function resetMap() {
+    maze = new Maze(20, 12);
+    maze.setPlayerAtStart(player);
+	//Inventory - replace texture links with chair and dr image files when completed
+    if (book) 
+        book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
+    if (chair)
+        chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg'); // change to chair texture later
+	if (dr) 
+    dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel, 'https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg'); // change to chair texture later
+}
 
 // on screen health bar
 let healthBarDiv;
@@ -168,15 +179,10 @@ function hideHealth() {
 //On screen inventory slots
 
 let inventoryContainer;
-let inventoryItems;
 
-function showInventory(){
+function createInventory() {
     inventoryContainer = createDiv();
     inventoryContainer.id('inventoryContainer');
-    inventoryItems = createDiv();
-    inventoryContainer.style('opacity', '0.3');
-    inventoryItems.id('inventorySlot');
-    inventoryItems.parent('inventoryContainer');
     inventoryContainer.parent('container');
     for (let i=0; i < 5; i++) {
         const itemSlot = createDiv();
@@ -184,7 +190,39 @@ function showInventory(){
         itemSlot.parent('inventoryContainer');
     }
 }
+
+function updateInventory() {
+    let i = 0;
+    let container = document.getElementById("inventoryContainer")
+    while (container.firstChild) {
+        container.removeChild(container.lastChild);
+    }
+    for (item in player.collectedItems) {
+        let elem = document.createElement("img");
+        let texture = "https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg";
+        console.log(texture);
+        elem.setAttribute("src", texture);
+        console.log(item.texture)
+        const itemSlot = createDiv();
+        itemSlot.class('inventorySlot');
+        itemSlot.parent('inventoryContainer');
+        container.lastChild.appendChild(elem);
+        i++;
+        console.log(player.collectedItems);
+    }
+    while (i < 5) {
+        const itemSlot = createDiv();
+        itemSlot.class('inventorySlot emptySlot');
+        itemSlot.parent('inventoryContainer');
+        i++;
+    }
+}
+
+function resetInventory() {
+    player.collectedItems = [];
+    updateInventory();
+}
+
 function hideInventory() {
     inventoryContainer.remove();
-    inventoryItems.remove();
 }

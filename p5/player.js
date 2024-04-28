@@ -138,16 +138,17 @@ class Player extends RoverCam {
 			para.appendChild(text1);
 			para.appendChild(document.createElement("br")); // Create a line break
 			para.appendChild(text2);
-				para.classList.add("collectible-notification");
-	
-				// Append the paragraph to the document body
-				document.body.appendChild(para);
-	
-				// Remove the paragraph after 3 seconds
-				setTimeout(function() {
-					para.remove(); // Remove the paragraph after another 3 seconds
-				}, 4000);
+			para.classList.add("collectible-notification");
+
+			// Append the paragraph to the document body
+			document.body.appendChild(para);
+
+			// Remove the paragraph after 3 seconds
+			setTimeout(function() {
+				para.remove(); // Remove the paragraph after another 3 seconds
+			}, 4000);
 		}
+		updateInventory();
 	}
 
 	remove(collectible) {
