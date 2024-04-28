@@ -2,7 +2,7 @@ name: Headless Testing
 
 on:
   push:
-    branches: [ 'main', 'mocha-*' ]
+    branches: [ 'main', 'mocha-*', 'chai-*', 'test-*', 'behave-*', 'selenium-*' ]
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v2
-      - name: Install Chai
+      - name: Install Chai & Mocha
         run: |
           echo "$ npm install chai & mocha "
           npm install chai mocha
@@ -21,3 +21,18 @@ jobs:
         run: |
           echo "$ npm run test"
           npm run test
+  behavioral_testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v2
+      - name: Install Selenium & Behave
+        run: |
+          echo "$ pip install Selenium"
+          pip install Selenium
+          echo "$ pip install behave"
+          pip install behave
+      - name: Test walking.py
+        run: |
+          echo "$ behave"
+          behave
