@@ -461,8 +461,8 @@ class GeneratedMap {
 	raiseLava(height) {
 		let currentHeight = this.currentLavaHeight();
 	
-		for (let x = 0; x < this.blocks.length; ++x) {
-			for (let z = 0; z < this.blocks[x].length; ++z) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
 				if(this.blocks[x][z].texture == lava){
 					this.blocks[x][z].dimensions.y += height;
 				}
@@ -477,8 +477,8 @@ class GeneratedMap {
 	// calculates current lava height
 	currentLavaHeight() {
 		let currentHeight = null;
-		for (let x = 0; x < this.blocks.length; ++x) {
-			for (let z = 0; z < this.blocks[x].length; ++z) {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
 				if (this.blocks[x][z].texture == lava) {
 					currentHeight = this.blocks[x][z].dimensions.y;
 					return currentHeight;
