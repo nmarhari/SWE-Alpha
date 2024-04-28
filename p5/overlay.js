@@ -291,16 +291,20 @@ function deposit(collectible){
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
+                depositTextDiv = createDiv();
+                depositTextDiv.parent('depositDiv');
+                depositTextDiv.id('depositTextDiv');
+
                 depositHeader = createP('Dr. Delozier');
-                depositHeader.parent('depositDiv');
+                depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
                 depositText = createP("Finally I can actually sit down and do some work.");
-                depositText.parent('depositDiv');
+                depositText.parent('depositTextDiv');
                 depositText.id('depositText');
 
                 depositText = createP("Wait...  Where's my dongle at?");
-                depositText.parent('depositDiv');
+                depositText.parent('depositTextDiv');
                 depositText.id('depositText');
                 break;
 
@@ -317,16 +321,20 @@ function deposit(collectible){
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
+                depositTextDiv = createDiv();
+                depositTextDiv.parent('depositDiv');
+                depositTextDiv.id('depositTextDiv');
+
                 depositHeader = createP('Dr. Delozier');
-                depositHeader.parent('depositDiv');
+                depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
                 depositText = createP("Yanno everyone should have one of these.");
-                depositText.parent('depositDiv');
+                depositText.parent('depositTextDiv');
                 depositText.id('depositText');
 
                 depositText = createP("They're really useful. You can pick one up at Walmart for $40.");
-                depositText.parent('depositDiv');
+                depositText.parent('depositTextDiv');
                 depositText.id('depositText');
                 break;
 
@@ -342,17 +350,21 @@ function deposit(collectible){
                     depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
                     depositImg.parent('depositDiv');
                     depositImg.id('depositImg');
+
+                    depositTextDiv = createDiv();
+                    depositTextDiv.parent('depositDiv');
+                    depositTextDiv.id('depositTextDiv');
     
                     depositHeader = createP('Dr. Delozier');
-                    depositHeader.parent('depositDiv');
+                    depositHeader.parent('depositTextDiv');
                     depositHeader.id('depositHeader');
     
                     depositText = createP("This better have github actions running on it.");
-                    depositText.parent('depositDiv');
+                    depositText.parent('depositTextDiv');
                     depositText.id('depositText');
     
                     depositText = createP("If it doesn't have automated testing I don't want it.");
-                    depositText.parent('depositDiv');
+                    depositText.parent('depositTextDiv');
                     depositText.id('depositText');
                     break;
             default:
