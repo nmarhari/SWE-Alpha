@@ -140,6 +140,7 @@ class Player extends RoverCam {
 
 	collect(collectible){
 		this.collectedItems.push(collectible);
+    
 		let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
 		switch(collectible.name){
 			case "Book":
@@ -213,8 +214,8 @@ class Player extends RoverCam {
 						laptopP.remove(); // Remove the paragraph after another 3 seconds
 					}, 4000);
 				break;
-
 		}
+		updateInventory();
 	}
 
 	remove(collectible) {
