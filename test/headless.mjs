@@ -13,7 +13,7 @@ describe('test swe-alpha', async function(){
     beforeEach(async function(){
         driver = await new Builder()
             .forBrowser('chrome')
-            .setChromeOptions(options.addArguments('--headless')) // remove to see what is happening
+            .setChromeOptions() // remove to see what is happening
             .build();
         await driver.get('https://nmarhari.github.io/SWE-Alpha');
         await sleep(5000);
@@ -21,6 +21,8 @@ describe('test swe-alpha', async function(){
 
     it('start the game & check health', async function(){
         startButton = await driver.findElement(By.xpath('//button[@id="startButton"]'));
+        startButton.click();
+        startButton.click();
         startButton.click();
         await sleep(1000);
         healthBar = await driver.findElement(By.xpath('//div[@id="healthBarBorder"]'));

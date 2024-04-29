@@ -16,7 +16,8 @@ def step_impl(context):
     time.sleep(10)
     start_button = context.browser.find_element(by=By.TAG_NAME, value='button')
     start_button.click()
-
+    start_button.click()
+    start_button.click()
 
 @when(u'the user is pressing up arrow key')
 def step_impl(context):
