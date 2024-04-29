@@ -37,6 +37,9 @@ function preload() {
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
 	wordtexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
+	bookTexture = loadImage('../assets/textures/leather.jpg');
+	wordTexture = loadImage('../assets/textures/molten.jpg');
+	chairTexture = loadImage('../assets/textures/fabric.png');
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
 	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
 	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
@@ -50,7 +53,10 @@ function preload() {
 
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
-
+	chairModel = loadModel('../assets/chair.obj');
+	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
+	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	drModel = loadModel('../assets/Prof.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
