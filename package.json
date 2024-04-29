@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "chai": "^5.1.0",
     "express": "^4.19.2",

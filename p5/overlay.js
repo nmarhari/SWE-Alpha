@@ -138,8 +138,9 @@ function deathScreen() {
     exitPointerLock();
     frameRate(0);
     startShowingHealth = false;
-    startShowInventory = false;
+    startcreateInventory = false;
     hideHealth();
+    resetInventory();
     hideInventory();
 
     deathDiv = createDiv();
@@ -196,7 +197,6 @@ function resetMap() {
 	if (dr) 
     dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel); // change to chair texture later
 }
-
 
 
 // on screen health bar

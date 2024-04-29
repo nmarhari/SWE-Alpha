@@ -51,6 +51,7 @@ class Book extends Collectible{
         }
     }
 
+
     remove(){
         this.draw = false;
         this.collected = true;
@@ -86,4 +87,5 @@ class Chair extends Collectible{
     show(){
         this.draw = true;
     }
+
 }
