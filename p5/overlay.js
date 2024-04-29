@@ -75,7 +75,7 @@ function delozierMode() {
     dlzMode = true;
 }
 
-let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
+/*let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
 var pauseActive = false;
 function pauseScreen(){
     pauseActive = true;
@@ -110,6 +110,8 @@ function pauseScreen(){
 }
 
 function closePause(){
+    startShowingHealth = true;
+    startShowingInventory = true;
     frameRate(60);
     pauseActive = false;
     pauseDiv.remove();
@@ -118,13 +120,13 @@ function closePause(){
     pauseClickables.remove();
     pauseButton.remove();
     player.gameStarted = true;
-    if(!depositBool){
-        startShowingHealth = true;
-        startShowInventory = true;
+    if(depositActive){
+
+       hideHealth();
+       hideInventory(); 
     }
     player.pointerLock = true;
-}
-
+}*/
 
 let deathDiv;
 let deathBlur;
