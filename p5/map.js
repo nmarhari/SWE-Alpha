@@ -155,7 +155,6 @@ class FireBall {
 			texture(this.texture);
 			noStroke();
 			sphere(this.radius);
-			//console.log(lava);
 			pop();
 		}
 
@@ -177,7 +176,8 @@ class FireBall {
 				(player.position.z + player.dimensions.z / 2) >= (this.position.z - this.radius)     // player back
 			){
 				console.log("fireball hit");
-				player.takeHit();
+				if(!dlzMode)
+					player.takeHit();
 			}
 		}
 	}
@@ -275,7 +275,7 @@ class Maze {
 		try {
 			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
 		} catch (error) {
-			console.log('catch');
+			//console.log('catch');
 			endZ = Math.min(12 - radius, playerArrPos.z + radius);
 		}
 		
@@ -307,7 +307,8 @@ class Maze {
 					) {
 							//return true; // Collision detected
 							//console.log("true");
-							player.takeHit();
+							if(!dlzMode)
+								player.takeHit();
 					}
 				}
 			}
