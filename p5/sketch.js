@@ -53,7 +53,7 @@ function preload() {
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/chair.obj');
+	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
 	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
