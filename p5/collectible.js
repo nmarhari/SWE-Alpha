@@ -5,6 +5,7 @@ class Collectible{  // abstract class
         this.size = size; // size of model
         this.draw = true;
         this.model = model;
+        this.collected = false;
     }
 
     // have to translate before scaling and rotating or xyz positions will be off
@@ -24,6 +25,7 @@ class Collectible{  // abstract class
 
     remove(){
         this.draw = false;
+        this.collected = true;
     }
 
     show(){
@@ -51,6 +53,7 @@ class Book extends Collectible{
 
     remove(){
         this.draw = false;
+        this.collected = true;
     }
 
     show(){
@@ -77,6 +80,7 @@ class Chair extends Collectible{
 
     remove(){
         this.draw = false;
+        this.collected = true;
     }
 
     show(){
