@@ -91,11 +91,11 @@ class Player extends RoverCam {
 
 
 		// unlock pointer if ESC is pressed
-		if (keyIsDown(27) && !pauseActive){
+		/*if (keyIsDown(27) && !pauseActive){
 			pauseScreen();
-		}
+		}*/
 
-		if (!this.dead && !pauseActive && depositActive) updateHealth(this.health);
+		if (!this.dead /*&& !pauseActive*/ && depositActive) updateHealth(this.health);
     }
     
     update() {

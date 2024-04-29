@@ -16,12 +16,11 @@ describe('test swe-alpha', async function(){
             .setChromeOptions(options.addArguments('--headless')) // remove to see what is happening
             .build();
         await driver.get('https://nmarhari.github.io/SWE-Alpha');
-        await sleep(5000);
+        await sleep(10000);
     })
 
     it('start the game & check health', async function(){
-        startButton = await driver.findElement(By.xpath('//button[@id="startButton"]'));
-        startButton.click();
+        await driver.executeScript('closeStartScreen()');
         await sleep(1000);
         healthBar = await driver.findElement(By.xpath('//div[@id="healthBarBorder"]'));
         await sleep(1000);

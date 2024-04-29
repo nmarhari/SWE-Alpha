@@ -75,7 +75,7 @@ function delozierMode() {
     dlzMode = true;
 }
 
-let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
+/*let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
 var pauseActive = false;
 function pauseScreen(){
     pauseActive = true;
@@ -111,6 +111,8 @@ function pauseScreen(){
 }
 
 function closePause(){
+    startShowingHealth = true;
+    startShowingInventory = true;
     frameRate(60);
     pauseActive = false;
     pauseDiv.remove();
@@ -119,13 +121,13 @@ function closePause(){
     pauseClickables.remove();
     pauseButton.remove();
     player.gameStarted = true;
-    if(!depositBool){
-        startShowingHealth = true;
-        startShowInventory = true;
+    if(depositActive){
+
+       hideHealth();
+       hideInventory(); 
     }
     player.pointerLock = true;
-}
-
+}*/
 
 let deathDiv;
 let deathBlur;
@@ -255,15 +257,15 @@ function updateInventory() {
     for (item in player.collectedItems) {
         let elem = document.createElement("img");
         let texture = "https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg";
-        console.log(texture);
+        //console.log(texture);
         elem.setAttribute("src", texture);
-        console.log(item.texture)
+        //console.log(item.texture)
         const itemSlot = createDiv();
         itemSlot.class('inventorySlot');
         itemSlot.parent('inventoryContainer');
         container.lastChild.appendChild(elem);
         i++;
-        console.log(player.collectedItems);
+        //console.log(player.collectedItems);
     }
     while (i < 5) {
         const itemSlot = createDiv();

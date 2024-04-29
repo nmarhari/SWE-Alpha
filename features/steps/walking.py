@@ -14,9 +14,7 @@ def step_impl(context):
     context.browser = webdriver.Chrome(options = options)
     context.browser.get("https://nmarhari.github.io/SWE-Alpha/")
     time.sleep(10)
-    start_button = context.browser.find_element(by=By.TAG_NAME, value='button')
-    start_button.click()
-
+    context.browser.execute_script('closeStartScreen()')
 
 @when(u'the user is pressing up arrow key')
 def step_impl(context):
