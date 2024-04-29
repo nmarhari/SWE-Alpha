@@ -255,15 +255,15 @@ function updateInventory() {
     for (item in player.collectedItems) {
         let elem = document.createElement("img");
         let texture = "https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg";
-        console.log(texture);
+        //console.log(texture);
         elem.setAttribute("src", texture);
-        console.log(item.texture)
+        //console.log(item.texture)
         const itemSlot = createDiv();
         itemSlot.class('inventorySlot');
         itemSlot.parent('inventoryContainer');
         container.lastChild.appendChild(elem);
         i++;
-        console.log(player.collectedItems);
+        //console.log(player.collectedItems);
     }
     while (i < 5) {
         const itemSlot = createDiv();
