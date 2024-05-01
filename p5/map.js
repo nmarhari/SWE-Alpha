@@ -62,8 +62,8 @@ class Block {
 		if(reddish == 'red') {
 			this.fillColor = 'red'; 
 			setTimeout(() => {
-					self.fillColor = color(random(150, 200)); // Use stored reference
-			}, 1);
+					this.fillColor = color(random(150, 200)); // Use stored reference
+			}, 100);
 		}
     }
 
