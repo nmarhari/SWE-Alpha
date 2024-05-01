@@ -9,7 +9,7 @@ class Block {
 		this.visited = false;
 	}
 
- 	update(reddish) {
+	update(reddish) {
 		let playerLeft = player.position.x - player.dimensions.x / 2;
 		let playerRight = player.position.x + player.dimensions.x / 2;
 		let playerTop = player.position.y - player.dimensions.y / 2;
@@ -57,8 +57,13 @@ class Block {
 					}
 				}
 		}
-		if(reddish == 'red') this.fillColor = 'red'; 
-		else this.fillColor = color(200)
+		
+		if(reddish == 'red') {
+			this.fillColor = 'red'; 
+			setTimeout(() => {
+					self.fillColor = color(random(150, 200)); // Use stored reference
+			}, 1);
+		}
     }
 
   	display() {
@@ -96,7 +101,7 @@ class FireBall {
 			this.blockz = 1000000;
 		}
 
-		update(maze, player) {
+		update(player, blocks) {
 			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
 			let threshold = 75;
 			//console.log("Player position:", player.position.x, player.position.y, player.position.z);
@@ -104,35 +109,30 @@ class FireBall {
 			if (distance < threshold) {
 				if(frameCount % 15 == 0)
 					this.checkCollision(player);
-				/*
-				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
-	
-				setTimeout(function() {
-					para.style("display", "none");
-				}, 2000);
-				*/
 			}
 			this.position.y += 1; 
 
-			if(this.position.y>10) {
+			if(this.position.y > 60) {
 				this.position.y = -100;
-
+				
+				
 				//this.position.x = random(10,100);
 				//this.position.z = random(10,50);
 				// this.position.x = player.position.x + random(10,75);
 				// this.position.z = player.position.z + random(10,50);
-				this.blockx = Math.floor(random(1, maze.size1-1)); 
-				this.blockz = Math.floor(random(1, maze.size2-1));
-				if(this.blockx == maze.size1-1){
-					this.blockx = this.blockx-1; 
+				this.blockx = Math.floor(random(0, widthOfMap / 10)); 
+				this.blockz = Math.floor(random(0, depth / 10));
+
+				if(this.blockx == widthOfMap / 10 - 1){
+					this.blockx -= 1; 
 				}
-				if(this.blockz == maze.size2-1){
-					this.blockz = this.blockz-1; 
+				if(this.blockz == depth / 10 - 1){
+					this.blockz -= 1; 
 				}
-				this.position.x = this.blockx*5
-				this.position.z = this.blockz*5  
+				this.position.x = this.blockx*10
+				this.position.z = this.blockz*10
 			}
+
 
 
 			for(let i = ballParticles.length - 1; i>= 0; i--){
@@ -160,16 +160,6 @@ class FireBall {
 		}
 
 		checkCollision(player){
-			/*
-			if (distance < threshold) {
-				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
-	
-				setTimeout(function() {
-					para.style("display", "none");
-				}, 2000);
-			}*/
-
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
 				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left
 				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) &&  // player right
@@ -371,7 +361,7 @@ class GeneratedMap {
 						//console.log(x, z)
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
-						//console.log(x, z)
+						console.log(x, z)
 					}
 					pop();
 			}
@@ -382,14 +372,24 @@ class GeneratedMap {
 	update(balls, player) {
 		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
 		let radius = 20; // Assuming a 3x3 radius
+	
+		playerPos.x *= size;
+		playerPos.z *= size;
 
 		let startX = Math.max(0, playerPos.x - radius);
 		let endX = Math.min(this.blocks.length - size, playerPos.x + radius); // Adjusting endX to stay within array bounds
+		
 		let startZ = Math.max(0, playerPos.z - radius);
 		let endZ = Math.min(this.blocks[startX].length - size, playerPos.z + radius); // Adjusting endZ to stay within array bounds
+		//console.log('startx', startX);
+		//console.log('endx', endX);
+		//console.log('startz', startZ);
+		//console.log('endz', endZ);
 
 		for (let x = startX; x <= endX; x += size) { 
 			for (let z = startZ; z <= endZ; z += size) {
+				console.log('x', x);
+				console.log('z', z);
 				this.blocks[x][z].update('none');
 			}
 		}

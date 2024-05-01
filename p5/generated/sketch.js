@@ -145,8 +145,8 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	gmap.checkLavaCollision(player);
-		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		  console.log(arrPos);
+		  //let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		  //console.log(arrPos);
   	}
 
 	
