@@ -60,9 +60,9 @@ class Block {
 		
 		if(reddish == 'red') {
 			this.fillColor = 'red'; 
-
-		} else if (reddish == 'none'){
-			self.fillColor = color(random(150, 200));
+			setTimeout(() => {
+				this.fillColor = color(random(150, 200)); // Use stored reference
+			}, 1);
 		}
     }
 
@@ -346,6 +346,7 @@ let depth = 12 * 10;
 		// ^ better to have it as a multiple of 10 so that it can be divisible easily
 //let mapLava = 6;
 let size = 10;
+let tallestBLOCK;
 class GeneratedMap {
 	constructor() {
 		this.blocks = new Array(size);
@@ -468,6 +469,17 @@ class GeneratedMap {
 				}
 			}
 		}
+	}
+
+	tallestBlock(){ // calculates tallest block in array
+		let tallest = 100;
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				if(this.blocks[x][z].position.y < tallest)
+					tallest = this.blocks[x][z].position.y;
+			}
+		}
+		return tallest - size; // have to calculate block size with tallest
 	}
 
 }

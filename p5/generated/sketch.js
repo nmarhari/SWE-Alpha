@@ -83,7 +83,7 @@ function setup() {
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
+	//chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
@@ -161,7 +161,7 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
+		/* if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
 			player.collect(chair);
 			chair.remove();
 		} else {
@@ -169,11 +169,11 @@ function draw() {
 			texture(bookTexture);
 			chair.display();
 			pop();
-		}
+		} */
 
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
 			let result = player.remove(book);
-			result = player.remove(chair);
+			//result = player.remove(chair);
 		}
 
 			push();
