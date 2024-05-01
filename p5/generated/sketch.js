@@ -182,12 +182,12 @@ function draw() {
 			pop();
 
 
-	gmap.update(balls, player);
+	gmap.update(balls);
 	gmap.display();
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(gmap, player);
+		balls[i].update(player, gmap);
 	}
 
   	if (help || frameCount < 400) { // Heads Up Display extension
@@ -225,9 +225,9 @@ function draw() {
 		startShowingHealth = false;
 	}
 
-	if(frameCount % 1200 == 0){ // every 20 seconds a fireball will spawn in
+	if(frameCount % 600 == 0){ // every 20 seconds a fireball will spawn in
 		currentBalls++;
-		gmap.raiseLava(.5);
+		gmap.raiseLava(1);
 	}
 	
 	//Calls showInventory function once

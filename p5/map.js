@@ -60,9 +60,9 @@ class Block {
 		
 		if(reddish == 'red') {
 			this.fillColor = 'red'; 
-			setTimeout(() => {
-					self.fillColor = color(random(150, 200)); // Use stored reference
-			}, 1);
+
+		} else if (reddish == 'none'){
+			self.fillColor = color(random(150, 200));
 		}
     }
 
@@ -361,7 +361,7 @@ class GeneratedMap {
 						//console.log(x, z)
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
-						console.log(x, z)
+						//console.log(x, z)
 					}
 					pop();
 			}
@@ -369,27 +369,9 @@ class GeneratedMap {
 		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
 	}
 
-	update(balls, player) {
-		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
-		let radius = 20; // Assuming a 3x3 radius
-	
-		playerPos.x *= size;
-		playerPos.z *= size;
-
-		let startX = Math.max(0, playerPos.x - radius);
-		let endX = Math.min(this.blocks.length - size, playerPos.x + radius); // Adjusting endX to stay within array bounds
-		
-		let startZ = Math.max(0, playerPos.z - radius);
-		let endZ = Math.min(this.blocks[startX].length - size, playerPos.z + radius); // Adjusting endZ to stay within array bounds
-		//console.log('startx', startX);
-		//console.log('endx', endX);
-		//console.log('startz', startZ);
-		//console.log('endz', endZ);
-
-		for (let x = startX; x <= endX; x += size) { 
-			for (let z = startZ; z <= endZ; z += size) {
-				console.log('x', x);
-				console.log('z', z);
+	update(balls) {
+		for (let x = 0; x <= this.blocks.length; x += size) { 
+			for (let z = 0; z <= this.blocks[x].length; z += size) {
 				this.blocks[x][z].update('none');
 			}
 		}
@@ -464,11 +446,12 @@ class GeneratedMap {
 		for (let x = 0; x < this.blocks.length; x+=size) {
 			for (let z = 0; z < this.blocks[x].length; z+=size) {
 				if(this.blocks[x][z].texture == lava){
-					this.blocks[x][z].dimensions.y += height;
+					this.blocks[x][z].position.y -= height;
 				}
-				if (this.blocks[x][z].dimensions.y <= currentHeight) {
+
+				if (this.blocks[x][z].position.y >= currentHeight) {
 					this.blocks[x][z].texture = lava;
-					this.blocks[x][z].dimensions.y += height;
+					this.blocks[x][z].position.y -= height;
 				}
 			}
 		}
@@ -480,7 +463,7 @@ class GeneratedMap {
 		for (let x = 0; x < this.blocks.length; x+=size) {
 			for (let z = 0; z < this.blocks[x].length; z+=size) {
 				if (this.blocks[x][z].texture == lava) {
-					currentHeight = this.blocks[x][z].dimensions.y;
+					currentHeight = this.blocks[x][z].position.y;
 					return currentHeight;
 				}
 			}
