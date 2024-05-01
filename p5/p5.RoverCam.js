@@ -67,8 +67,10 @@ class RoverCam {
     if(keyIsDown(65) || keyIsDown(LEFT_ARROW))  this.moveY(this.speed);  // a
     if(keyIsDown(83) || keyIsDown(DOWN_ARROW))  this.moveX(-this.speed); // s
     if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) this.moveY(-this.speed); // d
-    if(keyIsDown(81))                           this.moveZ(-this.speed); // q
-    if(keyIsDown(69))                           this.moveZ(this.speed);  // e
+    if(dlzMode){
+      if(keyIsDown(81))                         this.moveZ(-this.speed); // q
+      if(keyIsDown(69))                         this.moveZ(this.speed);  // e
+    } else {}
     if(mouseIsPressed) this.moveX(this.speed);
     // alternatively:
     // this.pan(map(mouseX - pmouseX, 0, width, 0, TWO_PI) * this.sensitivity);

@@ -53,26 +53,34 @@ class Player extends RoverCam {
 					walking.play();
 				}
 			}
-			
-			if (keyIsDown(69)) {
-				this.moveZ(0.05);
-				walking.pause();
-			} // e
 
-			if(keyIsDown(76)) //printing player position to the console // key is L
-				console.log(this.position.x, this.position.y, this.position.z);
+			if(dlzMode){
+				if (keyIsDown(69)) { // fly // e
+					this.moveZ(0.05);
+					walking.pause();
+				} 
+			
+				if(keyIsDown(76)) //printing player position to the console // key is L
+					console.log(this.position.x, this.position.y, this.position.z);
+				
+			} else { // if you dont do anything the player just stops mid air
+				if (keyIsDown(69)) { // fly // e
+					this.moveZ(-0.05);
+					walking.pause();
+				} 
+			}
 
 			if(keyIsDown(189)){
 				if(player.pov.fovy <= 2){
-					console.log(player.pov.fovy)
+					//console.log(player.pov.fovy)
 					player.pov.fovy += 0.01;
 					player.updatePOV();
 				}
 			}
 		
 			if(keyIsDown(187)){
-				if(player.pov.fovy >= .5){
-					console.log(player.pov.fovy)
+				if( player.pov.fovy >= .5){
+					//console.log(player.pov.fovy)
 					player.pov.fovy -= 0.01;
 					player.updatePOV();
 				}
@@ -83,9 +91,11 @@ class Player extends RoverCam {
 
 
 		// unlock pointer if ESC is pressed
-		if (keyPressed(ESCAPE)) this.pointerLock = false;
+		/*if (keyIsDown(27) && !pauseActive){
+			pauseScreen();
+		}*/
 
-		if (this.dead == false) updateHealth(this.health);
+		if (!this.dead /*&& !pauseActive*/ && depositActive) updateHealth(this.health);
     }
     
     update() {
@@ -110,7 +120,7 @@ class Player extends RoverCam {
   
 
      	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
-			console.log('if this grounded');
+			//console.log('if this grounded');
 			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
         	this.grounded = false;
         	this.velocity.y -= .8;
@@ -130,24 +140,82 @@ class Player extends RoverCam {
 
 	collect(collectible){
 		this.collectedItems.push(collectible);
-		if(collectible.name === "Delozier's SE Book"){
-			let para = document.createElement("p");
-			let text1 = document.createTextNode("Software Engineering Book Found");
-			let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
-			
-			para.appendChild(text1);
-			para.appendChild(document.createElement("br")); // Create a line break
-			para.appendChild(text2);
-				para.classList.add("collectible-notification");
-	
-				// Append the paragraph to the document body
-				document.body.appendChild(para);
-	
-				// Remove the paragraph after 3 seconds
-				setTimeout(function() {
-					para.remove(); // Remove the paragraph after another 3 seconds
-				}, 4000);
+    
+		let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
+		switch(collectible.name){
+			case "Book":
+				let bookP = document.createElement("p");
+				let bookText1 = document.createTextNode("Software Engineering Book Found");
+				
+				bookP.appendChild(bookText1);
+				bookP.appendChild(document.createElement("br")); // Create a line break
+				bookP.appendChild(text2);
+					bookP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(bookP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						bookP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
+
+			case "Chair":
+				let chairP = document.createElement("p");
+				let chairText1 = document.createTextNode("MSB Chair Found");
+				
+				chairP.appendChild(chairText1);
+				chairP.appendChild(document.createElement("br")); // Create a line break
+				chairP.appendChild(text2);
+					chairP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(chairP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						chairP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
+
+			case "Dongle":
+				let dongleP = document.createElement("p");
+				let dongleText1 = document.createTextNode("Dongle Found");
+				
+				dongleP.appendChild(dongleText1);
+				dongleP.appendChild(document.createElement("br")); // Create a line break
+				dongleP.appendChild(text2);
+					dongleP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(dongleP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						dongleP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
+
+			case "Laptop": 
+				let laptopP = document.createElement("p");
+				let laptopText1 = document.createTextNode("Dongle Found");
+				
+				laptopP.appendChild(laptopText1);
+				laptopP.appendChild(document.createElement("br")); // Create a line break
+				laptopP.appendChild(text2);
+					laptopP.classList.add("collectible-notification");
+		
+					// Append the paragraph to the document body
+					document.body.appendChild(laptopP);
+		
+					// Remove the paragraph after 3 seconds
+					setTimeout(function() {
+						laptopP.remove(); // Remove the paragraph after another 3 seconds
+					}, 4000);
+				break;
 		}
+		updateInventory();
 	}
 
 	remove(collectible) {
@@ -171,7 +239,4 @@ class Player extends RoverCam {
 		if(arrayZ < 0) arrayZ = 0;
 		return { x: arrayX, z: arrayZ };
 	}
-}
-
-function keyPressed() { // need this here so you can escape with ptr
 }

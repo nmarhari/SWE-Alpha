@@ -14,7 +14,7 @@ let OBJarray = []; //have to splice objs from array to remove on screen
 let startVisible = true; // renders start screen once
 let deathVisible = false;
 let startShowingHealth = false;
-let startShowInventory = false;
+let startcreateInventory = false;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
@@ -36,16 +36,28 @@ function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
+
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
-	wordtexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
+	wordTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
+	chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
+	//laptopTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/macScreen.jpg');
+
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
 	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
 	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
 	aspen = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/aspen.png');
+
+
+	// Load the collectables
+	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
+
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
-	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
+	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
+
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
@@ -82,14 +94,12 @@ function setup() {
   	player = new Player();
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
-	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
+
+	book = new Book("Book", 35, -5, 30, 10, bookModel);
+	chair = new Chair("Chair", 10, -3, 40, .75, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
- 	frameRate(60);
+
   	strokeWeight(2);
-
-	
-
 	
 	  word = new Word3D(
 		"Kent Touch This",       // The actual character that you want to draw (anything that can be passed into "text()")
@@ -103,6 +113,12 @@ function setup() {
 	
 	initContainerHTML();
 	// initialize container in html for overlay elements
+
+	if (startVisible) {
+		startScreen();
+		//theme.loop();
+		startVisible = false; // render only once
+	}
 }
 
 // viewport resize when window size changes
@@ -121,11 +137,11 @@ function draw() {
 		rotateY(-HALF_PI)
 		translate(45, -30, -175)
 		noStroke();
-		texture(wordtexture);
+		texture(wordTexture);
 		word.show()
 	pop()
 
-	// starry skybox
+	 // starry skybox
 	push();
 		noStroke();
 		textureWrap(CLAMP);
@@ -141,16 +157,18 @@ function draw() {
 		rotateY(HALF_PI);
 		translate(-50, -100, -165)
 		plane(400, 400);
-	pop();
+	pop(); 
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
-		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		  console.log(arrPos);
+
+		//let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		//console.log(arrPos);
+
   	}
 
 	
-	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
+	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2 && book.collected == false){
 			player.collect(book);
 			book.remove();
 		} else {
@@ -161,19 +179,35 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
+		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2 && chair.collected == false){
 			player.collect(chair);
 			chair.remove();
 		} else {
 			push();
-			texture(bookTexture);
+			texture(chairTexture);
 			chair.display();
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
-			let result = player.remove(book);
-			result = player.remove(chair);
+
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
+			pressF();
+			if(keyIsDown(70)){
+				let result = player.remove(book);
+				if(result){
+					deposit(book);
+				}
+				result = player.remove(chair);
+				if(result){
+					deposit(chair);
+				}
+			}
+		} else {
+			try{
+				hidepressF();
+			} catch(error){}
+
+
 		}
 
 			push();
@@ -205,20 +239,21 @@ function draw() {
 		text(' keys: escape : ptr unlock', 10, 45);
 		text('       a/d : left/right', 10, 55);
 		text('       w/s : fwd/bkwd', 10, 65);
-		text('       e/q : up/down', 10, 75);
-		text('       space : jump', 10, 85);
-		text('       +/- : fov change', 10, 95);
-		text('       h : help', 10, 105);
+		if(dlzMode){
+			text('       e/q : up/down', 10, 75);
+			text('       space : jump', 10, 85);
+			text('       +/- : fov change', 10, 95);
+			text('       h : help', 10, 105);
+		} else {
+			text('       space : jump', 10, 75);
+			text('       +/- : fov change', 10, 85);
+			text('       h : help', 10, 95);
+		}
 		pop();
 	}
 
-	if (startVisible) {
-		startScreen();
-		//theme.loop();
-		startVisible = false; // render only once
-	}
-
 	if (startShowingHealth) {
+		//console.log('showing health')
 		showHealth();
 		lavaSound.loop();
 		ambience.loop();
@@ -230,47 +265,22 @@ function draw() {
 		maze.raiseLava(.5);
 	}
 	
-	//Calls showInventory function once
-	if (startShowInventory) {
-		showInventory();
-		startShowInventory = false;
+	//Calls createInventory function once
+	if (startcreateInventory) {
+		createInventory();
+		startcreateInventory = false;
 	}
 }
 
-  
-
-	//drawAxes();
-	// function drawAxes(){
-	// 	push();
-	//       noStroke();
-	// 	  fill(127,0,0); // X red
-	// 	  translate(75,0.5,0.5);
-	// 	  box(150,1,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,127,0); // Y green
-	// 	  translate(0.5,75,0.5);
-	// 	  box(1,150,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,0,127); // Z blue
-	// 	  translate(0.5,0.5,75);
-	// 	  box(1,1,150);
-	// 	pop();
-	// }
-
 function mouseClicked() {
 	if (player.gameStarted && requestPointerLock()) player.pointerLock = true;
-	else
-	if (!player.pointerLock && player.gameStarted) {
+	else if (!player.pointerLock && player.gameStarted) {
 		requestPointerLock();
 		player.pointerLock = true;
 	}
 
 	if (!player.gameStarted && !themePlaying) {
-		theme.play();
+		theme.loop();
 		themePlaying = true;
 	}
 }
