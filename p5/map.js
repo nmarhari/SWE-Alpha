@@ -346,7 +346,9 @@ let depth = 12 * 10;
 		// ^ better to have it as a multiple of 10 so that it can be divisible easily
 //let mapLava = 6;
 let size = 10;
-let tallestBLOCK;
+
+let tallestBlock = 0;
+
 class GeneratedMap {
 	constructor() {
 		this.blocks = new Array(size);
@@ -368,6 +370,7 @@ class GeneratedMap {
 			}
 		}
 		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
+		tallestBlock = this.tallestBlockCoords();
 	}
 
 	update(balls) {
@@ -471,15 +474,19 @@ class GeneratedMap {
 		}
 	}
 
-	tallestBlock(){ // calculates tallest block in array
-		let tallest = 100;
+	tallestBlockCoords(){ // calculates tallest block in array
+		let blockCoords = {x: -1, y: Infinity, z: -1};
+
 		for (let x = 0; x < this.blocks.length; x+=size) {
 			for (let z = 0; z < this.blocks[x].length; z+=size) {
-				if(this.blocks[x][z].position.y < tallest)
-					tallest = this.blocks[x][z].position.y;
+				if(this.blocks[x][z].position.y < blockCoords.y){
+					blockCoords.y = this.blocks[x][z].position.y;
+					blockCoords.x = this.blocks[x][z].position.x;
+					blockCoords.z = this.blocks[x][z].position.z;
+				}
 			}
 		}
-		return tallest - size; // have to calculate block size with tallest
+		return blockCoords; // have to calculate block size with tallest position
 	}
 
 }
