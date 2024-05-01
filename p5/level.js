@@ -61,7 +61,7 @@ function setup() {
 		balls.push(new FireBall(10, random(-30, 100), 10, 2));
 	}
   	player = new Player();
-  	map = new Maze(20, 20);
+  	map = new GeneratedMap(10);
  	map.setPlayerAtStart(player);
 	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
 	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
@@ -115,7 +115,7 @@ function draw() {
   	}
 
 	
-	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 5){
+	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
 			player.collect(book);
 			book.remove();
 		} else {
@@ -136,10 +136,9 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 5){
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
 			let result = player.remove(book);
 			result = player.remove(chair);
-			startGame();
 		}
 			push();
 			normalMaterial();
@@ -152,7 +151,7 @@ function draw() {
 		//word.show(); // 3d text
 
 
-	map.update(balls);
+	map.update(balls, player, 10);
 	map.display(10);
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {

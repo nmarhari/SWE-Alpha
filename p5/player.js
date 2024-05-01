@@ -110,6 +110,7 @@ class Player extends RoverCam {
 
 	collect(collectible){
 		this.collectedItems.push(collectible);
+
 		if(collectible.name === "Delozier's SE Book"){
 			let para = document.createElement("p");
 			let text1 = document.createTextNode("Software Engineering Book Found");
