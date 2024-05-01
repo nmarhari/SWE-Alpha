@@ -4,7 +4,7 @@ class Player extends RoverCam {
       	super();
       	this.dimensions = createVector(1, 3, 1);
       	this.velocity = createVector(0, 0, 0);
-      	this.gravity = createVector(0, 0.035, 0);
+      	this.gravity = createVector(0, 0.025, 0);
       	this.grounded = false;
       	this.pointerLock = false;
 		this.gameStarted = false;
@@ -12,7 +12,7 @@ class Player extends RoverCam {
       	this.speed = 0.04;
 		this.health = 100;
       	this.dead = false;
-		this.jumps = 1;
+		this.jumps = 1.5;
 		this.collectedItems = [];
 
 		console.log("player health: ", this.health);
