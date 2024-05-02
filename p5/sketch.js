@@ -95,7 +95,7 @@ function setup() {
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
 	book = new Book("Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
+	chair = new Collectible("Chair", 10, -3, 40, .75, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
@@ -160,8 +160,8 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
-		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		  console.log(arrPos);
+		//let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		//console.log(arrPos);
   	}
 
 	
@@ -181,7 +181,7 @@ function draw() {
 			chair.remove();
 		} else {
 			push();
-			texture(bookTexture);
+			texture(chairTexture);
 			chair.display();
 			pop();
 		}
@@ -215,7 +215,7 @@ function draw() {
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(maze, player);
+		balls[i].update(player, maze);
 	}
 
   	if (help || frameCount < 400) { // Heads Up Display extension

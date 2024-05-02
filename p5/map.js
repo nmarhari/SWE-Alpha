@@ -59,10 +59,13 @@ class Block {
 		}
 		
 		if(reddish == 'red') {
+			let tex = this.texture;
+			this.texture = null;
 			this.fillColor = 'red'; 
 			setTimeout(() => {
 				this.fillColor = color(random(150, 200)); // Use stored reference
 			}, 1);
+			this.texture = tex;
 		}
     }
 
@@ -101,40 +104,57 @@ class FireBall {
 			this.blockz = 1000000;
 		}
 
-		update(player, blocks) {
+		update(player, typeMap) {
 			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
 			let threshold = 75;
-			//console.log("Player position:", player.position.x, player.position.y, player.position.z);
+
+			console.log("Player position:", player.position.x, player.position.y, player.position.z);
     		//console.log("Fireball position:", this.position.x, this.position.y, this.position.z);
+
 			if (distance < threshold) {
 				if(frameCount % 15 == 0)
 					this.checkCollision(player);
 			}
+
+
 			this.position.y += 1; 
 
-			if(this.position.y > 60) {
-				this.position.y = -100;
-				
-				
-				//this.position.x = random(10,100);
-				//this.position.z = random(10,50);
-				// this.position.x = player.position.x + random(10,75);
-				// this.position.z = player.position.z + random(10,50);
-				this.blockx = Math.floor(random(0, widthOfMap / 10)); 
-				this.blockz = Math.floor(random(0, depth / 10));
+			if(typeMap instanceof Maze){
+				if(this.position.y>10) {
+					this.position.y = -100;
+	
+					this.blockx = Math.floor(random(1, maze.size1-1)); 
+					this.blockz = Math.floor(random(1, maze.size2-1));
+					if(this.blockx == maze.size1-1){
+						this.blockx = this.blockx-1; 
+					}
+					if(this.blockz == maze.size2-1){
+						this.blockz = this.blockz-1; 
+					}
+					this.position.x = this.blockx*5
+					this.position.z = this.blockz*5  
+				}
 
-				if(this.blockx == widthOfMap / 10 - 1){
-					this.blockx -= 1; 
+			} else if (typeMap instanceof GeneratedMap){
+				if(this.position.y > 60) {
+					this.position.y = -100;
+					
+					if (map instanceof Maze) {
+						this.blockx = Math.floor(random(0, widthOfMap / 10)); 
+						this.blockz = Math.floor(random(0, depth / 10));
+					}
+					if(this.blockx == widthOfMap / 10 - 1){
+						this.blockx -= 1; 
+					}
+					if(this.blockz == depth / 10 - 1){
+						this.blockz -= 1; 
+					}
+					this.position.x = this.blockx*10
+					this.position.z = this.blockz*10
 				}
-				if(this.blockz == depth / 10 - 1){
-					this.blockz -= 1; 
-				}
-				this.position.x = this.blockx*10
-				this.position.z = this.blockz*10
 			}
 
-
-
+		
 			for(let i = ballParticles.length - 1; i>= 0; i--){
 				ballParticles[i].move();
 				ballParticles[i].show();
