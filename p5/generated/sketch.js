@@ -83,9 +83,9 @@ function setup() {
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 
-	book = new Book("Delozier's SE Book", tallestBlock.x, tallestBlock.y - 10, tallestBlock.z, 10, bookModel);
+	book = new Book("Delozier's SE Book", randomBlock.x, randomBlock.y - 10, randomBlock.z, 10, bookModel);
 	//chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
+	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 5, tallestBlock.z, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
 

@@ -348,10 +348,12 @@ let depth = 12 * 10;
 let size = 10;
 
 let tallestBlock = 0;
+let randomBlock;
 
 class GeneratedMap {
 	constructor() {
 		this.blocks = new Array(size);
+		this.nonLavaBlocks = []; // Array to store non-lava block coordinate
 		for (let x = 0; x < widthOfMap; x+= size){
 			this.blocks[x] = new Array(size);
 			for (let z = 0; z < depth; z+=size) {
@@ -364,6 +366,7 @@ class GeneratedMap {
 						//console.log(x, z)
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
+						this.nonLavaBlocks.push({ x: x, z: z }); // Store non-lava block coordinates
 						//console.log(x, z)
 					}
 					pop();
@@ -371,6 +374,7 @@ class GeneratedMap {
 		}
 		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
 		tallestBlock = this.tallestBlockCoords();
+		randomBlock = this.getRandomNonLavaBlock();
 	}
 
 	update(balls) {
@@ -487,6 +491,16 @@ class GeneratedMap {
 			}
 		}
 		return blockCoords; // have to calculate block size with tallest position
+	}
+
+	getRandomNonLavaBlock() {
+		if (this.nonLavaBlocks.length > 0) {
+			const index = floor(random(this.nonLavaBlocks.length));
+			const {x, z} = this.nonLavaBlocks[index]; // Destructure x and z coordinates from the selected block
+			const y = this.blocks[x][z].position.y; // Get y coordinate from the corresponding block in the map
+			return {x: x, y: y, z: z}; // Return an object with x, y, and z coordinates
+		}
+		return null; // Return null if there are no non-lava blocks
 	}
 
 }
