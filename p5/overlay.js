@@ -190,7 +190,7 @@ function respawnPlayer() {
 
 function resetMap() {
     setup();
-    requestpointerLock();
+    requestPointerLock();
 }
 
 

@@ -143,17 +143,17 @@ class FireBall {
 				if(this.position.y > 60) {
 					this.position.y = -100;
 				
-						this.blockx = Math.floor(random(0, widthOfMap / 10)); 
-						this.blockz = Math.floor(random(0, depth / 10));
+						this.blockx = Math.floor(random(0, widthOfMap / 5)); 
+						this.blockz = Math.floor(random(0, depth / 5));
 
-					if(this.blockx == widthOfMap / 10 - 1){
+					if(this.blockx == widthOfMap / 5 - 5){
 						this.blockx -= 1; 
 					}
-					if(this.blockz == depth / 10 - 1){
+					if(this.blockz == depth / 5 - 5){
 						this.blockz -= 1; 
 					}
-					this.position.x = this.blockx*10
-					this.position.z = this.blockz*10
+					this.position.x = this.blockx*5
+					this.position.z = this.blockz*5
 				}
 			}
 
@@ -364,11 +364,11 @@ class Maze {
 
 let resolutionNum1 = 0.01;		// how 'crazy' the map generation gets
 let terrainRange = 100;		// how much the y level will vary
-let widthOfMap = 12 * 10;		// *5 for width and depth as that is the size of the blocks
-let depth = 12 * 10;	
+let widthOfMap = 20 * 5;		// *5 for width and depth as that is the size of the blocks
+let depth = 20 * 5;	
 		// ^ better to have it as a multiple of 10 so that it can be divisible easily
 //let mapLava = 6;
-let size = 10;
+let size = 5;
 
 let tallestBlock = 0;
 let randomBlock;
@@ -390,7 +390,7 @@ class GeneratedMap {
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
 						this.nonLavaBlocks.push({ x: x, z: z }); // Store non-lava block coordinates
-						//console.log(x, z)
+						console.log(x, z)
 					}
 					pop();
 			}
@@ -410,7 +410,7 @@ class GeneratedMap {
 		for (let i = 0; i < this.blocks.length; i += size) {
 			for (let j = 0; j < this.blocks[i].length; j += size) {
 				for (let k = 0; k < balls.length; k++) {
-					if (balls[k].blockx * 10 == i && balls[k].blockz * 10 == j)
+					if (balls[k].blockx * size == i && balls[k].blockz * size == j)
 						this.blocks[i][j].update('red');
 				}
 			}
@@ -431,8 +431,22 @@ class GeneratedMap {
 	}
 
 	checkLavaCollision(player) {
-		for (let x = 0; x < this.blocks.length; x+=size) {
-			  for (let z = 0; z < this.blocks[x].length; z+=size) {
+		let playerArrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		let radius = 15, endZ;
+		playerArrPos.x *= 5;
+		playerArrPos.z *= 5;
+
+		let startX = Math.max(0, playerArrPos.x - radius);
+		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
+		let startZ = Math.max(0, playerArrPos.z - radius);
+		// for random error you get when flying outside the map
+		try {
+			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
+		} catch (error) {
+			console.log('catch');
+		}
+		for (let x = startX; x < endX; x+=size) {
+			  for (let z = startZ; z < endZ; z+=size) {
 				let block = this.blocks[x][z];
 				if (this.blocks[x][z].texture === lava) {
 					let playerLeft = player.position.x - player.dimensions.x / 2;

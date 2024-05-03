@@ -56,7 +56,7 @@ function preload() {
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
 	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
-	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
+	drModel = loadModel('../assets/Prof.obj');
 
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 

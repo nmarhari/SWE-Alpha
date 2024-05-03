@@ -71,7 +71,9 @@ function setup() {
 	ambience.setVolume(.2);
 	lavaSound.setVolume(1.2);
 
-  	strokeWeight(0.04);
+	dlzMode = true;
+
+  	strokeWeight(0.02);
  	textFont(f);
  	textSize(12);
 
@@ -80,7 +82,7 @@ function setup() {
 	}
 
   	player = new Player();
-	player.dimensions.y = 10; player.gameStarted = true; player.gravity.y *= 2;
+	player.gameStarted = true;
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 
