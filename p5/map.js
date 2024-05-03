@@ -44,6 +44,7 @@ class Block {
 				} else if (yOverlap < xOverlap && yOverlap < zOverlap) {
 					if (boxTopOverlap < boxBottomOverlap) {
 						player.position.y = boxTop - player.dimensions.y / 2;
+
 						player.velocity.y = 0;
 						player.grounded = true;
 					} else {
@@ -376,11 +377,12 @@ class GeneratedMap {
 					pop();
 			}
 		}
-		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
+		this.start = this.blocks[0][0];
 	}
 
 	update(balls, player) {
 		let playerPos = player.playerArrayPosition(player.position.x, player.position.z, size);
+		console.log('layer', playerPos.x, playerPos.z)
 		let radius = 20; // Assuming a 3x3 radius
 
 		let startX = Math.max(0, playerPos.x - radius);
@@ -480,7 +482,7 @@ class GeneratedMap {
 		for (let x = 0; x < this.blocks.length; x+=size) {
 			for (let z = 0; z < this.blocks[x].length; z+=size) {
 				if (this.blocks[x][z].texture == lava) {
-					currentHeight = this.blocks[x][z].dimensions.y;
+					currentHeight = this.blocks[x][z].position.y;
 					return currentHeight;
 				}
 			}
