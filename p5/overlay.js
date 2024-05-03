@@ -283,6 +283,7 @@ let nextButton;
 function deposit(collectible){
     if(depositActive){
         showPressF = false;
+
         switch(collectible.name){
             case 'Book':
                 depositActive = false;
@@ -427,12 +428,10 @@ function deposit(collectible){
                     depositText.id('depositText'); */
                 break;
         }
-
         nextButton = createButton('Next');
-        nextButton.mouseClicked(closeStartScreen);
-        nextButton.parent('startClickables');
+        nextButton.mouseClicked(switchGame);
+        nextButton.parent('depositHeader');
         nextButton.id('startButton');
-        
     }
 } 
 

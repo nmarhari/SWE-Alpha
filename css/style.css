@@ -343,3 +343,20 @@ img {
     height: 90%;
     margin-top: 3px;
 }
+
+#nextButton {
+    display: inline-block;
+    margin-left: 150px;
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 1s;
+    background-color: transparent;
+    font-family: "VT323", monospace;
+    text-shadow: 4px 4px 8px black;
+    box-shadow: 4px 4px 8px black;
+
+}

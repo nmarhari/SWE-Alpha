@@ -121,7 +121,6 @@ class FireBall {
 			this.position.y += 1; 
 
 			if(typeMap instanceof Maze){
-				console.log('yep1')
 				if(this.position.y>10) {
 					this.position.y = -100;
 	
@@ -139,7 +138,6 @@ class FireBall {
 				}
 
 			} else if (typeMap instanceof GeneratedMap){
-				console.log('yep2')
 				if(this.position.y > 60) {
 					this.position.y = -100;
 				
@@ -289,7 +287,7 @@ class Maze {
 		try {
 			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
 		} catch (error) {
-			console.log('catch');
+			//console.log('catch');
 			endZ = Math.min(12 - radius, playerArrPos.z + radius);
 		}
 		
@@ -441,7 +439,7 @@ class GeneratedMap {
 		try {
 			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
 		} catch (error) {
-			console.log('catch');
+			//onsole.log('catch');
 		}
 		for (let x = startX; x < endX; x+=size) {
 			  for (let z = startZ; z < endZ; z+=size) {
