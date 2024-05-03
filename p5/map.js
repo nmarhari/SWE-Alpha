@@ -109,7 +109,7 @@ class FireBall {
 			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
 			let threshold = 75;
 
-			console.log("Player position:", player.position.x, player.position.y, player.position.z);
+			//console.log("Player position:", player.position.x, player.position.y, player.position.z);
     		//console.log("Fireball position:", this.position.x, this.position.y, this.position.z);
 
 			if (distance < threshold) {
@@ -121,11 +121,13 @@ class FireBall {
 			this.position.y += 1; 
 
 			if(typeMap instanceof Maze){
+				console.log('yep1')
 				if(this.position.y>10) {
 					this.position.y = -100;
 	
 					this.blockx = Math.floor(random(1, maze.size1-1)); 
 					this.blockz = Math.floor(random(1, maze.size2-1));
+					
 					if(this.blockx == maze.size1-1){
 						this.blockx = this.blockx-1; 
 					}
@@ -137,13 +139,13 @@ class FireBall {
 				}
 
 			} else if (typeMap instanceof GeneratedMap){
+				console.log('yep2')
 				if(this.position.y > 60) {
 					this.position.y = -100;
-					
-					if (map instanceof Maze) {
+				
 						this.blockx = Math.floor(random(0, widthOfMap / 10)); 
 						this.blockz = Math.floor(random(0, depth / 10));
-					}
+
 					if(this.blockx == widthOfMap / 10 - 1){
 						this.blockx -= 1; 
 					}

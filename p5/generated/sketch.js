@@ -80,6 +80,7 @@ function setup() {
 	}
 
   	player = new Player();
+	player.dimensions.y = 10;
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 
