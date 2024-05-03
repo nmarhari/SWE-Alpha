@@ -13,6 +13,8 @@ let startTitle;
 let startDesc;
 let startClickables;
 let startButton;
+let dlzButton;
+var dlzMode = false;
 //let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
@@ -25,53 +27,107 @@ function startScreen() {
     startDiv.parent('container');
     startDiv.id('startDiv');
 
-    startText = createDiv();
-    startText.parent('startDiv');
-    startText.id('startText');
-
-    startTitle = createP('The Floor is Lava');
-    startTitle.parent('startText');
-    startTitle.id('startTitle');
+    startImg = createImg('./assets/Kent Touch This.png', 'Logo');
+    startImg.parent('startDiv');
+    startImg.id('startText');
 
     startDesc = createP('Navigate a changing environment as the floor turns to lava!')
     startDesc.parent('startText');
-    startDesc.id('startDesc');
+    startDesc.id('startTitle');
 
     startClickables = createDiv();
     startClickables.parent('startDiv');
     startClickables.id('startClickables');
 
-    /*
-    startCheck = createCheckbox('make lava harmless');
-    startCheck.parent('startClickables');
-    startCheck.id('startCheck');
-    */
-
     startButton = createButton('Start');
     startButton.mouseClicked(closeStartScreen);
     startButton.parent('startClickables');
     startButton.id('startButton');
+    
+    dlzButton = createButton('DLZ Mode');
+    dlzButton.mouseClicked(delozierMode);
+    dlzButton.parent('startClickables');
+    dlzButton.id('dlzButton');
+
+
 }
 
 function closeStartScreen() {
     frameRate(60);
     //removes all p5 elements associated with start screen
-    console.log("clearing start screen...")
+    //console.log("clearing start screen...")
     player.gameStarted = true;
     startDiv.remove();
-    startText.remove();
-    startTitle.remove();
+    startImg.remove();
     startDesc.remove();
     startClickables.remove();
     //startCheck.remove();
     startButton.remove();
-    theme.pause();
-    
+    theme.stop();
     //indicate that the game has started
     startShowingHealth = true;
-    startShowInventory = true;
+    startcreateInventory = true;
 }
 
+function delozierMode() {
+    var dlzButton = document.getElementById('dlzButton'); // Get the button element
+    dlzButton.classList.toggle('clicked'); // Toggle the 'clicked' class on the button
+    dlzMode = true;
+}
+
+/*let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
+var pauseActive = false;
+function pauseScreen(){
+    pauseActive = true;
+    frameRate(0);
+    player.gameStarted = false;
+    player.pointerLock = false;
+    startShowingHealth = false;
+    startcreateInventory = false;
+    hideHealth();
+    resetInventory();
+    hideInventory();
+
+    pauseDiv = createDiv();
+    pauseDiv.parent('container');
+    pauseDiv.id('deathDiv');
+    
+    pauseBlur = createDiv();
+    pauseBlur.parent('deathDiv');
+    pauseBlur.id('deathBlur');
+
+    pauseText = createDiv('Game Paused!');
+    pauseText.parent('deathDiv');
+    pauseText.id('deathText');
+    
+    pauseClickables = createDiv();
+    pauseClickables.parent('deathDiv');
+    pauseClickables.id('deathClickables');
+
+    pauseButton = createButton('Resume');
+    pauseButton.parent('deathClickables');
+    pauseButton.id('deathButton');
+    pauseButton.mouseClicked(closePause);
+}
+
+function closePause(){
+    startShowingHealth = true;
+    startShowingInventory = true;
+    frameRate(60);
+    pauseActive = false;
+    pauseDiv.remove();
+    pauseBlur.remove();
+    pauseText.remove();
+    pauseClickables.remove();
+    pauseButton.remove();
+    player.gameStarted = true;
+    if(depositActive){
+
+       hideHealth();
+       hideInventory(); 
+    }
+    player.pointerLock = true;
+}*/
 
 let deathDiv;
 let deathBlur;
@@ -84,8 +140,9 @@ function deathScreen() {
     exitPointerLock();
     frameRate(0);
     startShowingHealth = false;
-    startShowInventory = false;
+    startcreateInventory = false;
     hideHealth();
+    resetInventory();
     hideInventory();
 
     deathDiv = createDiv();
@@ -113,8 +170,7 @@ function deathScreen() {
 function respawnPlayer() {
     player.dead = false;
     player.health = 100;
-    maze = new Maze(20, 12);
-    maze.setPlayerAtStart(player);
+    resetMap();
     deathVisible = false;
     player.gameStarted = true;
     player.pointerLock = true;
@@ -122,14 +178,26 @@ function respawnPlayer() {
     
     frameRate(60);
 
-    console.log("clearing death screen...")
+    //console.log("clearing death screen...")
     deathDiv.remove();
     deathBlur.remove();
     deathText.remove();
     deathClickables.remove();
     deathButton.remove();
     startShowingHealth = true;
-    startShowInventory = true;
+    startcreateInventory = true;
+}
+
+function resetMap() {
+    maze = new Maze(20, 12);
+    maze.setPlayerAtStart(player);
+	//Inventory - replace texture links with chair and dr image files when completed
+    if (book) 
+        book = new Book("Book", 35, -5, 30, 10, bookModel);
+    if (chair)
+        chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel); // change to chair texture later
+	if (dr) 
+    dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel); // change to chair texture later
 }
 
 
@@ -168,15 +236,10 @@ function hideHealth() {
 //On screen inventory slots
 
 let inventoryContainer;
-let inventoryItems;
 
-function showInventory(){
+function createInventory() {
     inventoryContainer = createDiv();
     inventoryContainer.id('inventoryContainer');
-    inventoryItems = createDiv();
-    inventoryContainer.style('opacity', '0.3');
-    inventoryItems.id('inventorySlot');
-    inventoryItems.parent('inventoryContainer');
     inventoryContainer.parent('container');
     for (let i=0; i < 5; i++) {
         const itemSlot = createDiv();
@@ -184,7 +247,209 @@ function showInventory(){
         itemSlot.parent('inventoryContainer');
     }
 }
+
+function updateInventory() {
+    let i = 0;
+    let container = document.getElementById("inventoryContainer")
+    while (container.firstChild) {
+        container.removeChild(container.lastChild);
+    }
+    for (item in player.collectedItems) {
+        let elem = document.createElement("img");
+        let texture = "https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg";
+        //console.log(texture);
+        elem.setAttribute("src", texture);
+        //console.log(item.texture)
+        const itemSlot = createDiv();
+        itemSlot.class('inventorySlot');
+        itemSlot.parent('inventoryContainer');
+        container.lastChild.appendChild(elem);
+        i++;
+        //console.log(player.collectedItems);
+    }
+    while (i < 5) {
+        const itemSlot = createDiv();
+        itemSlot.class('inventorySlot emptySlot');
+        itemSlot.parent('inventoryContainer');
+        i++;
+    }
+}
+
+function resetInventory() {
+    player.collectedItems = [];
+    updateInventory();
+}
+
 function hideInventory() {
     inventoryContainer.remove();
-    inventoryItems.remove();
+}
+
+let depositDiv, depositTextDiv, depositImg, depositText, depositHeader, depositActive = true;
+let showPressF = true, pressFpara, pressFtext;
+function deposit(collectible){
+    if(depositActive){
+        showPressF = false;
+        switch(collectible.name){
+            case 'Book':
+                depositActive = false;
+                hideHealth();
+                hideInventory();
+
+                depositDiv = createDiv();
+                depositDiv.parent('container');
+                depositDiv.id('depositDiv');
+
+                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg.parent('depositDiv');
+                depositImg.id('depositImg');
+
+                depositTextDiv = createDiv();
+                depositTextDiv.parent('depositDiv');
+                depositTextDiv.id('depositTextDiv');
+
+                depositHeader = createP('Dr. Delozier');
+                depositHeader.parent('depositTextDiv');
+                depositHeader.id('depositHeader');
+
+                depositText = createP("Took you long enough to find my software engineering book. If I'm going to get us out of here I'll need my chair.");
+                depositText.parent('depositTextDiv');
+                depositText.id('depositText');
+
+                depositText = createP("Go find it and I can work on a solution to get us out of this mess.");
+                depositText.parent('depositTextDiv');
+                depositText.id('depositText');
+                break;
+                
+            case 'Chair':
+                depositActive = false;
+                hideHealth();
+                hideInventory();
+
+                depositDiv = createDiv();
+                depositDiv.parent('container');
+                depositDiv.id('depositDiv');
+
+                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg.parent('depositDiv');
+                depositImg.id('depositImg');
+
+                depositTextDiv = createDiv();
+                depositTextDiv.parent('depositDiv');
+                depositTextDiv.id('depositTextDiv');
+
+                depositHeader = createP('Dr. Delozier');
+                depositHeader.parent('depositTextDiv');
+                depositHeader.id('depositHeader');
+
+                depositText = createP("Finally I can actually sit down and do some work.");
+                depositText.parent('depositTextDiv');
+                depositText.id('depositText');
+
+                depositText = createP("Wait...  Where's my dongle at?");
+                depositText.parent('depositTextDiv');
+                depositText.id('depositText');
+                break;
+
+            case 'Dongle':
+                depositActive = false;
+                hideHealth();
+                hideInventory();
+
+                depositDiv = createDiv();
+                depositDiv.parent('container');
+                depositDiv.id('depositDiv');
+
+                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg.parent('depositDiv');
+                depositImg.id('depositImg');
+
+                depositTextDiv = createDiv();
+                depositTextDiv.parent('depositDiv');
+                depositTextDiv.id('depositTextDiv');
+
+                depositHeader = createP('Dr. Delozier');
+                depositHeader.parent('depositTextDiv');
+                depositHeader.id('depositHeader');
+
+                depositText = createP("Yanno everyone should have one of these.");
+                depositText.parent('depositTextDiv');
+                depositText.id('depositText');
+
+                depositText = createP("They're really useful. You can pick one up at Walmart for $40.");
+                depositText.parent('depositTextDiv');
+                depositText.id('depositText');
+                break;
+
+                case 'Laptop':
+                    depositActive = false;
+                    hideHealth();
+                    hideInventory();
+
+                    depositDiv = createDiv();
+                    depositDiv.parent('container');
+                    depositDiv.id('depositDiv');
+    
+                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg.parent('depositDiv');
+                    depositImg.id('depositImg');
+
+                    depositTextDiv = createDiv();
+                    depositTextDiv.parent('depositDiv');
+                    depositTextDiv.id('depositTextDiv');
+    
+                    depositHeader = createP('Dr. Delozier');
+                    depositHeader.parent('depositTextDiv');
+                    depositHeader.id('depositHeader');
+    
+                    depositText = createP("This better have github actions running on it.");
+                    depositText.parent('depositTextDiv');
+                    depositText.id('depositText');
+    
+                    depositText = createP("If it doesn't have automated testing I don't want it.");
+                    depositText.parent('depositTextDiv');
+                    depositText.id('depositText');
+                    break;
+            default:
+                    /* hideHealth();
+                    hideInventory();
+                    depositDiv = createDiv();
+                    depositDiv.parent('container');
+                    depositDiv.id('depositDiv');
+    
+                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg.parent('depositDiv');
+                    depositImg.id('depositImg');
+    
+                    depositHeader = createP('Dr. Delozier');
+                    depositHeader.parent('depositDiv');
+                    depositHeader.id('depositHeader');
+    
+                    depositText = createP("You don't have any of my items.");
+                    depositText.parent('depositDiv');
+                    depositText.id('depositText');
+    
+                    depositText = createP("Why are you trying to give me something if you don't have it.");
+                    depositText.parent('depositDiv');
+                    depositText.id('depositText'); */
+                break;
+        }
+    }
+} 
+
+function pressF(){
+    if(showPressF){
+        showPressF = false;
+
+        pressFpara = document.createElement("p");
+		pressFtext = document.createTextNode("Press F to give");
+		pressFpara.appendChild(pressFtext);
+		pressFpara.classList.add("collectible-notification");
+		document.body.appendChild(pressFpara);
+    }
+}
+
+function hidepressF(){
+    showPressF = true;
+    pressFpara.remove();
+    pressFtext.remove()
 }

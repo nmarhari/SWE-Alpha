@@ -31,7 +31,7 @@ div {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 50px;
+    font-size: 25px;
 }
 
 #container {
@@ -50,7 +50,7 @@ main {
 }
 
 #healthBarBorder {
-    margin-top: 85vh;
+    margin-top: 80vh;
     --p: 1;
 }
 
@@ -64,6 +64,12 @@ main {
     background-repeat: no-repeat;
     display: flex;
     background-size: cover;
+}
+
+#startDiv img{
+    width: 150vw;
+    height: 80vh;
+    transform: translate(-30%, -10%);
 }
 
 #startText {
@@ -89,6 +95,7 @@ main {
 #startClickables {
     width: 50%;
     margin-top: 75vh;
+    position: relative;
 }
 
 #startButton {
@@ -105,7 +112,40 @@ main {
     text-shadow: 4px 4px 8px black;
     box-shadow: 4px 4px 8px black;
 }
+
 #startButton:hover{
+    border: 3px solid white;
+    padding: 14px 24px;
+    margin: 8px 0px;
+}
+
+#dlzButton{
+    position: absolute;
+    bottom: 5vh; 
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px 0px 10px;
+    transition: 1s;
+    background-color: transparent;
+    font-family: "VT323", monospace;
+    text-shadow: 4px 4px 8px black;
+    box-shadow: 4px 4px 8px black;
+}
+
+#dlzButton.clicked{
+    transition: 1s;
+    border: 3px solid red;
+    color: red;
+    opacity: 75%;
+}
+
+#dlzButton:hover{
     border: 3px solid white;
     padding: 14px 24px;
     margin: 8px 0px;
@@ -237,10 +277,9 @@ Health Bar
     margin-top: 99vh;
     width: 600px;
     height: 90px;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(214, 214, 214, .35);
     border: 2px solid #000;
     border-radius: 0px;
-    opacity: 0.35;
   }
   
   .inventorySlot {
@@ -249,7 +288,58 @@ Health Bar
     height: 60px;
     margin-top: 1.25vh;
     border: 3px solid #000;
-    background-color: #686ad8;
+    background-color: rgb(104, 106, 216, .35);
     text-align: center;
     margin: 15px;
   }
+
+
+#depositDiv{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    background-color: rgb(0,0,0,.5);
+    filter: blur(50);
+    
+}
+
+#depositImg{
+    opacity: 100%;
+    height: 200px;
+    width: 225px;
+    position: absolute;
+    left: 0;
+    background-repeat: no-repeat;
+}
+
+#depositTextDiv{
+    position: flex;
+    width: 100vw;
+    height: 100vh;
+    margin-left: 15vw;
+}
+
+#depositHeader{
+    color: white;
+    font-size: 50px;
+    font-family: fantasy;
+    text-align: left;
+}
+
+#depositText{
+    display: flex;
+    color: white;
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+#pressFText{
+    font-size: 15px;
+}
+
+img {
+    width: 90%;
+    height: 90%;
+    margin-top: 3px;
+}

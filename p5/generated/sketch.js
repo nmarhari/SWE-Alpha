@@ -82,9 +82,10 @@ function setup() {
   	player = new Player();
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
-	book = new Book("Delozier's SE Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
+
+	book = new Book("Delozier's SE Book", randomBlock.x, randomBlock.y - 10, randomBlock.z, 10, bookModel);
+	//chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
+	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 5, tallestBlock.z, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
 
@@ -145,8 +146,8 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	gmap.checkLavaCollision(player);
-		  let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		  console.log(arrPos);
+		  //let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		  //console.log(arrPos);
   	}
 
 	
@@ -161,7 +162,7 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
+		/* if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
 			player.collect(chair);
 			chair.remove();
 		} else {
@@ -169,11 +170,11 @@ function draw() {
 			texture(bookTexture);
 			chair.display();
 			pop();
-		}
+		} */
 
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
 			let result = player.remove(book);
-			result = player.remove(chair);
+			//result = player.remove(chair);
 		}
 
 			push();
@@ -182,12 +183,12 @@ function draw() {
 			pop();
 
 
-	gmap.update(balls, player);
+	gmap.update(balls);
 	gmap.display();
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(gmap, player);
+		balls[i].update(player, gmap);
 	}
 
   	if (help || frameCount < 400) { // Heads Up Display extension
@@ -225,9 +226,9 @@ function draw() {
 		startShowingHealth = false;
 	}
 
-	if(frameCount % 1200 == 0){ // every 20 seconds a fireball will spawn in
+	if(frameCount % 600 == 0){ // every 20 seconds a fireball will spawn in
 		currentBalls++;
-		gmap.raiseLava(.5);
+		gmap.raiseLava(1);
 	}
 	
 	//Calls showInventory function once
