@@ -190,7 +190,8 @@ class FireBall {
 				(player.position.z + player.dimensions.z / 2) >= (this.position.z - this.radius)     // player back
 			){
 				console.log("fireball hit");
-				player.takeHit();
+				if(!delozierMode)
+					player.takeHit();
 			}
 		}
 	}
@@ -318,15 +319,14 @@ class Maze {
 						playerFront <= blockBack &&
 						playerTop <= blockBottom
 					) {
-							//return true; // Collision detected
-							//console.log("true");
+						//return true; // Collision detected
+						if(!delozierMode)
 							player.takeHit();
 					}
 				}
 			}
 		}
 		//return false; // No collision detected
-		//console.log("false");
 	}
 
 

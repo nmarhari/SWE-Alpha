@@ -3,7 +3,7 @@ class Player extends RoverCam {
       	super();
       	this.dimensions = createVector(1, 3, 1);
       	this.velocity = createVector(0, 0, 0);
-      	this.gravity = createVector(0, 0.035, 0);
+      	this.gravity = createVector(0, 0.037, 0);
       	this.grounded = false;
       	this.pointerLock = false;
 		this.gameStarted = false;
@@ -88,6 +88,13 @@ class Player extends RoverCam {
 			if(keyIsDown(72)) help = !help;
 		}
 
+		if (this.grounded && keyIsDown(32) && this.jumps > 0) { // space
+			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
+        	this.grounded = false;
+        	this.velocity.y -= .8;
+        	this.position.y -= 2;
+    	}
+
 
 		// unlock pointer if ESC is pressed
 		/*if (keyIsDown(27) && !pauseActive){
@@ -116,15 +123,6 @@ class Player extends RoverCam {
       	}
       	this.velocity.add(this.gravity);
       	this.position.add(this.velocity);
-  
-
-     	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
-			//console.log('if this grounded');
-			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
-        	this.grounded = false;
-        	this.velocity.y -= .8;
-        	this.position.y -= 2;
-    	}
     }
 
 	takeHit(){

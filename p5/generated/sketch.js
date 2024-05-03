@@ -11,10 +11,10 @@ let book, bookModel, skybox, theme, aspen;
 let OBJarray = []; //have to splice objs from array to remove on screen
 
 // overlay
-let startVisible = true; // renders start screen once
+let startVisible = false; // renders start screen once
 let deathVisible = false;
-let startShowingHealth = false;
-let startShowInventory = false;
+let startShowingHealth = true;
+let startcreateInventory = true;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
@@ -50,7 +50,8 @@ function preload() {
 
 	// have to preload so it can play when starting the game
 	theme = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/Theme_Song.mp3'); 
-
+	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
+	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 		
 	/* // for moving lava
 	 lava = createVideo(['../assets/lava.mp4']);
@@ -65,8 +66,7 @@ function setup() {
 	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking-trimmed.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
-	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
-	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
+	
 
 	ambience.setVolume(.2);
 	lavaSound.setVolume(1.2);
@@ -80,13 +80,13 @@ function setup() {
 	}
 
   	player = new Player();
-	player.dimensions.y = 10;
+	player.dimensions.y = 10; player.gameStarted = true; player.gravity.y *= 2;
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 
-	book = new Book("Delozier's SE Book", randomBlock.x, randomBlock.y - 10, randomBlock.z, 10, bookModel);
+	book = new Book("Book", randomBlock.x, randomBlock.y - 10, randomBlock.z, 10, bookModel);
 	//chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 5, tallestBlock.z, 1.4, drModel);
+	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 5, tallestBlock.z, 2, drModel);
  	frameRate(60);
   	strokeWeight(2);
 
@@ -214,12 +214,6 @@ function draw() {
 		pop();
 	}
 
-	if (startVisible) {
-		startScreen();
-		//theme.loop();
-		startVisible = false; // render only once
-	}
-
 	if (startShowingHealth) {
 		showHealth();
 		lavaSound.loop();
@@ -233,9 +227,9 @@ function draw() {
 	}
 	
 	//Calls showInventory function once
-	if (startShowInventory) {
-		showInventory();
-		startShowInventory = false;
+	if (startcreateInventory) {
+		createInventory();
+		startcreateInventory = false;
 	}
 }
 
@@ -271,9 +265,9 @@ function mouseClicked() {
 		player.pointerLock = true;
 	}
 
-	if (!player.gameStarted && !themePlaying) {
+	/* if (!player.gameStarted && !themePlaying) {
 		theme.play();
 		themePlaying = true;
-	}
+	} */
 }
 

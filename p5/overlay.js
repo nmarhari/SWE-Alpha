@@ -189,15 +189,8 @@ function respawnPlayer() {
 }
 
 function resetMap() {
-    maze = new Maze(20, 12);
-    maze.setPlayerAtStart(player);
-	//Inventory - replace texture links with chair and dr image files when completed
-    if (book) 
-        book = new Book("Book", 35, -5, 30, 10, bookModel);
-    if (chair)
-        chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel); // change to chair texture later
-	if (dr) 
-    dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel); // change to chair texture later
+    setup();
+    requestpointerLock();
 }
 
 
