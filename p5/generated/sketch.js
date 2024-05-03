@@ -7,7 +7,7 @@ let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for part
 var player, gmap, f, help = false, canvas, themePlaying = false;
 
 // for models on screen and skybox
-let book, bookModel, skybox, theme, aspen; 
+let book, bookModel, skybox, theme, constellation; 
 let OBJarray = []; //have to splice objs from array to remove on screen
 
 // overlay
@@ -42,7 +42,7 @@ function preload() {
 	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
 	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
-	aspen = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/aspen.png');
+	constellation = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/drConstellation.png');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
@@ -70,6 +70,7 @@ function setup() {
 
 	ambience.setVolume(.2);
 	lavaSound.setVolume(1.2);
+	theme.setVolume(.2);
 
 	dlzMode = true;
 
@@ -91,19 +92,6 @@ function setup() {
 	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 5, tallestBlock.z, 2, drModel);
  	frameRate(60);
   	strokeWeight(2);
-
-	
-
-	
-	  word = new Word3D(
-		"Kent Touch This",       // The actual character that you want to draw (anything that can be passed into "text()")
-		1.5,             // How thick the 3D rendered letter is (i.e. how many cube pixels of size "size" it is on z-axis)  
-		windowWidth/3000,     // The size of a unit "box()" making up part of the letter  
-		35,            // The size of the canvas it renders the letter on (higher is more detailed, 30-40 is a good range)  
-		true,          // [OPTIONAL, default = true] Gives the bevelled, embossed 3D look (as seen in screenshot)  
-		"Arial",     // [OPTIONAL, default = "Georgia"] Gives the font uses, can be any default ones or anything added  
-		BOLD           // [OPTIONAL, default = BOLD] Gives the chosen style out of BOLD, NORMAL, ITALIC  
-	  );
 	
 	initContainerHTML();
 	// initialize container in html for overlay elements
@@ -120,15 +108,6 @@ function draw() {
 	frameRate(60);
   	background(0,0,51);
 
-	// for 3d kent touch this sign
-	push();
-		rotateY(-HALF_PI)
-		translate(45, -30, -175)
-		noStroke();
-		texture(wordtexture);
-		word.show()
-	pop()
-
 	// starry skybox
 	push();
 		noStroke();
@@ -136,14 +115,14 @@ function draw() {
 		texture(skybox);
 		translate(50, 0, 100);
 		box(500);
-  	pop();
+  	pop(); 
 
 	// easter egg in skybox
 	push();
 		noStroke();
-		texture(aspen);
-		rotateY(HALF_PI);
-		translate(-50, -100, -165)
+		texture(constellation);
+		rotateX(-HALF_PI);
+		translate(10, -100, -200)
 		plane(400, 400);
 	pop();
 
@@ -219,7 +198,7 @@ function draw() {
 	if (startShowingHealth) {
 		showHealth();
 		lavaSound.loop();
-		ambience.loop();
+		theme.loop();
 		startShowingHealth = false;
 	}
 

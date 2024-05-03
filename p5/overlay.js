@@ -279,6 +279,7 @@ function hideInventory() {
 
 let depositDiv, depositTextDiv, depositImg, depositText, depositHeader, depositActive = true;
 let showPressF = true, pressFpara, pressFtext;
+let nextButton;
 function deposit(collectible){
     if(depositActive){
         showPressF = false;
@@ -426,6 +427,12 @@ function deposit(collectible){
                     depositText.id('depositText'); */
                 break;
         }
+
+        nextButton = createButton('Next');
+        nextButton.mouseClicked(closeStartScreen);
+        nextButton.parent('startClickables');
+        nextButton.id('startButton');
+        
     }
 } 
 

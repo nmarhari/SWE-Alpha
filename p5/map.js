@@ -390,7 +390,7 @@ class GeneratedMap {
 					} else {
 						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
 						this.nonLavaBlocks.push({ x: x, z: z }); // Store non-lava block coordinates
-						console.log(x, z)
+						//console.log(x, z)
 					}
 					pop();
 			}
@@ -433,8 +433,6 @@ class GeneratedMap {
 	checkLavaCollision(player) {
 		let playerArrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
 		let radius = 15, endZ;
-		playerArrPos.x *= 5;
-		playerArrPos.z *= 5;
 
 		let startX = Math.max(0, playerArrPos.x - radius);
 		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
@@ -475,7 +473,8 @@ class GeneratedMap {
 						// Handle collision here, e.g., reduce player health
 							//return true; // Collision detected
 							//console.log("true");
-							player.takeHit();
+							if(!dlzMode)
+								player.takeHit();
 					  }
 				}
 			  }
