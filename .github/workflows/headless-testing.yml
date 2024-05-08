@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v5
       - name: Install Chai & Mocha
         run: |
           echo "$ npm install chai & mocha "
@@ -21,8 +19,8 @@ jobs:
           npm mocha --version
       - name: Start HTTP Server
         run: |
-          echo "$ python -m http.server "
-          python -m http.server
+          echo "$ npx http-server "
+          npx http-server
       - name: Test headless.mjs
         run: |
           echo "$ npm run test"
@@ -42,8 +40,8 @@ jobs:
           pip install behave
       - name: Start HTTP Server
         run: |
-          echo "$ python -m http.server "
-          python -m http.server
+          echo "$ npx http-server "
+          npx http-server
       - name: Test walking.py
         run: |
           echo "$ behave"
