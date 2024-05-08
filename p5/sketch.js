@@ -61,6 +61,8 @@ function preload() {
 
 	// have to preload so it can play when starting the game
 	theme = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/Theme_Song.mp3'); 
+	ambience = loadSound('../assets/sounds/ambience.mp3');
+	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
 		
 	/* // for moving lava
@@ -76,8 +78,6 @@ function setup() {
 	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
-	ambience = loadSound('../assets/sounds/ambience.mp3');
-	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
 	ambience.setVolume(.5);
 	lavaSound.setVolume(1.2);

@@ -77,8 +77,6 @@ function setup() {
 	ambience.setVolume(.5);
 	lavaSound.setVolume(1.2);
 
-	dlzMode = true;
-
   	strokeWeight(0.02);
  	textFont(f);
  	textSize(12);

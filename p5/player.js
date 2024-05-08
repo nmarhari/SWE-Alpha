@@ -235,9 +235,6 @@ class Player extends RoverCam {
 		if(arrayX < 0) arrayX = 0;
 		if(arrayZ < 0) arrayZ = 0;
 
-		arrayX *= blockSize;
-		arrayZ *= blockSize;
-
 		return { x: arrayX, z: arrayZ };
 	}
 }

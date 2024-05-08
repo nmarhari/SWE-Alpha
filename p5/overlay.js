@@ -14,7 +14,7 @@ let startDesc;
 let startClickables;
 let startButton;
 let dlzButton;
-var dlzMode = false;
+var dlzMode = sessionStorage.getItem('dlzMode') === 'true';
 //let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
@@ -72,7 +72,8 @@ function closeStartScreen() {
 function delozierMode() {
     var dlzButton = document.getElementById('dlzButton'); // Get the button element
     dlzButton.classList.toggle('clicked'); // Toggle the 'clicked' class on the button
-    dlzMode = true;
+    dlzMode = !dlzMode;
+    sessionStorage.setItem('dlzMode', dlzMode);
 }
 
 /*let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;

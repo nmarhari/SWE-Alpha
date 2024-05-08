@@ -317,14 +317,16 @@ class Maze {
 						playerFront <= blockBack &&
 						playerTop <= blockBottom
 					) {
-						//return true; // Collision detected
-						if(!delozierMode)
-							player.takeHit();
+							//return true; // Collision detected
+							//console.log("true");
+							if(!dlzMode)
+								player.takeHit();
 					}
 				}
 			}
 		}
 		//return false; // No collision detected
+		//console.log("false");
 	}
 
 
@@ -430,7 +432,10 @@ class GeneratedMap {
 
 	checkLavaCollision(player) {
 		let playerArrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		playerArrPos.x *= size;
+		playerArrPos.z *= size;
 		let radius = 15, endZ;
+		console.log(playerArrPos)
 
 		let startX = Math.max(0, playerArrPos.x - radius);
 		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
@@ -439,7 +444,7 @@ class GeneratedMap {
 		try {
 			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
 		} catch (error) {
-			//onsole.log('catch');
+			//console.log('catch');
 		}
 		for (let x = startX; x < endX; x+=size) {
 			  for (let z = startZ; z < endZ; z+=size) {
