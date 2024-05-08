@@ -8,6 +8,7 @@ on:
 jobs:
   headless_testing:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: Get code
         uses: actions/checkout@v2
@@ -20,13 +21,14 @@ jobs:
       - name: Start HTTP Server
         run: |
           echo "$ npx http-server "
-          npx http-server
+          npx http-server &
       - name: Test headless.mjs
         run: |
           echo "$ npm run test"
           npm run test
   behavioral_headless_testing:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: Get code
         uses: actions/checkout@v2
@@ -41,7 +43,7 @@ jobs:
       - name: Start HTTP Server
         run: |
           echo "$ npx http-server "
-          npx http-server
+          npx http-server &
       - name: Test walking.py
         run: |
           echo "$ behave"
