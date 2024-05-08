@@ -12,7 +12,7 @@ def step_impl(context):
     options.set_capability("goog:loggingPrefs", {  # old: loggingPrefs
     "browser": "ALL"})
     context.browser = webdriver.Chrome(options = options)
-    context.browser.get("http://127.0.0.1:8000/")
+    context.browser.get("http://127.0.0.1:8080/")
     time.sleep(10)
     context.browser.execute_script('closeStartScreen()')
 
