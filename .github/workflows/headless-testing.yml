@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v5
       - name: Install Chai & Mocha
         run: |
           echo "$ npm install chai & mocha "
@@ -30,6 +32,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v5
       - name: Install Selenium & Behave
         run: |
           echo "$ pip install Selenium"
