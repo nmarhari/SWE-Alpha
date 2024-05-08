@@ -26,6 +26,7 @@ def step_impl(context):
 
 @then(u'the position should change')
 def step_impl(context):
+    firstx = 5
     secondx = context.browser.execute_script("return player.position.x")
     #f = open('output.txt', "w")
     #for log in context.browser.get_log("browser"):
@@ -38,5 +39,5 @@ def step_impl(context):
     #     if(log == "Assertion failed: "):
     #         exit("failed")
     # assert(float(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+6][-3:-1]) > 5)
-    assert float(5 < secondx)
+    assert float(firstx < secondx)
 
