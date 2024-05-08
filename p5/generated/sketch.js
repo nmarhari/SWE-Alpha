@@ -207,7 +207,7 @@ function draw() {
 
 	if(frameCount % 600 == 0){ // every 20 seconds a fireball will spawn in and lava will rise
 		currentBalls++;
-		gmap.raiseLava(2);
+		gmap.raiseLava(1);
 	}
 	
 	//Calls showInventory function once
