@@ -26,14 +26,17 @@ def step_impl(context):
 
 @then(u'the position should change')
 def step_impl(context):
-    context.browser.execute_script("console.log('x: '+player.position.x)")
+    secondx = context.browser.execute_script("return player.position.x")
     #f = open('output.txt', "w")
     #for log in context.browser.get_log("browser"):
     
         #f.write(log['message'][log['message'].find("x:"):log['message'].find("x:")+6][-3:-1])
     #parses the console for a the message executed above and checkes the the x value has changed
-    log = context.browser.get_log("browser")
-    assert(float(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+6][-3:-1]) > 5)
-    
-    
+    # context.browser.execute_script("console.assert(firstx > secondx)")
+    # for log in context.browser.get_log("browser"):
+    #     print(log)
+    #     if(log == "Assertion failed: "):
+    #         exit("failed")
+    # assert(float(log[-1]['message'][log[-1]['message'].find("x:"):log[-1]['message'].find("x:")+6][-3:-1]) > 5)
+    assert float(5 < secondx)
 

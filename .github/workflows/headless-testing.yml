@@ -42,7 +42,7 @@ jobs:
           pip install behave
       - name: Start HTTP Server
         run: |
-          echo "$ npx http-server "
+          echo "$ npx http-server &"
           npx http-server &
       - name: Test walking.py
         run: |
