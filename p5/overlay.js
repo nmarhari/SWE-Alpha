@@ -213,6 +213,8 @@ function showHealth() {
 	
     // initialize health as 1
     healthBarDiv.style('--p:', '1');
+    lavaSound.loop();
+	ambience.loop();
 
 }
 function updateHealth(hp) {
@@ -225,6 +227,8 @@ function updateHealth(hp) {
 function hideHealth() {
     healthBarDiv.remove();
     healthInBar.remove();
+    ambience.stop();
+    lavaSound.stop();
 }
 
 //On screen inventory slots
