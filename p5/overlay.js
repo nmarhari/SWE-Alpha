@@ -257,8 +257,7 @@ function updateInventory(itemsCopy) {
         //console.log(item)
         let elem = document.createElement("img");
         let imgPath = "";
-        console.log("Hi")
-        console.log(item.name)
+        //console.log(item.name)
         if(item.name == "Chair"){
             imgPath = "./assets/chair.jpg"
         }else if(item.name == "Book"){
