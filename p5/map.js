@@ -188,7 +188,7 @@ class FireBall {
 				(player.position.z + player.dimensions.z / 2) >= (this.position.z - this.radius)     // player back
 			){
 				console.log("fireball hit");
-				if(!delozierMode)
+				if(!dlzMode)
 					player.takeHit();
 			}
 		}
@@ -278,7 +278,7 @@ class Maze {
 
   	checkLavaCollision(player) {
 		let playerArrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
-		let radius = 1, endZ;
+		let radius = 15, endZ;
 
 		let startX = Math.max(0, playerArrPos.x - radius);
 		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
@@ -318,7 +318,7 @@ class Maze {
 						playerTop <= blockBottom
 					) {
 						//return true; // Collision detected
-						if(!delozierMode)
+						if(!dlzMode)
 							player.takeHit();
 					}
 				}

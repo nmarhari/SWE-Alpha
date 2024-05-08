@@ -4,7 +4,7 @@ const balls = [], ballParticles = [];
 let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for particles and fireballs on screen
 
 // basic game variables
-var player, gmap, f, help = false, canvas, themePlaying = false, chair;
+var player, gmap, f, help = false, canvas, themePlaying = false, chair, dlzMode = false;;
 
 // for models on screen and skybox
 let book, bookModel, skybox, theme, constellation; 
@@ -76,8 +76,6 @@ function setup() {
 
 	ambience.setVolume(.5);
 	lavaSound.setVolume(1.2);
-
-	dlzMode = true;
 
   	strokeWeight(0.02);
  	textFont(f);

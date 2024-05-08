@@ -14,7 +14,6 @@ let startDesc;
 let startClickables;
 let startButton;
 let dlzButton;
-var dlzMode = false;
 //let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
@@ -212,6 +211,8 @@ function showHealth() {
 	
     // initialize health as 1
     healthBarDiv.style('--p:', '1');
+    lavaSound.loop();
+	ambience.loop();
 
 }
 function updateHealth(hp) {
@@ -224,6 +225,8 @@ function updateHealth(hp) {
 function hideHealth() {
     healthBarDiv.remove();
     healthInBar.remove();
+    ambience.stop();
+    lavaSound.stop();
 }
 
 //On screen inventory slots
