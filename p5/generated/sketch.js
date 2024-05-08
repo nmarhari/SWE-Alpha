@@ -4,7 +4,7 @@ const balls = [], ballParticles = [];
 let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for particles and fireballs on screen
 
 // basic game variables
-var player, gmap, f, help = false, canvas, themePlaying = false;
+var player, gmap, f, help = false, canvas, themePlaying = false, chair;
 
 // for models on screen and skybox
 let book, bookModel, skybox, theme, constellation; 
@@ -45,7 +45,7 @@ function preload() {
 	constellation = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/drConstellation.png');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
-	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
@@ -87,9 +87,9 @@ function setup() {
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 
-	book = new Book("Book", randomBlock.x, randomBlock.y - 10, randomBlock.z, 10, bookModel);
+	book = new Book("Book", randomBlock.x, randomBlock.y - 5, randomBlock.z, 10, bookModel);
 	//chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 5, tallestBlock.z, 2, drModel);
+	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 2.5, tallestBlock.z, 2, drModel);
  	frameRate(60);
   	strokeWeight(2);
 	
@@ -144,19 +144,22 @@ function draw() {
 			pop();
 		}
 
-		/* if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
-			player.collect(chair);
-			chair.remove();
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
+			pressF();
+			if(keyIsDown(70)){
+				let result = player.remove(book);
+				if(result){
+					deposit(book);
+				}
+				result = player.remove(chair);
+				if(result){
+					deposit(chair);
+				}
+			}
 		} else {
-			push();
-			texture(bookTexture);
-			chair.display();
-			pop();
-		} */
-
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 2){
-			let result = player.remove(book);
-			//result = player.remove(chair);
+			try{
+				hidepressF();
+			} catch(error){}
 		}
 
 			push();
@@ -202,9 +205,9 @@ function draw() {
 		startShowingHealth = false;
 	}
 
-	if(frameCount % 600 == 0){ // every 20 seconds a fireball will spawn in
+	if(frameCount % 600 == 0){ // every 20 seconds a fireball will spawn in and lava will rise
 		currentBalls++;
-		gmap.raiseLava(1);
+		gmap.raiseLava(2);
 	}
 	
 	//Calls showInventory function once
@@ -214,30 +217,6 @@ function draw() {
 	}
 }
 
-  
-
-	//drawAxes();
-	// function drawAxes(){
-	// 	push();
-	//       noStroke();
-	// 	  fill(127,0,0); // X red
-	// 	  translate(75,0.5,0.5);
-	// 	  box(150,1,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,127,0); // Y green
-	// 	  translate(0.5,75,0.5);
-	// 	  box(1,150,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,0,127); // Z blue
-	// 	  translate(0.5,0.5,75);
-	// 	  box(1,1,150);
-	// 	pop();
-	// }
-
 function mouseClicked() {
 	if (player.gameStarted && requestPointerLock()) player.pointerLock = true;
 	else
@@ -245,10 +224,5 @@ function mouseClicked() {
 		requestPointerLock();
 		player.pointerLock = true;
 	}
-
-	/* if (!player.gameStarted && !themePlaying) {
-		theme.play();
-		themePlaying = true;
-	} */
 }
 

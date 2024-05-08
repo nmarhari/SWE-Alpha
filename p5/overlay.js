@@ -279,7 +279,7 @@ function hideInventory() {
 
 let depositDiv, depositTextDiv, depositImg, depositText, depositHeader, depositActive = true;
 let showPressF = true, pressFpara, pressFtext;
-let nextButton;
+let nextButton, nextButtonDiv;
 function deposit(collectible){
     if(depositActive){
         showPressF = false;
@@ -289,6 +289,9 @@ function deposit(collectible){
                 depositActive = false;
                 hideHealth();
                 hideInventory();
+                setTimeout(() => {
+                    frameRate(0);
+                }, 5000);
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
@@ -301,6 +304,14 @@ function deposit(collectible){
                 depositTextDiv = createDiv();
                 depositTextDiv.parent('depositDiv');
                 depositTextDiv.id('depositTextDiv');
+
+                nextButtonDiv = createDiv();
+                nextButtonDiv.parent('depositTextDiv');
+                nextButtonDiv.id('nextButtonDiv');
+                nextButton = createButton('Next');
+                nextButton.mouseClicked(switchGame);
+                nextButton.parent('nextButtonDiv');
+                nextButton.id('startButton');
 
                 depositHeader = createP('Dr. Delozier');
                 depositHeader.parent('depositTextDiv');
@@ -319,6 +330,9 @@ function deposit(collectible){
                 depositActive = false;
                 hideHealth();
                 hideInventory();
+                setTimeout(() => {
+                    frameRate(0);
+                }, 5000);
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
@@ -331,6 +345,14 @@ function deposit(collectible){
                 depositTextDiv = createDiv();
                 depositTextDiv.parent('depositDiv');
                 depositTextDiv.id('depositTextDiv');
+
+                nextButtonDiv = createDiv();
+                nextButtonDiv.parent('depositTextDiv');
+                nextButtonDiv.id('nextButtonDiv');
+                nextButton = createButton('Next');
+                nextButton.mouseClicked(switchGame);
+                nextButton.parent('nextButtonDiv');
+                nextButton.id('startButton');
 
                 depositHeader = createP('Dr. Delozier');
                 depositHeader.parent('depositTextDiv');
@@ -349,6 +371,9 @@ function deposit(collectible){
                 depositActive = false;
                 hideHealth();
                 hideInventory();
+                setTimeout(() => {
+                    frameRate(0);
+                }, 5000);
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
@@ -361,6 +386,14 @@ function deposit(collectible){
                 depositTextDiv = createDiv();
                 depositTextDiv.parent('depositDiv');
                 depositTextDiv.id('depositTextDiv');
+
+                nextButtonDiv = createDiv();
+                nextButtonDiv.parent('depositTextDiv');
+                nextButtonDiv.id('nextButtonDiv');
+                nextButton = createButton('Next');
+                nextButton.mouseClicked(switchGame);
+                nextButton.parent('nextButtonDiv');
+                nextButton.id('startButton');
 
                 depositHeader = createP('Dr. Delozier');
                 depositHeader.parent('depositTextDiv');
@@ -379,6 +412,9 @@ function deposit(collectible){
                     depositActive = false;
                     hideHealth();
                     hideInventory();
+                    setTimeout(() => {
+                        frameRate(0);
+                    }, 5000);
 
                     depositDiv = createDiv();
                     depositDiv.parent('container');
@@ -391,6 +427,14 @@ function deposit(collectible){
                     depositTextDiv = createDiv();
                     depositTextDiv.parent('depositDiv');
                     depositTextDiv.id('depositTextDiv');
+
+                    nextButtonDiv = createDiv();
+                    nextButtonDiv.parent('depositTextDiv');
+                    nextButtonDiv.id('nextButtonDiv');
+                    nextButton = createButton('Next');
+                    nextButton.mouseClicked(switchGame);
+                    nextButton.parent('nextButtonDiv');
+                    nextButton.id('startButton');
     
                     depositHeader = createP('Dr. Delozier');
                     depositHeader.parent('depositTextDiv');
@@ -428,10 +472,6 @@ function deposit(collectible){
                     depositText.id('depositText'); */
                 break;
         }
-        nextButton = createButton('Next');
-        nextButton.mouseClicked(switchGame);
-        nextButton.parent('depositHeader');
-        nextButton.id('startButton');
     }
 } 
 

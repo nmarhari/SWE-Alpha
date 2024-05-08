@@ -344,9 +344,14 @@ img {
     margin-top: 3px;
 }
 
+#nextButtonDiv{
+    width: 20vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 #nextButton {
-    display: inline-block;
-    margin-left: 150px;
     text-decoration: none;
     color: white;
     border: 2px solid white;
@@ -358,5 +363,4 @@ img {
     font-family: "VT323", monospace;
     text-shadow: 4px 4px 8px black;
     box-shadow: 4px 4px 8px black;
-
 }

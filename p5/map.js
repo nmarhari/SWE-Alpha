@@ -383,10 +383,10 @@ class GeneratedMap {
 					push();
 					translate(x,0,z);
 					if (y > 60) { 
-						this.blocks[x][z] = new Block(x, 60, z, size, size, size, lava);
+						this.blocks[x][z] = new Block(x, 60, z, size, size + 3, size, lava);
 						//console.log(x, z)
 					} else {
-						this.blocks[x][z] = new Block(x, y, z, size, size, size, null);
+						this.blocks[x][z] = new Block(x, y, z, size, size + 3, size, null);
 						this.nonLavaBlocks.push({ x: x, z: z }); // Store non-lava block coordinates
 						//console.log(x, z)
 					}
