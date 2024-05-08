@@ -19,8 +19,8 @@ jobs:
           npm mocha --version
       - name: Start HTTP Server
         run: |
-          echo "$ py -m http.server "
-          py -m http.server
+          echo "$ python -m http.server "
+          python -m http.server
       - name: Test headless.mjs
         run: |
           echo "$ npm run test"
@@ -38,8 +38,8 @@ jobs:
           pip install behave
       - name: Start HTTP Server
         run: |
-          echo "$ py -m http.server "
-          py -m http.server
+          echo "$ python -m http.server "
+          python -m http.server
       - name: Test walking.py
         run: |
           echo "$ behave"
