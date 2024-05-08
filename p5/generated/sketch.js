@@ -36,41 +36,30 @@ function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
-	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
-	wordtexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
-	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
-	metal = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/metal.jpg');
-	brick = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/brick.jpg');
+	chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
+	laptopTexture = loadImage('../assets/textures/macScreen.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
 	constellation = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/drConstellation.png');
-	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
+
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
-	theme = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/Theme_Song.mp3'); 
-	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
+	ambience = loadSound('../assets/sounds/ambience.mp3');
 	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
-		
-	/* // for moving lava
-	 lava = createVideo(['../assets/lava.mp4']);
-	//lava.elt.muted = true;
-	lava.loop();
-	lava.hide();  */
 }
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking-trimmed.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 	
 
-	ambience.setVolume(.2);
+	ambience.setVolume(.5);
 	lavaSound.setVolume(1.2);
-	theme.setVolume(.2);
 
 	dlzMode = true;
 
@@ -87,9 +76,10 @@ function setup() {
   	gmap = new GeneratedMap();
  	gmap.setPlayerAtStart(player);
 
-	book = new Book("Book", randomBlock.x, randomBlock.y - 5, randomBlock.z, 10, bookModel);
-	//chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel);
-	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 2.5, tallestBlock.z, 2, drModel);
+	//book = new Book("Book", randomBlock.x, randomBlock.y - 5, randomBlock.z, 10, bookModel);
+
+	chair = new Collectible("Chair", randomBlock.x, randomBlock.y - 5, randomBlock.z, .5, chairModel);
+	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 4, tallestBlock.z, 1, drModel);
  	frameRate(60);
   	strokeWeight(2);
 	
@@ -133,14 +123,14 @@ function draw() {
   	}
 
 	
-	  	if(dist(player.position.x, player.position.y, player.position.z, book.position.x, book.position.y, book.position.z) < 2){
-			player.collect(book);
-			book.remove();
+	  	if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
+			player.collect(chair);
+			chair.remove();
 		} else {
 			push();
-			texture(bookTexture);
+			texture(chairTexture);
 			noStroke();
-			book.display();
+			chair.display();
 			pop();
 		}
 
@@ -201,7 +191,7 @@ function draw() {
 	if (startShowingHealth) {
 		showHealth();
 		lavaSound.loop();
-		theme.loop();
+		ambience.loop();
 		startShowingHealth = false;
 	}
 

@@ -55,7 +55,6 @@ function preload() {
 
 	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
-	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
 	drModel = loadModel('../assets/Prof.obj');
 
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
@@ -80,7 +79,7 @@ function setup() {
 	ambience = loadSound('../assets/sounds/ambience.mp3');
 	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
-	ambience.setVolume(.4);
+	ambience.setVolume(.5);
 	lavaSound.setVolume(1.2);
 
   	strokeWeight(0.04);
