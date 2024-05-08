@@ -9,7 +9,6 @@ var player, maze, f, help = false, canvas, themePlaying = false;
 // for models on screen and skybox
 let book, bookModel, skybox, theme, aspen; 
 let OBJarray = []; //have to splice objs from array to remove on screen
-
 // overlay
 let startVisible = true; // renders start screen once
 let deathVisible = false;
@@ -74,7 +73,7 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking-trimmed.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');

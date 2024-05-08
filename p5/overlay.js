@@ -241,43 +241,50 @@ function createInventory() {
     inventoryContainer = createDiv();
     inventoryContainer.id('inventoryContainer');
     inventoryContainer.parent('container');
-    for (let i=0; i < 5; i++) {
-        const itemSlot = createDiv();
-        itemSlot.class('inventorySlot emptySlot');
-        itemSlot.parent('inventoryContainer');
-    }
+    // for (let i=0; i < ; i++) {
+    //     const itemSlot = createDiv();
+    //     itemSlot.class('inventorySlot emptySlot');
+    //     itemSlot.parent('inventoryContainer');
+    // }
 }
 
-function updateInventory() {
-    let i = 0;
+function updateInventory(itemsCopy) {
     let container = document.getElementById("inventoryContainer")
     while (container.firstChild) {
         container.removeChild(container.lastChild);
     }
-    for (item in player.collectedItems) {
+    for (let item of itemsCopy) {
+        //console.log(item)
         let elem = document.createElement("img");
-        let texture = "https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg";
-        //console.log(texture);
-        elem.setAttribute("src", texture);
+        let imgPath = "";
+        //console.log(item.name)
+        if(item.name == "Chair"){
+            imgPath = "./assets/chair.jpg"
+        }else if(item.name == "Book"){
+            imgPath = "./assets/book.jpg"
+        }
+        //console.log(imgPath);
+        elem.setAttribute("src", imgPath);
         //console.log(item.texture)
-        const itemSlot = createDiv();
+        itemSlot = createDiv();
         itemSlot.class('inventorySlot');
+        itemSlot.child(elem);
         itemSlot.parent('inventoryContainer');
         container.lastChild.appendChild(elem);
-        i++;
+        //i++;
         //console.log(player.collectedItems);
     }
-    while (i < 5) {
-        const itemSlot = createDiv();
-        itemSlot.class('inventorySlot emptySlot');
-        itemSlot.parent('inventoryContainer');
-        i++;
-    }
+    // while (i < numberOfCollectibles) {
+    //     const itemSlot = createDiv();
+    //     itemSlot.class('inventorySlot emptySlot');
+    //     itemSlot.parent('inventoryContainer');
+    //     i++;
+    // }
 }
 
 function resetInventory() {
     player.collectedItems = [];
-    updateInventory();
+    updateInventory(player.collectedItems);
 }
 
 function hideInventory() {

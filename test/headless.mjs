@@ -15,7 +15,7 @@ describe('test swe-alpha', async function(){
             .forBrowser('chrome')
             .setChromeOptions(options.addArguments('--headless')) // remove to see what is happening
             .build();
-        await driver.get('https://nmarhari.github.io/SWE-Alpha');
+        await driver.get('http://127.0.0.1:8080/');
         await sleep(10000);
     })
 
