@@ -39,7 +39,7 @@ function preload() {
 
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	wordTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
-	chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
+	//chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
 	//laptopTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/macScreen.jpg');
 
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
@@ -53,7 +53,7 @@ function preload() {
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
+	//chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
 	drModel = loadModel('../assets/Prof.obj');
 
@@ -73,7 +73,7 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/walking-trimmed.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 	ambience = loadSound('../assets/sounds/ambience.mp3');
@@ -94,7 +94,6 @@ function setup() {
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
 	book = new Book("Book", 35, -5, 30, 10, bookModel);
-	chair = new Collectible("Chair", 10, -3, 40, .75, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
  	frameRate(60);
   	strokeWeight(2);
@@ -175,26 +174,12 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2 && chair.collected == false){
-			player.collect(chair);
-			chair.remove();
-		} else {
-			push();
-			texture(chairTexture);
-			chair.display();
-			pop();
-		}
-
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
 			pressF();
 			if(keyIsDown(70)){
 				let result = player.remove(book);
 				if(result){
 					deposit(book);
-				}
-				result = player.remove(chair);
-				if(result){
-					deposit(chair);
 				}
 			}
 		} else {

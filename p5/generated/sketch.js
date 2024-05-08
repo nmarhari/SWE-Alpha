@@ -16,6 +16,10 @@ let deathVisible = false;
 let startShowingHealth = true;
 let startcreateInventory = true;
 
+//random thing for collectibles
+let collectibleTexture, collectibleModel, collectibleName, artifact;
+let randomNumber = Math.floor(Math.random() * 3);
+
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 // ^ sleep for adding in delays, ex:  async function(){... await sleep(Xms); ... } 
 
@@ -36,12 +40,24 @@ function preload() {
 	f = loadFont('inconsolata.otf');
 	lava = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/pixel.jpg');
 	meteorite = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/meteorite.jpg');
-	chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
-	laptopTexture = loadImage('../assets/textures/macScreen.jpg');
 	skybox = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/sky.jpg');
 	constellation = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/drConstellation.png');
 
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
+	if(randomNumber == 0){
+		collectibleTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
+		collectibleModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
+		collectibleName = "Chair";
+	} else if (randomNumber == 1){
+		collectibleTexture = loadImage('../assets/textures/macScreen.jpg');
+		collectibleModel = loadModel('../assets/laptop.obj');
+		collectibleName = "Laptop";
+	} else {
+		collectibleTexture = loadImage('../assets/textures/dongle.jpg');
+		collectibleModel = loadModel('../assets/dongle.obj');
+		collectibleName = "Dongle";
+	}
+
+
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
@@ -78,7 +94,7 @@ function setup() {
 
 	//book = new Book("Book", randomBlock.x, randomBlock.y - 5, randomBlock.z, 10, bookModel);
 
-	chair = new Collectible("Chair", randomBlock.x, randomBlock.y - 5, randomBlock.z, .5, chairModel);
+	artifact = new Collectible(collectibleName, randomBlock.x, randomBlock.y - 5, randomBlock.z, .5, collectibleModel);
 	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 4, tallestBlock.z, 1, drModel);
  	frameRate(60);
   	strokeWeight(2);
@@ -123,27 +139,23 @@ function draw() {
   	}
 
 	
-	  	if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2){
-			player.collect(chair);
-			chair.remove();
+	  	if(dist(player.position.x, player.position.y, player.position.z, artifact.position.x, artifact.position.y, artifact.position.z) < 2 && artifact.collected == false){
+			player.collect(artifact);
+			artifact.remove();
 		} else {
 			push();
-			texture(chairTexture);
+			texture(collectibleTexture);
 			noStroke();
-			chair.display();
+			artifact.display();
 			pop();
 		}
 
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
 			pressF();
 			if(keyIsDown(70)){
-				let result = player.remove(book);
+				let result = player.remove(artifact);
 				if(result){
-					deposit(book);
-				}
-				result = player.remove(chair);
-				if(result){
-					deposit(chair);
+					deposit(artifact);
 				}
 			}
 		} else {
