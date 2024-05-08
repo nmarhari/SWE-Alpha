@@ -48,12 +48,12 @@ function preload() {
 		collectibleModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 		collectibleName = "Chair";
 	} else if (randomNumber == 1){
-		collectibleTexture = loadImage('../assets/textures/macScreen.jpg');
-		collectibleModel = loadModel('../assets/laptop.obj');
+		collectibleTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/macScreen.jpg');
+		collectibleModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
 		collectibleName = "Laptop";
 	} else {
-		collectibleTexture = loadImage('../assets/textures/dongle.jpg');
-		collectibleModel = loadModel('../assets/dongle.obj');
+		collectibleTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/dongle.jpg');
+		collectibleModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/dongle.obj');
 		collectibleName = "Dongle";
 	}
 
@@ -62,7 +62,7 @@ function preload() {
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
-	ambience = loadSound('../assets/sounds/ambience.mp3');
+	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
 	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 }
 
