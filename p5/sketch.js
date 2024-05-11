@@ -79,7 +79,7 @@ function setup() {
 	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 
-	ambience.setVolume(.5);
+	ambience.setVolume(.3);
 	lavaSound.setVolume(1.2);
 
   	strokeWeight(0.04);
@@ -174,7 +174,7 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3 && player.collectedItems.length > 0){
 			pressF();
 			if(keyIsDown(70)){
 				let result = player.remove(book);

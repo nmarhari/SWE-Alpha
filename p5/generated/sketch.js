@@ -74,8 +74,8 @@ function setup() {
 	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 	
 
-	ambience.setVolume(.5);
-	lavaSound.setVolume(1.2);
+	ambience.setVolume(.3);
+	lavaSound.setVolume(1);
 
   	strokeWeight(0.02);
  	textFont(f);
@@ -96,7 +96,7 @@ function setup() {
 	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 4, tallestBlock.z, 1, drModel);
  	frameRate(60);
   	strokeWeight(2);
-	
+	dlzMode = true;
 	initContainerHTML();
 	// initialize container in html for overlay elements
 }
@@ -134,6 +134,9 @@ function draw() {
       	gmap.checkLavaCollision(player);
 		  //let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
 		  //console.log(arrPos);
+		if(player.position.y > 200){
+			gmap.setPlayerAtStart(player);
+		}
   	}
 
 	
@@ -148,7 +151,13 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
+		console.log('length: %d', player.collectedItems.length)
+
+		for(let i = 0; i < player.collectedItems.length; ++i){
+			console.log("player items: %d",  player.collectedItems[i])
+		}
+
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3 && player.collectedItems.length > 0){
 			pressF();
 			if(keyIsDown(70)){
 				let result = player.remove(artifact);
@@ -200,14 +209,21 @@ function draw() {
 
 	if (startShowingHealth) {
 		showHealth();
-		lavaSound.loop();
-		ambience.loop();
 		startShowingHealth = false;
 	}
 
 	if(frameCount % 600 == 0){ // every 20 seconds a fireball will spawn in and lava will rise
 		currentBalls++;
+		let pos = player.position.y + 6;
+		let bool = gmap.checkLavaCollision(player);
+		if(Math.abs(pos - gmap.currentLavaHeight()) < 1.0 && bool == true){
+			player.position.y -= 1;
+		}
 		gmap.raiseLava(1);
+	
+		/* console.log('lava %d', gmap.currentLavaHeight());
+		console.log('player y %d', player.position.y);
+		console.log('player y/2 %d', player.position.y/2) */
 	}
 	
 	//Calls showInventory function once

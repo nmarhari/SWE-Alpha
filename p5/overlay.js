@@ -288,7 +288,6 @@ let nextButton, nextButtonDiv;
 function deposit(collectible){
     if(depositActive){
         showPressF = false;
-
         switch(collectible.name){
             case 'Book':
                 depositActive = false;
@@ -297,6 +296,8 @@ function deposit(collectible){
                 setTimeout(() => {
                     frameRate(0);
                 }, 5000);
+
+                ambience.play();
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
@@ -339,6 +340,8 @@ function deposit(collectible){
                     frameRate(0);
                 }, 5000);
 
+                ambience.play();
+
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
@@ -380,6 +383,8 @@ function deposit(collectible){
                     frameRate(0);
                 }, 5000);
 
+                ambience.play();
+
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
@@ -420,6 +425,8 @@ function deposit(collectible){
                     setTimeout(() => {
                         frameRate(0);
                     }, 5000);
+
+                    ambience.play();
 
                     depositDiv = createDiv();
                     depositDiv.parent('container');

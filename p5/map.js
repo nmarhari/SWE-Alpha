@@ -426,7 +426,7 @@ class GeneratedMap {
 	}
 
 	setPlayerAtStart(player) {
-	  player.position = p5.Vector.add(this.start.position, createVector(0, -15, 0));
+	  player.position = p5.Vector.add(this.start.position, createVector(0, -10, 0));
 	}
 
 	checkLavaCollision(player) {
@@ -434,7 +434,7 @@ class GeneratedMap {
 		playerArrPos.x *= size;
 		playerArrPos.z *= size;
 		let radius = 15, endZ;
-		console.log(playerArrPos)
+		//console.log(playerArrPos)
 
 		let startX = Math.max(0, playerArrPos.x - radius);
 		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
@@ -472,16 +472,15 @@ class GeneratedMap {
 						playerTop <= blockBottom
 					) {
 						// Collision detected with lava tile
-						// Handle collision here, e.g., reduce player health
-							//return true; // Collision detected
 							//console.log("true");
 							if(!dlzMode)
 								player.takeHit();
+							return true;
 					  }
 				}
 			  }
 		}
-		//return false; // No collision detected
+		return false; // No collision detected
 		//console.log("false");
 	  }
 
