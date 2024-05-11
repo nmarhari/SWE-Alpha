@@ -4,7 +4,7 @@ const balls = [], ballParticles = [];
 let numParticles = 10, numberOfBalls = 50, currentBalls = 0; // numbers for particles and fireballs on screen
 
 // basic game variables
-var player, maze, f, help = false, canvas, themePlaying = false;
+var player, maze, f, help = false, canvas, themePlaying = false, dlzMode = false;;
 
 // for models on screen and skybox
 let book, bookModel, skybox, theme, aspen; 
@@ -38,7 +38,7 @@ function preload() {
 
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	wordTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/molten.jpg');
-	chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
+	//chairTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/fabric.png');
 	//laptopTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/macScreen.jpg');
 
 	rock = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/rock.jpg');
@@ -52,17 +52,22 @@ function preload() {
 	bookTexture = loadImage('https://nmarhari.github.io/SWE-Alpha/assets/textures/leather.jpg');
 	bookModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/book.obj');
 
-	chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
+
+	//chairModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Chair.obj');
 	//laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
-	//drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Daven/Daven.obj');
+	////laptopModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/laptop.obj');
 	drModel = loadModel('https://nmarhari.github.io/SWE-Alpha/assets/Prof.obj');
 
 	// this must be the static link of the asset (not '../assets/lava.jpg') -nassim
 
 	// have to preload so it can play when starting the game
 	theme = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/Theme_Song.mp3'); 
+	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
+	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
-		
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
+	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
+	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav');
 	/* // for moving lava
 	 lava = createVideo(['../assets/lava.mp4']);
 	//lava.elt.muted = true;
@@ -79,7 +84,7 @@ function setup() {
 	ambience = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/ambience.mp3');
 	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
-	ambience.setVolume(.2);
+	ambience.setVolume(.3);
 	lavaSound.setVolume(1.2);
 
   	strokeWeight(0.04);
@@ -93,9 +98,7 @@ function setup() {
   	player = new Player();
   	maze = new Maze(20,12);
  	maze.setPlayerAtStart(player);
-
 	book = new Book("Book", 35, -5, 30, 10, bookModel);
-	chair = new Chair("Chair", 10, -3, 40, .75, chairModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
 
   	strokeWeight(2);
@@ -160,10 +163,8 @@ function draw() {
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
-
 		//let arrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
 		//console.log(arrPos);
-
   	}
 
 	
@@ -178,35 +179,18 @@ function draw() {
 			pop();
 		}
 
-		if(dist(player.position.x, player.position.y, player.position.z, chair.position.x, chair.position.y, chair.position.z) < 2 && chair.collected == false){
-			player.collect(chair);
-			chair.remove();
-		} else {
-			push();
-			texture(chairTexture);
-			chair.display();
-			pop();
-		}
-
-
-		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3){
+		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3 && player.collectedItems.length > 0){
 			pressF();
 			if(keyIsDown(70)){
 				let result = player.remove(book);
 				if(result){
 					deposit(book);
 				}
-				result = player.remove(chair);
-				if(result){
-					deposit(chair);
-				}
 			}
 		} else {
 			try{
 				hidepressF();
 			} catch(error){}
-
-
 		}
 
 			push();
@@ -220,7 +204,7 @@ function draw() {
 	player.update();
 	for (let i = 0; i < currentBalls; i++) {
 		balls[i].display();
-		balls[i].update(maze, player);
+		balls[i].update(player, maze);
 	}
 
   	if (help || frameCount < 400) { // Heads Up Display extension
@@ -254,8 +238,6 @@ function draw() {
 	if (startShowingHealth) {
 		//console.log('showing health')
 		showHealth();
-		lavaSound.loop();
-		ambience.loop();
 		startShowingHealth = false;
 	}
 

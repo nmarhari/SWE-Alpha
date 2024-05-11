@@ -9,7 +9,7 @@ class Block {
 		this.visited = false;
 	}
 
- 	update(reddish) {
+	update(reddish) {
 		let playerLeft = player.position.x - player.dimensions.x / 2;
 		let playerRight = player.position.x + player.dimensions.x / 2;
 		let playerTop = player.position.y - player.dimensions.y / 2;
@@ -44,6 +44,7 @@ class Block {
 				} else if (yOverlap < xOverlap && yOverlap < zOverlap) {
 					if (boxTopOverlap < boxBottomOverlap) {
 						player.position.y = boxTop - player.dimensions.y / 2;
+
 						player.velocity.y = 0;
 						player.grounded = true;
 					} else {
@@ -57,8 +58,16 @@ class Block {
 					}
 				}
 		}
-		if(reddish == 'red') this.fillColor = 'red'; 
-		else this.fillColor = color(200)
+		
+		if(reddish == 'red') {
+			let tex = this.texture;
+			this.texture = null;
+			this.fillColor = 'red'; 
+			setTimeout(() => {
+				this.fillColor = color(random(150, 200)); // Use stored reference
+			}, 1);
+			this.texture = tex;
+		}
     }
 
   	display() {
@@ -96,45 +105,57 @@ class FireBall {
 			this.blockz = 1000000;
 		}
 
-		update(maze, player) {
+		update(player, typeMap) {
 			let distance = dist(player.position.x, player.position.y, player.position.z, this.position.x, this.position.y, this.position.z);
 			let threshold = 75;
+
 			//console.log("Player position:", player.position.x, player.position.y, player.position.z);
     		//console.log("Fireball position:", this.position.x, this.position.y, this.position.z);
+
 			if (distance < threshold) {
 				if(frameCount % 15 == 0)
 					this.checkCollision(player);
-				/*
-				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
-	
-				setTimeout(function() {
-					para.style("display", "none");
-				}, 2000);
-				*/
 			}
+
+
 			this.position.y += 1; 
 
-			if(this.position.y>10) {
-				this.position.y = -100;
+			if(typeMap instanceof Maze){
+				if(this.position.y>10) {
+					this.position.y = -100;
+	
+					this.blockx = Math.floor(random(1, maze.size1-1)); 
+					this.blockz = Math.floor(random(1, maze.size2-1));
+					
+					if(this.blockx == maze.size1-1){
+						this.blockx = this.blockx-1; 
+					}
+					if(this.blockz == maze.size2-1){
+						this.blockz = this.blockz-1; 
+					}
+					this.position.x = this.blockx*5
+					this.position.z = this.blockz*5  
+				}
 
-				//this.position.x = random(10,100);
-				//this.position.z = random(10,50);
-				// this.position.x = player.position.x + random(10,75);
-				// this.position.z = player.position.z + random(10,50);
-				this.blockx = Math.floor(random(1, maze.size1-1)); 
-				this.blockz = Math.floor(random(1, maze.size2-1));
-				if(this.blockx == maze.size1-1){
-					this.blockx = this.blockx-1; 
+			} else if (typeMap instanceof GeneratedMap){
+				if(this.position.y > 60) {
+					this.position.y = -100;
+				
+						this.blockx = Math.floor(random(0, widthOfMap / 5)); 
+						this.blockz = Math.floor(random(0, depth / 5));
+
+					if(this.blockx == widthOfMap / 5 - 5){
+						this.blockx -= 1; 
+					}
+					if(this.blockz == depth / 5 - 5){
+						this.blockz -= 1; 
+					}
+					this.position.x = this.blockx*5
+					this.position.z = this.blockz*5
 				}
-				if(this.blockz == maze.size2-1){
-					this.blockz = this.blockz-1; 
-				}
-				this.position.x = this.blockx*5
-				this.position.z = this.blockz*5  
 			}
 
-
+		
 			for(let i = ballParticles.length - 1; i>= 0; i--){
 				ballParticles[i].move();
 				ballParticles[i].show();
@@ -159,16 +180,6 @@ class FireBall {
 		}
 
 		checkCollision(player){
-			/*
-			if (distance < threshold) {
-				let para = createP("FIREBALL INCOMING!!");
-				para.class("fireball-notification");
-	
-				setTimeout(function() {
-					para.style("display", "none");
-				}, 2000);
-			}*/
-
 			if( (player.position.y - player.dimensions.y / 2) <= (this.position.y + this.radius) &&  // player top
 				(player.position.x - player.dimensions.x / 2) <= (this.position.x + this.radius) &&  // player left
 				(player.position.x + player.dimensions.x / 2) >= (this.position.x - this.radius) &&  // player right
@@ -305,10 +316,9 @@ class Maze {
 						playerFront <= blockBack &&
 						playerTop <= blockBottom
 					) {
-							//return true; // Collision detected
-							//console.log("true");
-							if(!dlzMode)
-								player.takeHit();
+						//return true; // Collision detected
+						if(!dlzMode)
+							player.takeHit();
 					}
 				}
 			}
@@ -348,4 +358,185 @@ class Maze {
 		}
 	}
 	
+}
+
+let resolutionNum1 = 0.01;		// how 'crazy' the map generation gets
+let terrainRange = 100;		// how much the y level will vary
+let widthOfMap = 20 * 5;		// *5 for width and depth as that is the size of the blocks
+let depth = 20 * 5;	
+		// ^ better to have it as a multiple of 10 so that it can be divisible easily
+//let mapLava = 6;
+let size = 5;
+
+let tallestBlock = 0;
+let randomBlock;
+
+class GeneratedMap {
+	constructor() {
+		this.blocks = new Array(size);
+		this.nonLavaBlocks = []; // Array to store non-lava block coordinate
+		for (let x = 0; x < widthOfMap; x+= size){
+			this.blocks[x] = new Array(size);
+			for (let z = 0; z < depth; z+=size) {
+				let y = floor(noise(x * resolutionNum1, z * resolutionNum1) * terrainRange);
+					//console.log(y);
+					push();
+					translate(x,0,z);
+					if (y > 60) { 
+						this.blocks[x][z] = new Block(x, 60, z, size, size + 3, size, lava);
+						//console.log(x, z)
+					} else {
+						this.blocks[x][z] = new Block(x, y, z, size, size + 3, size, null);
+						this.nonLavaBlocks.push({ x: x, z: z }); // Store non-lava block coordinates
+						//console.log(x, z)
+					}
+					pop();
+			}
+		}
+		this.start = this.blocks[(widthOfMap/2)][(depth/2)];
+		tallestBlock = this.tallestBlockCoords();
+		randomBlock = this.getRandomNonLavaBlock();
+	}
+
+	update(balls) {
+		for (let x = 0; x <= this.blocks.length; x += size) { 
+			for (let z = 0; z <= this.blocks[x].length; z += size) {
+				this.blocks[x][z].update('none');
+			}
+		}
+
+		for (let i = 0; i < this.blocks.length; i += size) {
+			for (let j = 0; j < this.blocks[i].length; j += size) {
+				for (let k = 0; k < balls.length; k++) {
+					if (balls[k].blockx * size == i && balls[k].blockz * size == j)
+						this.blocks[i][j].update('red');
+				}
+			}
+		}
+	}
+
+
+	display() {
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				this.blocks[x][z].display();
+			}
+		}
+	}
+
+	setPlayerAtStart(player) {
+	  player.position = p5.Vector.add(this.start.position, createVector(0, -10, 0));
+	}
+
+	checkLavaCollision(player) {
+		let playerArrPos = player.playerArrayPosition(player.position.x, player.position.z, 5);
+		playerArrPos.x *= size;
+		playerArrPos.z *= size;
+		let radius = 15, endZ;
+		//console.log(playerArrPos)
+
+		let startX = Math.max(0, playerArrPos.x - radius);
+		let endX = Math.min(this.blocks.length - radius, playerArrPos.x + radius);
+		let startZ = Math.max(0, playerArrPos.z - radius);
+		// for random error you get when flying outside the map
+		try {
+			endZ = Math.min(this.blocks[startX].length - radius, playerArrPos.z + radius);
+		} catch (error) {
+			//console.log('catch');
+		}
+		for (let x = startX; x < endX; x+=size) {
+			  for (let z = startZ; z < endZ; z+=size) {
+				let block = this.blocks[x][z];
+				if (this.blocks[x][z].texture === lava) {
+					let playerLeft = player.position.x - player.dimensions.x / 2;
+					let playerRight = player.position.x + player.dimensions.x / 2;
+					let playerTop = player.position.y - player.dimensions.y / 2;
+					let playerBottom = player.position.y + player.dimensions.y / 2;
+					let playerFront = player.position.z - player.dimensions.z / 2;
+					let playerBack = player.position.z + player.dimensions.z / 2;
+
+					let blockLeft = block.position.x - block.dimensions.x / 2;
+					let blockRight = block.position.x + block.dimensions.x / 2;
+					let blockTop = block.position.y - block.dimensions.y / 2;
+					let blockBottom = block.position.y + block.dimensions.y / 2;
+					let blockFront = block.position.z - block.dimensions.z / 2;
+					let blockBack = block.position.z + block.dimensions.z / 2;
+				  // Assuming the player has a radius, you need to adjust the collision detection
+				  if (
+						playerBottom >= blockTop &&
+						playerRight >= blockLeft &&
+						playerLeft <= blockRight &&
+						playerBack >= blockFront &&
+						playerFront <= blockBack &&
+						playerTop <= blockBottom
+					) {
+						// Collision detected with lava tile
+							//console.log("true");
+							if(!dlzMode)
+								player.takeHit();
+							return true;
+					  }
+				}
+			  }
+		}
+		return false; // No collision detected
+		//console.log("false");
+	  }
+
+	  // will raise lava by specified parameter
+	raiseLava(height) {
+		let currentHeight = this.currentLavaHeight();
+	
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				if(this.blocks[x][z].texture == lava){
+					this.blocks[x][z].position.y -= height;
+				}
+
+				if (this.blocks[x][z].position.y >= currentHeight) {
+					this.blocks[x][z].texture = lava;
+					this.blocks[x][z].position.y -= height;
+				}
+			}
+		}
+	}
+	
+	// calculates current lava height
+	currentLavaHeight() {
+		let currentHeight = null;
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				if (this.blocks[x][z].texture == lava) {
+					currentHeight = this.blocks[x][z].position.y;
+					return currentHeight;
+				}
+			}
+		}
+	}
+
+	tallestBlockCoords(){ // calculates tallest block in array
+		let blockCoords = {x: -1, y: Infinity, z: -1};
+
+		for (let x = 0; x < this.blocks.length; x+=size) {
+			for (let z = 0; z < this.blocks[x].length; z+=size) {
+				if(this.blocks[x][z].position.y < blockCoords.y){
+					blockCoords.y = this.blocks[x][z].position.y;
+					blockCoords.x = this.blocks[x][z].position.x;
+					blockCoords.z = this.blocks[x][z].position.z;
+				}
+			}
+		}
+		return blockCoords; // have to calculate block size with tallest position
+	}
+
+	getRandomNonLavaBlock() {
+		if (this.nonLavaBlocks.length > 0) {
+			const index = floor(random(this.nonLavaBlocks.length));
+			const {x, z} = this.nonLavaBlocks[index]; // Destructure x and z coordinates from the selected block
+			const y = this.blocks[x][z].position.y; // Get y coordinate from the corresponding block in the map
+			return {x: x, y: y, z: z}; // Return an object with x, y, and z coordinates
+		}
+		return null; // Return null if there are no non-lava blocks
+	}
+
 }

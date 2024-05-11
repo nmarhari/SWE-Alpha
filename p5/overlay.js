@@ -14,7 +14,7 @@ let startDesc;
 let startClickables;
 let startButton;
 let dlzButton;
-var dlzMode = false;
+var dlzMode = sessionStorage.getItem('dlzMode');
 //let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
@@ -72,7 +72,8 @@ function closeStartScreen() {
 function delozierMode() {
     var dlzButton = document.getElementById('dlzButton'); // Get the button element
     dlzButton.classList.toggle('clicked'); // Toggle the 'clicked' class on the button
-    dlzMode = true;
+    dlzMode = !dlzMode;
+    sessionStorage.setItem('dlzMode', dlzMode);
 }
 
 /*let pauseDiv, pauseBlur, pauseText, pauseClickables, pauseButton;
@@ -189,15 +190,8 @@ function respawnPlayer() {
 }
 
 function resetMap() {
-    maze = new Maze(20, 12);
-    maze.setPlayerAtStart(player);
-	//Inventory - replace texture links with chair and dr image files when completed
-    if (book) 
-        book = new Book("Book", 35, -5, 30, 10, bookModel);
-    if (chair)
-        chair = new Collectible("Chair", 10, -3.65, 45, .5, chairModel); // change to chair texture later
-	if (dr) 
-    dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel); // change to chair texture later
+    setup();
+    requestPointerLock();
 }
 
 
@@ -219,11 +213,13 @@ function showHealth() {
 	
     // initialize health as 1
     healthBarDiv.style('--p:', '1');
+    lavaSound.loop();
+	ambience.loop();
 
 }
 function updateHealth(hp) {
     // normal javascript because p5 does not have the right function!
-    if (healthInBar) {
+    if (!!document.getElementById("healthBarBorder")) {
         hb = document.getElementById("healthBarBorder");
         hb.style.setProperty('--p', hp);
     }    
@@ -231,6 +227,8 @@ function updateHealth(hp) {
 function hideHealth() {
     healthBarDiv.remove();
     healthInBar.remove();
+    ambience.stop();
+    lavaSound.stop();
 }
 
 //On screen inventory slots
@@ -293,6 +291,7 @@ function hideInventory() {
 
 let depositDiv, depositTextDiv, depositImg, depositText, depositHeader, depositActive = true;
 let showPressF = true, pressFpara, pressFtext;
+let nextButton, nextButtonDiv;
 function deposit(collectible){
     if(depositActive){
         showPressF = false;
@@ -301,12 +300,17 @@ function deposit(collectible){
                 depositActive = false;
                 hideHealth();
                 hideInventory();
+                setTimeout(() => {
+                    frameRate(0);
+                }, 5000);
+
+                ambience.play();
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
 
-                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
@@ -314,7 +318,15 @@ function deposit(collectible){
                 depositTextDiv.parent('depositDiv');
                 depositTextDiv.id('depositTextDiv');
 
-                depositHeader = createP('Dr. Delozier');
+                nextButtonDiv = createDiv();
+                nextButtonDiv.parent('depositTextDiv');
+                nextButtonDiv.id('nextButtonDiv');
+                nextButton = createButton('Next');
+                nextButton.mouseClicked(switchGame);
+                nextButton.parent('nextButtonDiv');
+                nextButton.id('startButton');
+
+                depositHeader = createP('Dr. DeLozier');
                 depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
@@ -331,12 +343,17 @@ function deposit(collectible){
                 depositActive = false;
                 hideHealth();
                 hideInventory();
+                setTimeout(() => {
+                    frameRate(0);
+                }, 5000);
+
+                ambience.play();
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
 
-                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
@@ -344,7 +361,15 @@ function deposit(collectible){
                 depositTextDiv.parent('depositDiv');
                 depositTextDiv.id('depositTextDiv');
 
-                depositHeader = createP('Dr. Delozier');
+                nextButtonDiv = createDiv();
+                nextButtonDiv.parent('depositTextDiv');
+                nextButtonDiv.id('nextButtonDiv');
+                nextButton = createButton('Next');
+                nextButton.mouseClicked(switchGame);
+                nextButton.parent('nextButtonDiv');
+                nextButton.id('startButton');
+
+                depositHeader = createP('Dr. DeLozier');
                 depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
@@ -361,12 +386,17 @@ function deposit(collectible){
                 depositActive = false;
                 hideHealth();
                 hideInventory();
+                setTimeout(() => {
+                    frameRate(0);
+                }, 5000);
+
+                ambience.play();
 
                 depositDiv = createDiv();
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
 
-                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
@@ -374,7 +404,15 @@ function deposit(collectible){
                 depositTextDiv.parent('depositDiv');
                 depositTextDiv.id('depositTextDiv');
 
-                depositHeader = createP('Dr. Delozier');
+                nextButtonDiv = createDiv();
+                nextButtonDiv.parent('depositTextDiv');
+                nextButtonDiv.id('nextButtonDiv');
+                nextButton = createButton('Next');
+                nextButton.mouseClicked(switchGame);
+                nextButton.parent('nextButtonDiv');
+                nextButton.id('startButton');
+
+                depositHeader = createP('Dr. DeLozier');
                 depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
@@ -391,24 +429,37 @@ function deposit(collectible){
                     depositActive = false;
                     hideHealth();
                     hideInventory();
+                    setTimeout(() => {
+                        frameRate(0);
+                    }, 5000);
+
+                    ambience.play();
 
                     depositDiv = createDiv();
                     depositDiv.parent('container');
                     depositDiv.id('depositDiv');
     
-                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                     depositImg.parent('depositDiv');
                     depositImg.id('depositImg');
 
                     depositTextDiv = createDiv();
                     depositTextDiv.parent('depositDiv');
                     depositTextDiv.id('depositTextDiv');
+
+                    nextButtonDiv = createDiv();
+                    nextButtonDiv.parent('depositTextDiv');
+                    nextButtonDiv.id('nextButtonDiv');
+                    nextButton = createButton('Next');
+                    nextButton.mouseClicked(switchGame);
+                    nextButton.parent('nextButtonDiv');
+                    nextButton.id('startButton');
     
-                    depositHeader = createP('Dr. Delozier');
+                    depositHeader = createP('Dr. DeLozier');
                     depositHeader.parent('depositTextDiv');
                     depositHeader.id('depositHeader');
     
-                    depositText = createP("This better have github actions running on it.");
+                    depositText = createP("This better have Github actions running on it.");
                     depositText.parent('depositTextDiv');
                     depositText.id('depositText');
     
@@ -423,11 +474,11 @@ function deposit(collectible){
                     depositDiv.parent('container');
                     depositDiv.id('depositDiv');
     
-                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                     depositImg.parent('depositDiv');
                     depositImg.id('depositImg');
     
-                    depositHeader = createP('Dr. Delozier');
+                    depositHeader = createP('Dr. DeLozier');
                     depositHeader.parent('depositDiv');
                     depositHeader.id('depositHeader');
     

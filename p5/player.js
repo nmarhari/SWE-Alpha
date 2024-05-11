@@ -1,10 +1,9 @@
-
 class Player extends RoverCam {
     constructor() {
       	super();
       	this.dimensions = createVector(1, 3, 1);
       	this.velocity = createVector(0, 0, 0);
-      	this.gravity = createVector(0, 0.035, 0);
+      	this.gravity = createVector(0, 0.037, 0);
       	this.grounded = false;
       	this.pointerLock = false;
 		this.gameStarted = false;
@@ -89,6 +88,13 @@ class Player extends RoverCam {
 			if(keyIsDown(72)) help = !help;
 		}
 
+		if (this.grounded && keyIsDown(32) && this.jumps > 0) { // space
+			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
+        	this.grounded = false;
+        	this.velocity.y -= .8;
+        	this.position.y -= 2;
+    	}
+
 
 		// unlock pointer if ESC is pressed
 		/*if (keyIsDown(27) && !pauseActive){
@@ -140,11 +146,12 @@ class Player extends RoverCam {
 
 	collect(collectible){
 		this.collectedItems.push(collectible);
-		let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
+    
+		let text2 = document.createTextNode("Return to Dr. DeLozier IMMEDIATELY!!");
 		switch(collectible.name){
 			case "Book":
 				let bookP = document.createElement("p");
-				let bookText1 = document.createTextNode("Software Engineering Book Found");
+				let bookText1 = document.createTextNode("Software Engineering Book Artifact Found");
 				
 				bookP.appendChild(bookText1);
 				bookP.appendChild(document.createElement("br")); // Create a line break
@@ -162,7 +169,7 @@ class Player extends RoverCam {
 
 			case "Chair":
 				let chairP = document.createElement("p");
-				let chairText1 = document.createTextNode("MSB Chair Found");
+				let chairText1 = document.createTextNode("MSB Chair Artifact Found");
 				
 				chairP.appendChild(chairText1);
 				chairP.appendChild(document.createElement("br")); // Create a line break
@@ -180,7 +187,7 @@ class Player extends RoverCam {
 
 			case "Dongle":
 				let dongleP = document.createElement("p");
-				let dongleText1 = document.createTextNode("Dongle Found");
+				let dongleText1 = document.createTextNode("Dongle Artifact Found");
 				
 				dongleP.appendChild(dongleText1);
 				dongleP.appendChild(document.createElement("br")); // Create a line break
@@ -198,7 +205,7 @@ class Player extends RoverCam {
 
 			case "Laptop": 
 				let laptopP = document.createElement("p");
-				let laptopText1 = document.createTextNode("Dongle Found");
+				let laptopText1 = document.createTextNode("Laptop Artifact Found");
 				
 				laptopP.appendChild(laptopText1);
 				laptopP.appendChild(document.createElement("br")); // Create a line break
@@ -235,8 +242,9 @@ class Player extends RoverCam {
 		// Calculate the array indices based on player coordinates and block size
 		let arrayX = Math.floor(playerX / blockSize);
 		let arrayZ = Math.floor(playerZ / blockSize);
-		if(arrayX < 0) arrayZ = 0;
+		if(arrayX < 0) arrayX = 0;
 		if(arrayZ < 0) arrayZ = 0;
+
 		return { x: arrayX, z: arrayZ };
 	}
 }
