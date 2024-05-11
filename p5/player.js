@@ -123,6 +123,15 @@ class Player extends RoverCam {
       	}
       	this.velocity.add(this.gravity);
       	this.position.add(this.velocity);
+  
+
+     	if (this.grounded && keyCode == 32 && this.jumps > 0) { // space
+			console.log('if this grounded');
+			this.jumps = max(0, this.jumps - 1); // just making sure jumps cant go below 0
+        	this.grounded = false;
+        	this.velocity.y -= .8;
+        	this.position.y -= 2;
+    	}
     }
 
 	takeHit(){
@@ -212,7 +221,8 @@ class Player extends RoverCam {
 					}, 4000);
 				break;
 		}
-		updateInventory();
+		let itemsCopy = player.collectedItems.slice();
+		updateInventory(itemsCopy);
 	}
 
 	remove(collectible) {

@@ -176,7 +176,6 @@ class FireBall {
 			texture(this.texture);
 			noStroke();
 			sphere(this.radius);
-			//console.log(lava);
 			pop();
 		}
 

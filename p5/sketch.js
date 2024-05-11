@@ -9,7 +9,6 @@ var player, maze, f, help = false, canvas, themePlaying = false, dlzMode = false
 // for models on screen and skybox
 let book, bookModel, skybox, theme, aspen; 
 let OBJarray = []; //have to splice objs from array to remove on screen
-
 // overlay
 let startVisible = true; // renders start screen once
 let deathVisible = false;
@@ -94,7 +93,7 @@ function setup() {
  	maze.setPlayerAtStart(player);
 	book = new Book("Book", 35, -5, 30, 10, bookModel);
 	dr = new Collectible("Delozier", 90, -6, 4.5, 1.4, drModel);
- 	frameRate(60);
+
   	strokeWeight(2);
 	
 	  word = new Word3D(
@@ -137,7 +136,7 @@ function draw() {
 		word.show()
 	pop()
 
-	// starry skybox
+	 // starry skybox
 	push();
 		noStroke();
 		textureWrap(CLAMP);
@@ -153,7 +152,7 @@ function draw() {
 		rotateY(HALF_PI);
 		translate(-50, -100, -165)
 		plane(400, 400);
-	pop();
+	pop(); 
 
   	if(frameCount % 60 === 0){
       	maze.checkLavaCollision(player);
@@ -230,6 +229,7 @@ function draw() {
 	}
 
 	if (startShowingHealth) {
+		//console.log('showing health')
 		showHealth();
 		startShowingHealth = false;
 	}
@@ -246,40 +246,15 @@ function draw() {
 	}
 }
 
-  
-
-	//drawAxes();
-	// function drawAxes(){
-	// 	push();
-	//       noStroke();
-	// 	  fill(127,0,0); // X red
-	// 	  translate(75,0.5,0.5);
-	// 	  box(150,1,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,127,0); // Y green
-	// 	  translate(0.5,75,0.5);
-	// 	  box(1,150,1);
-	// 	pop();
-	// 	push();
-	//       noStroke();
-	// 	  fill(0,0,127); // Z blue
-	// 	  translate(0.5,0.5,75);
-	// 	  box(1,1,150);
-	// 	pop();
-	// }
-
 function mouseClicked() {
 	if (player.gameStarted && requestPointerLock()) player.pointerLock = true;
-	else
-	if (!player.pointerLock && player.gameStarted) {
+	else if (!player.pointerLock && player.gameStarted) {
 		requestPointerLock();
 		player.pointerLock = true;
 	}
 
 	if (!player.gameStarted && !themePlaying) {
-		theme.play();
+		theme.loop();
 		themePlaying = true;
 	}
 }
