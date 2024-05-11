@@ -14,7 +14,7 @@ let startDesc;
 let startClickables;
 let startButton;
 let dlzButton;
-var dlzMode = sessionStorage.getItem('dlzMode') === 'true';
+var dlzMode = sessionStorage.getItem('dlzMode');
 //let startCheck; 
 function startScreen() {
     //pointer can't be locked until this disappears
@@ -219,7 +219,7 @@ function showHealth() {
 }
 function updateHealth(hp) {
     // normal javascript because p5 does not have the right function!
-    if (healthInBar) {
+    if (!!document.getElementById("healthBarBorder")) {
         hb = document.getElementById("healthBarBorder");
         hb.style.setProperty('--p', hp);
     }    
@@ -303,7 +303,7 @@ function deposit(collectible){
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
 
-                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
@@ -319,7 +319,7 @@ function deposit(collectible){
                 nextButton.parent('nextButtonDiv');
                 nextButton.id('startButton');
 
-                depositHeader = createP('Dr. Delozier');
+                depositHeader = createP('Dr. DeLozier');
                 depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
@@ -346,7 +346,7 @@ function deposit(collectible){
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
 
-                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
@@ -362,7 +362,7 @@ function deposit(collectible){
                 nextButton.parent('nextButtonDiv');
                 nextButton.id('startButton');
 
-                depositHeader = createP('Dr. Delozier');
+                depositHeader = createP('Dr. DeLozier');
                 depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
@@ -389,7 +389,7 @@ function deposit(collectible){
                 depositDiv.parent('container');
                 depositDiv.id('depositDiv');
 
-                depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                 depositImg.parent('depositDiv');
                 depositImg.id('depositImg');
 
@@ -405,7 +405,7 @@ function deposit(collectible){
                 nextButton.parent('nextButtonDiv');
                 nextButton.id('startButton');
 
-                depositHeader = createP('Dr. Delozier');
+                depositHeader = createP('Dr. DeLozier');
                 depositHeader.parent('depositTextDiv');
                 depositHeader.id('depositHeader');
 
@@ -432,7 +432,7 @@ function deposit(collectible){
                     depositDiv.parent('container');
                     depositDiv.id('depositDiv');
     
-                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                     depositImg.parent('depositDiv');
                     depositImg.id('depositImg');
 
@@ -448,11 +448,11 @@ function deposit(collectible){
                     nextButton.parent('nextButtonDiv');
                     nextButton.id('startButton');
     
-                    depositHeader = createP('Dr. Delozier');
+                    depositHeader = createP('Dr. DeLozier');
                     depositHeader.parent('depositTextDiv');
                     depositHeader.id('depositHeader');
     
-                    depositText = createP("This better have github actions running on it.");
+                    depositText = createP("This better have Github actions running on it.");
                     depositText.parent('depositTextDiv');
                     depositText.id('depositText');
     
@@ -467,11 +467,11 @@ function deposit(collectible){
                     depositDiv.parent('container');
                     depositDiv.id('depositDiv');
     
-                    depositImg = createImg('./assets/kingdelozier.png', 'King Delozier'); // image of delozier can be a random ai photo
+                    depositImg = createImg('./assets/kingdelozier.png', 'King DeLozier'); // image of delozier can be a random ai photo
                     depositImg.parent('depositDiv');
                     depositImg.id('depositImg');
     
-                    depositHeader = createP('Dr. Delozier');
+                    depositHeader = createP('Dr. DeLozier');
                     depositHeader.parent('depositDiv');
                     depositHeader.id('depositHeader');
     

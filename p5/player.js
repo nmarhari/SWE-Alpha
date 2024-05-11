@@ -138,7 +138,7 @@ class Player extends RoverCam {
 	collect(collectible){
 		this.collectedItems.push(collectible);
     
-		let text2 = document.createTextNode("Return to Dr. Delozier IMMEDIATELY!!");
+		let text2 = document.createTextNode("Return to Dr. DeLozier IMMEDIATELY!!");
 		switch(collectible.name){
 			case "Book":
 				let bookP = document.createElement("p");

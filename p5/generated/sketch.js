@@ -64,14 +64,15 @@ function preload() {
 	// have to preload so it can play when starting the game
 	ambience = loadSound('../assets/sounds/ambience.mp3');
 	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
+	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
+	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 }
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
-	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
-	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
+	
 	
 
 	ambience.setVolume(.3);
@@ -96,9 +97,9 @@ function setup() {
 	dr = new Collectible("Delozier", tallestBlock.x, tallestBlock.y - 4, tallestBlock.z, 1, drModel);
  	frameRate(60);
   	strokeWeight(2);
-	dlzMode = true;
 	initContainerHTML();
 	// initialize container in html for overlay elements
+	if (sessionStorage.getItem('dlzMode') == 'true') dlzMode = true;
 }
 
 // viewport resize when window size changes
@@ -151,11 +152,11 @@ function draw() {
 			pop();
 		}
 
-		console.log('length: %d', player.collectedItems.length)
+		/*console.log('length: %d', player.collectedItems.length)
 
 		for(let i = 0; i < player.collectedItems.length; ++i){
 			console.log("player items: %d",  player.collectedItems[i])
-		}
+		}*/
 
 		if(dist(player.position.x, player.position.y, player.position.z, dr.position.x, dr.position.y, dr.position.z) < 3 && player.collectedItems.length > 0){
 			pressF();

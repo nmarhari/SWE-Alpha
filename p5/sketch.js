@@ -64,7 +64,9 @@ function preload() {
 	ambience = loadSound('../assets/sounds/ambience.mp3');
 	lavaSound = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/lava.mp3');
 
-		
+	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
+	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
+	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav');
 	/* // for moving lava
 	 lava = createVideo(['../assets/lava.mp4']);
 	//lava.elt.muted = true;
@@ -75,9 +77,6 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	soundFormats('mp3', 'wav');
-	walking = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/walking-trimmed.mp3');
-	hit = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/hit.mp3'); 
-	scream = loadSound('https://nmarhari.github.io/SWE-Alpha/assets/sounds/scream.wav'); 
 
 	ambience.setVolume(.3);
 	lavaSound.setVolume(1.2);
